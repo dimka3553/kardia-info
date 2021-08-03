@@ -1,0 +1,247 @@
+*{
+	font-family: 'Roboto', sans-serif;
+	font-weight: 500;
+	box-sizing: border-box;
+	color: black;
+}
+
+body, html, #screen{
+	margin: 0px;
+	min-height: 100vh;
+	width: 100%;
+	background: #ffffff;
+}
+p{
+	max-width: 100%;
+	overflow-wrap: break-word;
+}
+.icon-btn{
+	width: 40px;
+	height: 40px;
+	background-color: transparent;
+	border-radius: 50%;
+	cursor: pointer;
+	overflow: hidden;
+}
+
+/* NAVBAR */
+
+#navbar{
+	height: 56px;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	background: white;
+	box-shadow: 0px 2px 4px 0px #0000001A;
+	z-index: 1;
+}
+.navbar-wal{
+	background: #E4F2FF;
+	height: 34px;
+	width: 120px;
+	border-radius: 40px;
+}
+
+/* SIDEBAR */
+
+#sidebar{
+	height: calc(100% - 55px);
+	position: fixed;
+	top: 56px;
+	margin-left: 0;
+	background: #ffffff;
+	width: 230px;
+	transition: 0.2s;
+	overflow: auto;
+	padding: 15px;
+}
+#smallsidebar{
+	height: 100%;
+	position: fixed;
+	top: 0px;
+	margin-left: -235px;
+	background: #ffffff;
+	width: 230px;
+	transition: 0.2s;
+	overflow: auto;
+	z-index: 3;
+	box-shadow: 0px 0px 4px 4px #0000001A;
+}
+.sidebar-info-top{
+	height: 26px;
+	width: 100%;
+	position: relative;
+}
+.cur-select{
+	border-radius: 5px;
+	border: 1px solid #DBDBDB;
+	width: 60px;
+	height: 24px;
+}
+
+.sidebar-info-bottom{
+	height: 54px;
+	width: 100%;
+	position: relative;
+}
+
+.sidelink{
+	position: relative;
+	width: 100% !important;
+	height: 48px !important;
+	border-radius: 7px;
+	background: white;
+	transition: 0.2s;
+	cursor: pointer;
+}
+.sidelink:hover{
+	background: #f6f6f6;
+}
+
+.sidelinkwrapper.active .sidelink{
+	background: #E4F2FF;
+}
+
+.sidelink svg path{
+	fill: #666666;
+}
+.sidelinkwrapper.active .sidelink svg path, .sidelinkwrapper.active .sidelink .sidelink-text{
+	fill: #0066FF;
+	color: #0066FF;
+}
+.sidelink.active:active{
+	background: #BEE0FF;
+}
+.sidelink:active{
+	background: #eaeaea;
+}
+
+.sidebar-nav{
+	height: 56px;
+	width: 100%;
+	background: white;
+	box-shadow: 0px 2px 4px 0px #0000001A;
+}
+select{
+	background: url(data:image/svg+xml;base64,PHN2ZyBpZD0iTGF5ZXJfMSIgZGF0YS1uYW1lPSJMYXllciAxIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0Ljk1IDEwIj48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6I2ZmZjt9LmNscy0ye2ZpbGw6IzQ0NDt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPmFycm93czwvdGl0bGU+PHJlY3QgY2xhc3M9ImNscy0xIiB3aWR0aD0iNC45NSIgaGVpZ2h0PSIxMCIvPjxwb2x5Z29uIGNsYXNzPSJjbHMtMiIgcG9pbnRzPSIxLjQxIDQuNjcgMi40OCAzLjE4IDMuNTQgNC42NyAxLjQxIDQuNjciLz48cG9seWdvbiBjbGFzcz0iY2xzLTIiIHBvaW50cz0iMy41NCA1LjMzIDIuNDggNi44MiAxLjQxIDUuMzMgMy41NCA1LjMzIi8+PC9zdmc+) no-repeat 95% 50%;
+	-moz-appearance: none; 
+	-webkit-appearance: none; 
+	appearance: none;
+	padding-left: 4px;
+}
+
+.content{
+	padding-top: 71px;
+	padding-left: 245px;
+	padding-right: 15px;
+	padding-bottom: 15px;
+	transition: 0.2s;
+	width: 100%;
+	min-height: 100%;
+}
+
+@media(max-width: 850px){
+	.content{
+		padding-left: 15px;
+	}
+	.hamb-menu{
+		margin-left: 4px !important;
+	}
+	#sidebar{
+		margin-left: -230px!important;
+	}
+	.logosvg{
+		margin-left: 51px !important;
+	}
+	.textsvg{
+		margin-left: 100px !important;
+	}
+	#smallsidebar.expanded{
+		margin-left: 0!important;
+	}
+	.sidebar-overlay{
+		transition: 0.2s;
+		color: #ffffff;
+	}
+	.sidebar-overlay.expanded{
+		position: fixed;
+		height: 100%;
+		width: 100%;
+		z-index: 2;
+		background: #00000044;
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
+	}
+	.of-hidden {overflow: hidden;}
+}
+
+@media(max-width: 484px){
+	#smallsidebar.expanded{
+		width: 100%;
+	}
+	#smallsidebar{
+		width: 100%;
+		margin-left: calc(-100% - 5px);
+	}
+}
+@media(max-width: 350px){
+	.textsvg{
+		margin-top: -60px !important;
+	}
+}
+@media(max-width: 187px){
+	.buyinfo-link{
+		margin-top: -60px !important;
+	}
+}
+
+
+
+
+/*[ HAMBURGER MENU ]
+///////////////////////////////////////////////////////////
+*/
+.hamb-menu{
+	transition: 0.2s;
+	margin-left: -40px;
+}
+.hamburger-svg, .icon{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.hamburger-line {
+    fill: none;
+    stroke: #666666;
+    stroke-width: 6;
+    transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
+    stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.hamburger-line1 {
+    stroke-dasharray: 60 207;
+    stroke-width: 6;
+}
+.hamburger-line2 {
+    stroke-dasharray: 60 60;
+    stroke-width: 6;
+}
+.hamburger-line3 {
+    stroke-dasharray: 60 207;
+    stroke-width: 6;
+}
+.opened .hamburger-line1 {
+    stroke-dasharray: 90 207;
+    stroke-dashoffset: -134;
+    stroke-width: 6;
+}
+.opened .hamburger-line2 {
+    stroke-dasharray: 1 60;
+    stroke-dashoffset: -30;
+    stroke-width: 6;
+}
+.opened .hamburger-line3 {
+    stroke-dasharray: 90 207;
+    stroke-dashoffset: -134;
+    stroke-width: 6;
+}

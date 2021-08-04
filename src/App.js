@@ -1,6 +1,7 @@
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import Tokens from './Tokens';
 
 function App() {
   return (
@@ -11,10 +12,10 @@ function App() {
         <div className="content">
           <Switch>
             <Route exact path="/">
-              Hello, Home!
+              This is the home page
             </Route>
             <Route exact path="/tokens">
-              Hello, Tokens!
+              <Tokens/>
             </Route>
             <Route exact path="/lps">
               Hello, LPs!

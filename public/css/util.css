@@ -2569,3 +2569,24 @@
 .nowrap{
 	white-space:nowrap;
 }
+
+
+/*[ Flex order ]
+-----------------------------------------------------------
+*/
+
+.or1{order:1}
+.or2{order:2}
+.or3{order:3}
+.or4{order:4}
+.or5{order:5}
+.or6{order:6}
+.or7{order:7}
+.or8{order:8}
+.or9{order:9}
+.or10{order:10}
+.or11{order:11}
+.or12{order:12}
+.or13{order:13}
+.or14{order:14}
+.or15{order:15}

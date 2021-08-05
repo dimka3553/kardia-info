@@ -53,7 +53,9 @@ export default class Tokens extends React.Component {
               e = d + ['', 'k', 'm', 'b', 't'][k]; // append power
           return e;
         }
-
+        function numberWithCommas(x) {
+          return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        } 
         var contracts1 = []
         var contracts2 = [];
         var logos = [];
@@ -63,6 +65,7 @@ export default class Tokens extends React.Component {
         var supplies = [];
         var mcaps = [];
         var table = [];
+        var combinedVal=0;
 
         for(let i=0; i<data1.data.data.length; i++){
           contracts1[i]=data1.data.data[i].address;
@@ -81,42 +84,42 @@ export default class Tokens extends React.Component {
               if (symbols[i]==="WKAI"){names[i]="KardiaChain";supplies[i]=data3.data.erc20_circulating_supply+data3.data.mainnet_circulating_supply;symbols[i]="KAI"};
               if (symbols[i]==="KUSD-T"){prices[i]=1};
               mcaps[i]=supplies[i]*prices[i];
+              combinedVal=combinedVal+mcaps[i];
               supplies[i]=abbreviateNumber(parseFloat(supplies[i], 4))
               mcaps[i]=abbreviateNumber(parseFloat(mcaps[i], 4))
-              
             }
           }
         }
         for(let i=0;i<names.length;i++){
           table.push(
             <tr key={i} className="table-row">
-              <td>{i+1}</td>
-              <td><img alt={names[i]} className="tokenlogo" src={logos[i]}/></td>
-              <td>{names[i]}   </td>
-              <td>{symbols[i]}   </td>
-              <td>${prices[i]}   </td>
-              <td>{supplies[i]}   </td>
-              <td>${mcaps[i]}   </td>
+              <td className="txt-l fs-14">{i+1}</td>
+              <td className="txt-l"><td className="nobo"><img alt={names[i]} className="tokenlogo" src={logos[i]}/></td><td className="nobo"><span className="fs-14">{names[i]}</span><br/><span className="fs-12 t-s fw-400">{symbols[i]}</span></td></td>
+              <td className="txt-r fs-14">${prices[i]}</td>
+              <td className="txt-r fs-14">{supplies[i]}<span className="fs-12 fw-400 t-s"> {symbols[i]}</span></td>
+              <td className="txt-r fs-14">${mcaps[i]}</td>
             </tr>
           )
         }
         return (
+          <div>
+            <h3 className="m-t-10 m-b-20">KRC-20 Tokens:</h3>
             <table className="w-full">
               <thead>
                 <tr>
-                  <th>#</th>
-                  <th>Logo</th>
-                  <th>Name</th>
-                  <th>Symbol</th>
-                  <th>Price</th>
-                  <th>Supply</th>
-                  <th>Market Cap</th>
+                  <th className="txt-l fs-12 c-ab">#</th>
+                  <th className="txt-l fs-12 c-ab">Name</th>
+                  <th className="txt-r fs-12 c-ab">Price</th>
+                  <th className="txt-r fs-12 c-ab">Supply</th>
+                  <th className="txt-r fs-12 c-ab">Market Cap</th>
                 </tr>
               </thead>
               <tbody>
                 {table}
               </tbody> 
             </table>
+            <h4 className="m-t-25 m-b-15 txt-r">Combined Market Cap: ${numberWithCommas(combinedVal.toFixed(2))}</h4>
+          </div>   
         )
       }
     }

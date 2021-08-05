@@ -159,11 +159,17 @@ select{
 	width:25px;
 	height: 25px;
 }
-.tablediv{
-	display: flex;
-	justify-content: space-between;
-	height:48px;
-}
+table {
+	border-collapse: collapse;
+	width: 100%;
+  }
+  
+  td, th {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 8px;
+  }
+  
 
 @media(max-width: 850px){
 	.content{

@@ -89,20 +89,32 @@ export default class Tokens extends React.Component {
         }
         for(let i=0;i<names.length;i++){
           table.push(
-            <div key={i} className="tablediv">
-              <img alt={names[i]} className="tokenlogo" src={logos[i]}/>
-              <span>{names[i]}   </span>
-              <span>{symbols[i]}   </span>
-              <span>${prices[i]}   </span>
-              <span>{supplies[i]}   </span>
-              <span>${mcaps[i]}   </span>
-            </div>
+            <tr key={i} className="table-row">
+              <td><img alt={names[i]} className="tokenlogo" src={logos[i]}/></td>
+              <td>{names[i]}   </td>
+              <td>{symbols[i]}   </td>
+              <td>${prices[i]}   </td>
+              <td>{supplies[i]}   </td>
+              <td>${mcaps[i]}   </td>
+            </tr>
           )
         }
         return (
-            <div>
+            <table className="w-full">
+              <thead>
+                <tr>
+                  <th>Logo</th>
+                  <th>Name</th>
+                  <th>Symbol</th>
+                  <th>Price</th>
+                  <th>Supply</th>
+                  <th>Market Cap</th>
+                </tr>
+              </thead>
+              <tbody>
                 {table}
-            </div>
+              </tbody> 
+            </table>
         )
       }
     }

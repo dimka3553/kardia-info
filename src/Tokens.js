@@ -94,9 +94,9 @@ export default class Tokens extends React.Component {
           table.push(
             <tr key={i} className="table-row">
               <td className="txt-l fs-14">{i+1}</td>
-              <td className="txt-l"><td className="nobo"><img alt={names[i]} className="tokenlogo" src={logos[i]}/></td><td className="nobo"><span className="fs-14">{names[i]}</span><br/><span className="fs-12 t-s fw-400">{symbols[i]}</span></td></td>
+              <td className="txt-l"><tr><td className="nobo"><img alt={names[i]} className="tokenlogo" src={logos[i]}/></td><td className="nobo"><span className="fs-14">{names[i]}</span><br/><span className="fs-12 t-s fw-400">{symbols[i]}</span></td></tr></td>
               <td className="txt-r fs-14">${prices[i]}</td>
-              <td className="txt-r fs-14">{supplies[i]}<span className="fs-12 fw-400 t-s"> {symbols[i]}</span></td>
+              <td className="txt-r fs-14">{supplies[i]}</td>
               <td className="txt-r fs-14">${mcaps[i]}</td>
             </tr>
           )

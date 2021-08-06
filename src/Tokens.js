@@ -1,4 +1,5 @@
 import React from 'react'
+import Loader from './components/Loader';
 
 export default class Tokens extends React.Component {
   constructor(props) {
@@ -39,7 +40,7 @@ export default class Tokens extends React.Component {
       return <div>Error: {error.message}</div>;
     }
     else if (!isLoaded) {
-      return <div>Loading...</div>;
+      return <Loader/>;
     }
     else {
       const abbreviateNumber = function (num, fixed) {

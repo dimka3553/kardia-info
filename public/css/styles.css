@@ -162,24 +162,44 @@ select{
 table {
 	border-collapse: collapse;
 	width: 100%;
+	max-width: 100%;
   }
   
   th {
-	border-top: 1px solid #e5e5e5;
-	border-bottom: 1px solid #e5e5e5;
+	border-top: 1px solid #f0f0f0;
+	border-bottom: 1px solid #f0f0f0;
 	padding: 8px;
   }
   td{
-	  height: 48px;
-	  padding: 8px;
-	  border-top: 1px solid #e5e5e5;
-	border-bottom: 1px solid #e5e5e5;
+	height: 48px;
+	padding: 16px 8px;
+	border-top: 1px solid #f0f0f0;
+	border-bottom: 1px solid #f0f0f0;
   }
-  
+  tr{
+	  transition: 0.2s;
+  }
+  tbody tr:hover{
+	  background: #f5f8ff;
+  }
+  .logotd{
+	  width: 33px!important;
+	  min-width: 33px;
+	  position: relative;
+  }
+  .numtd{
+	  width: 45px;
+	  min-width: 45px;
+  }
+  .pricetd{
+	  width: 115px;
+	  min-width: 115px;
+  }
 
 @media(max-width: 850px){
 	.content{
-		padding-left: 15px;
+		padding-left: 0px;
+		padding-right: 0px;
 	}
 	.hamb-menu{
 		margin-left: 4px !important;
@@ -210,6 +230,12 @@ table {
 		-webkit-backdrop-filter: blur(10px);
 	}
 	.of-hidden {overflow: hidden;}
+	.mobt-r{
+		margin-right: 15px;
+	}
+	.mobt-l{
+		margin-left: 15px;
+	}
 }
 
 @media(max-width: 484px){

@@ -64,7 +64,7 @@ p{
 	width: 230px;
 	transition: 0.2s;
 	overflow: auto;
-	z-index: 5;
+	z-index: 10000;
 	box-shadow: 0px 0px 4px 4px #0000001A;
 }
 .sidebar-info-top{

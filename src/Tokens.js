@@ -94,7 +94,7 @@ export default class Tokens extends React.Component {
       for (let i = 0; i < names.length; i++) {
         table.push(
           <tr key={i} className="table-row">
-            <td className="txt-l fs-14 numtd">{i + 1}</td>
+            <td className="txt-l fw-400 t-lg fs-14 numtd">{i + 1}</td>
             <td className="logotd"><img alt={names[i]} className="tokenlogo ab-c-m" src={logos[i]} /></td>
             <td>
               <span className="fs-14">{names[i]}</span>
@@ -110,7 +110,7 @@ export default class Tokens extends React.Component {
       return (
         <div>
           <h3 className="m-t-10 m-b-20 mobt-l">KRC-20 Tokens:</h3>
-          <table className="w-full">
+          <table className="w-full" id="table">
             <thead>
               <tr>
                 <th className="txt-l fs-12 c-ab">#</th>

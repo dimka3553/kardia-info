@@ -40,7 +40,7 @@ export default class Tokens extends React.Component {
       return <div>Error: {error.message}</div>;
     }
     else if (!isLoaded) {
-      return <Loader/>;
+      return <Loader />;
     }
     else {
       const abbreviateNumber = function (num, fixed) {
@@ -59,14 +59,11 @@ export default class Tokens extends React.Component {
       }
       var contracts1 = []
       var contracts2 = [];
-      var logos = [];
-      var names = [];
-      var symbols = [];
-      var prices = [];
-      var supplies = [];
-      var mcaps = [];
       var table = [];
       var combinedVal = 0;
+
+      var tokens = [];
+
 
       for (let i = 0; i < data1.data.data.length; i++) {
         contracts1[i] = data1.data.data[i].address;
@@ -76,34 +73,35 @@ export default class Tokens extends React.Component {
       for (let i = 0; i < contracts2.length; i++) {
         for (let b = 0; b < contracts1.length; b++) {
           if (contracts2[i] === contracts1[b]) {
-            logos[i] = data1.data.data[b].logo;
-            names[i] = data1.data.data[b].name;
-            symbols[i] = data1.data.data[b].tokenSymbol;
-            prices[i] = Object.entries(data2.data)[i][1].price;
-            supplies[i] = data1.data.data[b].totalSupply / 10 ** data1.data.data[b].decimal;
-            if (symbols[i] === "WKAI") { names[i] = "KardiaChain"; supplies[i] = data3.data.erc20_circulating_supply + data3.data.mainnet_circulating_supply; symbols[i] = "KAI" };
-            if (symbols[i] === "KUSD-T") { prices[i] = 1 };
-            mcaps[i] = supplies[i] * prices[i];
-            combinedVal = combinedVal + mcaps[i];
-            supplies[i] = abbreviateNumber(parseFloat(supplies[i],4))
-            mcaps[i] = abbreviateNumber(parseFloat(mcaps[i],4))
-            prices[i] = parseFloat(prices[i]).toPrecision(4);
+            var tokenobj = {}
+            tokenobj.contract = contracts2[i];
+            tokenobj.logo = data1.data.data[b].logo;
+            tokenobj.name = data1.data.data[b].name;
+            tokenobj.symbol = data1.data.data[b].tokenSymbol;
+            tokenobj.price = Object.entries(data2.data)[i][1].price;
+            tokenobj.supply = data1.data.data[b].totalSupply / 10 ** data1.data.data[b].decimal;
+            if (tokenobj.symbol === "WKAI") { tokenobj.name = "KardiaChain"; tokenobj.supply = data3.data.erc20_circulating_supply + data3.data.mainnet_circulating_supply; tokenobj.symbol = "KAI" };
+            if (tokenobj.symbol === "KUSD-T") { tokenobj.price = 1 };
+            tokenobj.mcap = tokenobj.supply * tokenobj.price;
+            combinedVal = combinedVal + tokenobj.mcap;
+            tokens.push(tokenobj)
+            break;
           }
         }
       }
-      for (let i = 0; i < names.length; i++) {
+      for (let i = 0; i < tokens.length; i++) {
         table.push(
           <tr key={i} className="table-row">
             <td className="txt-l fw-400 t-lg fs-14 numtd">{i + 1}</td>
-            <td className="logotd"><img alt={names[i]} className="tokenlogo ab-c-m" src={logos[i]} /></td>
+            <td className="logotd"><img alt={tokens[i].name} className="tokenlogo ab-c-m" src={tokens[i].logo} /></td>
             <td>
-              <span className="fs-14">{names[i]}</span>
+              <span className="fs-14">{tokens[i].name}</span>
               <br />
-              <span className="fs-12 t-s fw-400">{symbols[i]}</span>
+              <span className="fs-12 t-s fw-400">{tokens[i].symbol}</span>
             </td>
-            <td className="txt-r pricetd fs-14">${prices[i]}</td>
-            <td className="txt-r pricetd fs-14">{supplies[i]}</td>
-            <td className="txt-r pricetd fs-14">${mcaps[i]}</td>
+            <td className="txt-r pricetd fs-14">${parseFloat(tokens[i].price).toPrecision(4)}</td>
+            <td className="txt-r pricetd fs-14">{abbreviateNumber(tokens[i].supply)}</td>
+            <td className="txt-r pricetd fs-14">${abbreviateNumber(tokens[i].mcap)}</td>
           </tr>
         )
       }
@@ -114,7 +112,7 @@ export default class Tokens extends React.Component {
             <thead>
               <tr>
                 <th className="txt-l fs-12 c-ab">#</th>
-                <th className="txt-l fs-12 c-ab" colspan="2">Name</th>
+                <th className="txt-l fs-12 c-ab" colSpan="2">Name</th>
                 <th className="txt-r fs-12 c-ab">Price</th>
                 <th className="txt-r fs-12 c-ab">Supply</th>
                 <th className="txt-r fs-12 c-ab">Market Cap</th>
@@ -125,6 +123,7 @@ export default class Tokens extends React.Component {
             </tbody>
           </table>
           <h4 className="m-t-25 m-b-15 txt-r mobt-r">Combined Market Cap: ${numberWithCommas(combinedVal.toFixed(2))}</h4>
+          {console.log(table)}
         </div>
       )
     }

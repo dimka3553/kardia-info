@@ -89,6 +89,9 @@ export default class Tokens extends React.Component {
           }
         }
       }
+      tokens.sort((a, b) => {
+        return b.mcap - a.mcap;
+      });
       for (let i = 0; i < tokens.length; i++) {
         table.push(
           <tr key={i} className="table-row">

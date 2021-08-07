@@ -77,7 +77,3 @@ $( ".hamb-menu" ).click(function() {
     $("body").removeClass("of-hidden");
     $("html").removeClass("of-hidden");
   });
-
-  $(function () {
-    $("table").tablesorter();
-  });

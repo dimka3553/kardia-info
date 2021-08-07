@@ -198,7 +198,7 @@ table {
 	  width: 115px;
 	  min-width: 115px;
   }
-  thead tr{
+  thead{
 	  position: sticky;
 	  -webkit-position: sticky;
 	  top: 55px;

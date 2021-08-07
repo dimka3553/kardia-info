@@ -113,20 +113,17 @@ export default class Tokens extends React.Component {
           <h3 className="m-t-10 m-b-20 mobt-l">KRC-20 Tokens:</h3>
           <table className="w-full" id="table">
             <thead>
-              <tr>
-                <th className="txt-l fs-12 c-ab">#</th>
-                <th className="txt-l fs-12 c-ab" colSpan="2">Name</th>
-                <th className="txt-r fs-12 c-ab">Price</th>
-                <th className="txt-r fs-12 c-ab">Supply</th>
-                <th className="txt-r fs-12 c-ab">Market Cap</th>
-              </tr>
+              <th className="txt-l fs-12 c-ab">#</th>
+              <th className="txt-l fs-12 c-ab" colSpan="2">Name</th>
+              <th className="txt-r fs-12 c-ab">Price</th>
+              <th className="txt-r fs-12 c-ab">Supply</th>
+              <th className="txt-r fs-12 c-ab">Market Cap</th>
             </thead>
             <tbody>
               {table}
             </tbody>
           </table>
           <h4 className="m-t-25 m-b-15 txt-r mobt-r">Combined Market Cap: ${numberWithCommas(combinedVal.toFixed(2))}</h4>
-          {console.log(table)}
         </div>
       )
     }

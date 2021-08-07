@@ -12,13 +12,13 @@ function App() {
         <div className="content">
           <Switch>
             <Route exact path="/">
-              This is the home page
+              <p>Kardia info - Super early edition</p>
             </Route>
             <Route exact path="/tokens">
               <Tokens/>
             </Route>
             <Route exact path="/lps">
-              Hello, LPs!
+              This page will display the value of lps
             </Route>
           </Switch>
         </div>

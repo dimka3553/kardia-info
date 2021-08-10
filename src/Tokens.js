@@ -7,22 +7,17 @@ export default class Tokens extends React.Component {
     this.state = {
       error: null,
       isLoaded: false,
-      data1: [],
-      data2: []
+      data:[]
     };
   }
 
   componentDidMount() {
     Promise.all([
-      fetch('https://backend.kardiachain.io/api/v1/contracts?page=1&limit=100&type=KRC20&status=Verified').then(res => res.json()),
-      fetch('https://api.info.kaidex.io/api/tokens').then(res => res.json()),
-      fetch('https://backend.kardiachain.io/api/v1/dashboard/token').then(res => res.json())
-    ]).then(([urlOneData, urlTwoData, urlThreeData]) => {
+      fetch('https://kardia-info-backend.herokuapp.com/api').then(res => res.json())
+    ]).then(([urlData]) => {
       this.setState({
         isLoaded: true,
-        data1: urlOneData,
-        data2: urlTwoData,
-        data3: urlThreeData
+        data: urlData
       });
     },
       (error) => {
@@ -35,7 +30,7 @@ export default class Tokens extends React.Component {
   }
 
   render() {
-    const { error, isLoaded, data1, data2, data3 } = this.state;
+    const { error, isLoaded, data } = this.state;
     if (error) {
       return <div>Error: {error.message}</div>;
     }
@@ -57,41 +52,17 @@ export default class Tokens extends React.Component {
       function numberWithCommas(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       }
-      var contracts1 = []
-      var contracts2 = [];
       var table = [];
       var combinedVal = 0;
 
       var tokens = [];
 
-
-      for (let i = 0; i < data1.data.data.length; i++) {
-        contracts1[i] = data1.data.data[i].address;
+      tokens = data.tokens;
+      for (let i=0; i<tokens.length; i++){
+        combinedVal = combinedVal+tokens[i].mcap;
       }
-      contracts2 = Object.keys(data2.data);
 
-      for (let i = 0; i < contracts2.length; i++) {
-        for (let b = 0; b < contracts1.length; b++) {
-          if (contracts2[i] === contracts1[b]) {
-            var tokenobj = {}
-            tokenobj.contract = contracts2[i];
-            tokenobj.logo = data1.data.data[b].logo;
-            tokenobj.name = data1.data.data[b].name;
-            tokenobj.symbol = data1.data.data[b].tokenSymbol;
-            tokenobj.price = Object.entries(data2.data)[i][1].price;
-            tokenobj.supply = data1.data.data[b].totalSupply / 10 ** data1.data.data[b].decimal;
-            if (tokenobj.symbol === "WKAI") { tokenobj.name = "KardiaChain"; tokenobj.supply = data3.data.erc20_circulating_supply + data3.data.mainnet_circulating_supply; tokenobj.symbol = "KAI" };
-            if (tokenobj.symbol === "KUSD-T") { tokenobj.price = 1 };
-            tokenobj.mcap = tokenobj.supply * tokenobj.price;
-            combinedVal = combinedVal + tokenobj.mcap;
-            tokens.push(tokenobj)
-            break;
-          }
-        }
-      }
-      tokens.sort((a, b) => {
-        return b.mcap - a.mcap;
-      });
+      
       for (let i = 0; i < tokens.length; i++) {
         table.push(
           <tr key={i} className="table-row">

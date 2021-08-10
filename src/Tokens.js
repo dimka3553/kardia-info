@@ -1,5 +1,6 @@
 import React from 'react'
 import Loader from './components/Loader';
+import Smallchart from './components/Smallchart';
 
 export default class Tokens extends React.Component {
   constructor(props) {
@@ -58,6 +59,8 @@ export default class Tokens extends React.Component {
       var tokens = [];
       var dayCol=[];
       var weekCol=[];
+      var histData=[];
+      var chartCol=[];
 
       tokens = data.tokens;
 
@@ -66,7 +69,7 @@ export default class Tokens extends React.Component {
         if (tokens[i].dayChange<0){
           dayCol[i]='t-red'
         }
-        else if (tokens[i].dayChange==0){
+        else if (tokens[i].dayChange===0){
           dayCol[i]='t-grey'
         }
         else if (tokens[i].dayChange>0){
@@ -77,16 +80,29 @@ export default class Tokens extends React.Component {
         }
         if (tokens[i].weekChange<0){
           weekCol[i]='t-red'
+          chartCol[i]='#ea3943'
         }
-        else if (tokens[i].weekChange==0){
+        else if (tokens[i].weekChange===0){
           weekCol[i]='t-grey'
+          chartCol[i]='#666666'
         }
         else if (tokens[i].weekChange>0){
           weekCol[i]='t-green'
+          chartCol[i]='#16c784'
         }
         else{
           weekCol[i]='t-grey'
+          if(tokens[i].histData[0]>tokens[i].histData[tokens[i].histData.length-1]){
+            chartCol[i]='#16c784'
+          }
+          else if(tokens[i].histData[0]>tokens[i].histData[tokens[i].histData.length-1]){
+            chartCol[i]='#ea3943'
+          }
+          else{
+            chartCol[i]='#666666'
+          }
         }
+        histData.push([...tokens[i].histData].reverse())
       }
 
       
@@ -101,10 +117,11 @@ export default class Tokens extends React.Component {
               <span className="fs-12 t-s fw-400">{tokens[i].symbol}</span>
             </td>
             <td className="txt-r pricetd fs-14">${parseFloat(tokens[i].price).toPrecision(4)}</td>
-            <td className={"txt-r pc fs-14 " + dayCol[i]}>{parseFloat(tokens[i].dayChange).toFixed(2)}%</td>
-            <td className={"txt-r pc fs-14 " + weekCol[i]}>{parseFloat(tokens[i].weekChange).toFixed(2)}%</td>
-            <td className="txt-r pricetd fs-14">${abbreviateNumber(tokens[i].mcap)}</td>
-            <td className="txt-r pricetd fs-14">{abbreviateNumber(tokens[i].supply)}</td>
+            <td className={"txt-r pc fw-400 fs-14 " + dayCol[i]}>{parseFloat(tokens[i].dayChange).toFixed(2)}%</td>
+            <td className={"txt-r pc fw-400 fs-14 " + weekCol[i]}>{parseFloat(tokens[i].weekChange).toFixed(2)}%</td>
+            <td className="txt-r pricetd fw-400 fs-14">${abbreviateNumber(tokens[i].mcap)}</td>
+            <td className="txt-r suptd fw-400 fs-14">{abbreviateNumber(tokens[i].supply)}</td>
+            <td className="txt-r charttd fw-400 fs-14"><Smallchart histData={histData[i]} weekChange={tokens[i].weekChange} col={chartCol[i]}/></td>
           </tr>
         )
       }
@@ -121,6 +138,7 @@ export default class Tokens extends React.Component {
                 <th className="txt-r fs-12 c-ab">7d%</th>
                 <th className="txt-r fs-12 c-ab">Market Cap</th>
                 <th className="txt-r fs-12 c-ab">Supply</th>
+                <th className="txt-r fs-12 c-ab">7d Chart</th>
               </tr>
             </thead>
             <tbody>

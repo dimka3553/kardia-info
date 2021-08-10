@@ -217,6 +217,18 @@ tbody tr:hover {
 .pricetd {
 	width: 115px;
 	min-width: 115px;
+	max-width: 115px;
+}
+.charttd{
+	width: 135px;
+	min-width: 135px;
+	max-width: 135px;
+	padding-left: 10px;
+}
+.suptd{
+	width: 95px;
+	min-width: 95px;
+	max-width: 95px;
 }
 
 thead {
@@ -248,11 +260,11 @@ thead {
 }
 
 .t-red {
-	color: #EE1818;
+	color: #ea3943;
 }
 
 .t-green {
-	color: #75C338;
+	color: #16c784;
 }
 
 .t-grey {

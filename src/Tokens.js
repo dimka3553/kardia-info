@@ -56,10 +56,37 @@ export default class Tokens extends React.Component {
       var combinedVal = 0;
 
       var tokens = [];
+      var dayCol=[];
+      var weekCol=[];
 
       tokens = data.tokens;
+
       for (let i=0; i<tokens.length; i++){
         combinedVal = combinedVal+tokens[i].mcap;
+        if (tokens[i].dayChange<0){
+          dayCol[i]='t-red'
+        }
+        else if (tokens[i].dayChange==0){
+          dayCol[i]='t-grey'
+        }
+        else if (tokens[i].dayChange>0){
+          dayCol[i]='t-green'
+        }
+        else{
+          dayCol[i]='t-grey'
+        }
+        if (tokens[i].weekChange<0){
+          weekCol[i]='t-red'
+        }
+        else if (tokens[i].weekChange==0){
+          weekCol[i]='t-grey'
+        }
+        else if (tokens[i].weekChange>0){
+          weekCol[i]='t-green'
+        }
+        else{
+          weekCol[i]='t-grey'
+        }
       }
 
       
@@ -74,8 +101,10 @@ export default class Tokens extends React.Component {
               <span className="fs-12 t-s fw-400">{tokens[i].symbol}</span>
             </td>
             <td className="txt-r pricetd fs-14">${parseFloat(tokens[i].price).toPrecision(4)}</td>
-            <td className="txt-r pricetd fs-14">{abbreviateNumber(tokens[i].supply)}</td>
+            <td className={"txt-r pc fs-14 " + dayCol[i]}>{parseFloat(tokens[i].dayChange).toFixed(2)}%</td>
+            <td className={"txt-r pc fs-14 " + weekCol[i]}>{parseFloat(tokens[i].weekChange).toFixed(2)}%</td>
             <td className="txt-r pricetd fs-14">${abbreviateNumber(tokens[i].mcap)}</td>
+            <td className="txt-r pricetd fs-14">{abbreviateNumber(tokens[i].supply)}</td>
           </tr>
         )
       }
@@ -88,8 +117,10 @@ export default class Tokens extends React.Component {
                 <th className="txt-l fs-12 c-ab">#</th>
                 <th className="txt-l fs-12 c-ab" colSpan="2">Name</th>
                 <th className="txt-r fs-12 c-ab">Price</th>
-                <th className="txt-r fs-12 c-ab">Supply</th>
+                <th className="txt-r fs-12 c-ab">24h%</th>
+                <th className="txt-r fs-12 c-ab">7d%</th>
                 <th className="txt-r fs-12 c-ab">Market Cap</th>
+                <th className="txt-r fs-12 c-ab">Supply</th>
               </tr>
             </thead>
             <tbody>

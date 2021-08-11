@@ -283,6 +283,7 @@ thead {
 		max-width: 0px!important;
 		padding: 0px!important;
 		font-size: 0px!important;
+		width: 0px!important;
 	}
 	.pdd{
 		display: none;

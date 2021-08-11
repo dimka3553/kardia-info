@@ -34,7 +34,6 @@ p {
 	position: fixed;
 	top: 0;
 	background: white;
-	border-bottom: 1px solid #f0f0f0;
 	z-index: 1;
 }
 
@@ -184,16 +183,14 @@ table {
 }
 
 th {
-	border-top: 1px solid #f0f0f0;
-	border-bottom: 1px solid #f0f0f0;
 	padding: 8px;
+	border-bottom: 1px solid #f0f0f0;
 }
 
 td {
 	height: 48px;
 	padding: 16px 8px;
 	border-bottom: 1px solid #f0f0f0;
-	max-height: 48px;
 }
 
 tr {
@@ -238,11 +235,10 @@ tbody tr:hover {
 thead {
 	position: sticky;
 	-webkit-position: sticky;
-	top: 55px;
+	top: 56px;
 	background: #fbfbfb;
 	z-index: 1;
 	border-collapse: separate!important;
-	border-top: 1px solid #f0f0f0;
 	border-bottom: 1px solid #f0f0f0;
 }
 

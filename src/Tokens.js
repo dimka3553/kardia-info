@@ -63,9 +63,12 @@ export default class Tokens extends React.Component {
       var chartCol=[];
 
       tokens = data.tokens;
+      tokens.sort((a, b) => {
+        return b.tvl - a.tvl;
+     });
 
       for (let i=0; i<tokens.length; i++){
-        combinedVal = combinedVal+tokens[i].mcap;
+        combinedVal = combinedVal+tokens[i].tvl;
         if (tokens[i].dayChange<0){
           dayCol[i]='t-red'
         }
@@ -119,7 +122,7 @@ export default class Tokens extends React.Component {
             <td className="txt-r pricetd fs-14">${parseFloat(tokens[i].price).toPrecision(4)}</td>
             <td className={"txt-r pctd fw-400 fs-14 " + dayCol[i]}>{parseFloat(tokens[i].dayChange).toFixed(2)}%</td>
             <td className={"txt-r pctd fw-400 fs-14 " + weekCol[i]}>{parseFloat(tokens[i].weekChange).toFixed(2)}%</td>
-            <td className="txt-r pctd fw-400 fs-14">${abbreviateNumber(tokens[i].mcap)}</td>
+            <td className="txt-r pctd fw-400 fs-14">${abbreviateNumber(tokens[i].tvl)}</td>
             <td className="txt-r suptd fw-400 fs-14">{abbreviateNumber(tokens[i].supply)}</td>
             <td className="txt-r charttd fw-400 fs-14"><Smallchart histData={histData[i]} weekChange={tokens[i].weekChange} col={chartCol[i]}/></td>
           </tr>
@@ -127,7 +130,6 @@ export default class Tokens extends React.Component {
       }
       return (
         <div>
-          <h3 className="m-t-10 m-b-20 mobt-l">KRC-20 Tokens:</h3>
           <table className="w-full" id="table">
             <thead>
               <tr>
@@ -136,7 +138,7 @@ export default class Tokens extends React.Component {
                 <th className="txt-r fs-12 c-ab">Price</th>
                 <th className="txt-r fs-12 c-ab">24h%</th>
                 <th className="txt-r fs-12 c-ab">7d%</th>
-                <th className="txt-r fs-12 c-ab">Market Cap</th>
+                <th className="txt-r fs-12 c-ab">TVL</th>
                 <th className="txt-r fs-12 c-ab">Supply</th>
                 <th className="txt-r fs-12 c-ab">7d Chart</th>
               </tr>
@@ -145,7 +147,7 @@ export default class Tokens extends React.Component {
               {table}
             </tbody>
           </table>
-          <h4 className="m-t-25 m-b-15 txt-r mobt-r">Combined Market Cap: ${numberWithCommas(combinedVal.toFixed(2))}</h4>
+          <h4 className="m-t-25 m-b-15 txt-r mobt-r">Combined Total Value Locked: ${numberWithCommas(combinedVal.toFixed(2))}</h4>
         </div>
       )
     }

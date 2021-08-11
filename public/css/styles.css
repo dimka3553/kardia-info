@@ -193,10 +193,12 @@ td {
 	height: 48px;
 	padding: 16px 8px;
 	border-bottom: 1px solid #f0f0f0;
+	max-height: 48px;
 }
 
 tr {
 	transition: 0.2s;
+	max-height: 60px!important;
 }
 
 tbody tr:hover {
@@ -224,8 +226,10 @@ tbody tr:hover {
 	min-width: 135px;
 	max-width: 135px;
 	padding-left: 20px;
+	padding-top:0px;
+	padding-bottom: 0px;
 }
-.suptd{
+.suptd, .pctd{
 	width: 95px;
 	min-width: 95px;
 	max-width: 95px;

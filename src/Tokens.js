@@ -117,9 +117,9 @@ export default class Tokens extends React.Component {
               <span className="fs-12 t-s fw-400">{tokens[i].symbol}</span>
             </td>
             <td className="txt-r pricetd fs-14">${parseFloat(tokens[i].price).toPrecision(4)}</td>
-            <td className={"txt-r pc fw-400 fs-14 " + dayCol[i]}>{parseFloat(tokens[i].dayChange).toFixed(2)}%</td>
-            <td className={"txt-r pc fw-400 fs-14 " + weekCol[i]}>{parseFloat(tokens[i].weekChange).toFixed(2)}%</td>
-            <td className="txt-r pricetd fw-400 fs-14">${abbreviateNumber(tokens[i].mcap)}</td>
+            <td className={"txt-r pctd fw-400 fs-14 " + dayCol[i]}>{parseFloat(tokens[i].dayChange).toFixed(2)}%</td>
+            <td className={"txt-r pctd fw-400 fs-14 " + weekCol[i]}>{parseFloat(tokens[i].weekChange).toFixed(2)}%</td>
+            <td className="txt-r pctd fw-400 fs-14">${abbreviateNumber(tokens[i].mcap)}</td>
             <td className="txt-r suptd fw-400 fs-14">{abbreviateNumber(tokens[i].supply)}</td>
             <td className="txt-r charttd fw-400 fs-14"><Smallchart histData={histData[i]} weekChange={tokens[i].weekChange} col={chartCol[i]}/></td>
           </tr>

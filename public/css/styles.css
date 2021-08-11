@@ -143,7 +143,7 @@ select {
 }
 
 .content {
-	padding-top: 71px;
+	padding-top: 56px;
 	padding-left: 245px;
 	padding-right: 15px;
 	padding-bottom: 15px;
@@ -270,6 +270,25 @@ thead {
 .t-grey {
 	color: #666666;
 }
+.pdn, .pd{
+	transition: 0.2s;
+}
+@media(min-width:485px){
+	.pd{
+		opacity: 0;
+		height: 0px!important;
+		min-height: 0px!important;
+		max-height: 0px !important;
+		min-width: 0px!important;
+		max-width: 0px!important;
+		padding: 0px!important;
+		font-size: 0px!important;
+	}
+	.pdd{
+		display: none;
+	}
+}
+
 
 @media(max-width: 850px) {
 	.content {
@@ -322,6 +341,33 @@ thead {
 	#smallsidebar {
 		width: 100%;
 		margin-left: calc(-100% - 5px);
+	}
+	.charttd, .pricetd{
+		min-width: auto;
+		max-width: 35%;
+		margin: 0px!important;
+		padding-left: 0px;
+	}
+	.charttd canvas{
+		max-width: 100%;
+		max-height: 53px;
+	}
+	.numtd{
+		padding-right: 0px;
+		max-width: 35px!important;
+		min-width: 35px!important;
+	}
+	.pdn{
+		opacity: 0;
+		height: 0px!important;
+		min-height: 0px!important;
+		max-height: 0px !important;
+		min-width: 0px!important;
+		max-width: 0px!important;
+		padding: 0px!important;
+		font-size: 0px!important;
+		width: 0px!important;
+		;
 	}
 }
 

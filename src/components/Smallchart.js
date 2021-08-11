@@ -27,7 +27,7 @@ export default function Smallchart(props) {
                             drawBorder: false
                         },
                         ticks:{
-                            display:false
+                            display:false,
                         }
                     },
                     y:
@@ -37,7 +37,9 @@ export default function Smallchart(props) {
                             drawBorder: false
                         },
                         ticks:{
-                            display:false
+                            display:false,
+                            min: Math.min(...props.histData),
+                            max: Math.max(...props.histData)
                         }
                     }
                 },

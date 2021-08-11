@@ -107,6 +107,7 @@ export default class Tokens extends React.Component {
         }
         histData.push([...tokens[i].histData].reverse())
       }
+      
 
       
       for (let i = 0; i < tokens.length; i++) {
@@ -117,30 +118,34 @@ export default class Tokens extends React.Component {
             <td>
               <span className="fs-14">{tokens[i].name}</span>
               <br />
-              <span className="fs-12 t-s fw-400">{tokens[i].symbol}</span>
+              <span className="fs-12 t-s fw-400">{tokens[i].symbol}<span className="pd fs-12 t-s fw-400"> - Tvl: ${abbreviateNumber(tokens[i].tvl)}</span></span>
             </td>
-            <td className="txt-r pricetd fs-14">${parseFloat(tokens[i].price).toPrecision(4)}</td>
-            <td className={"txt-r pctd fw-400 fs-14 " + dayCol[i]}>{parseFloat(tokens[i].dayChange).toFixed(2)}%</td>
-            <td className={"txt-r pctd fw-400 fs-14 " + weekCol[i]}>{parseFloat(tokens[i].weekChange).toFixed(2)}%</td>
-            <td className="txt-r pctd fw-400 fs-14">${abbreviateNumber(tokens[i].tvl)}</td>
-            <td className="txt-r suptd fw-400 fs-14">{abbreviateNumber(tokens[i].supply)}</td>
-            <td className="txt-r charttd fw-400 fs-14"><Smallchart histData={histData[i]} weekChange={tokens[i].weekChange} col={chartCol[i]}/></td>
+            <td className="txt-r charttd fw-400 fs-14 pd "><Smallchart histData={histData[i]} weekChange={tokens[i].weekChange} col={chartCol[i]}/></td>
+            <td className="txt-r pricetd fs-14">${parseFloat(tokens[i].price).toPrecision(4)}
+            <br className="pdd" />
+              <span className={"txt-r pctd fw-400 fs-12 pd " + dayCol[i]}>{parseFloat(tokens[i].dayChange).toFixed(2)}%</span>
+            </td>
+            <td className={"txt-r pctd fw-400 fs-14 pdn " + dayCol[i]}>{parseFloat(tokens[i].dayChange).toFixed(2)}%</td>
+            <td className={"txt-r pctd fw-400 fs-14 pdn " + weekCol[i]}>{parseFloat(tokens[i].weekChange).toFixed(2)}%</td>
+            <td className="txt-r pctd fw-400 fs-14 pdn ">${abbreviateNumber(tokens[i].tvl)}</td>
+            <td className="txt-r suptd fw-400 fs-14 pdn ">{abbreviateNumber(tokens[i].supply)}</td>
+            <td className="txt-r charttd fw-400 fs-14 pdn "><Smallchart histData={histData[i]} weekChange={tokens[i].weekChange} col={chartCol[i]}/></td>
           </tr>
         )
       }
       return (
         <div>
           <table className="w-full" id="table">
-            <thead>
-              <tr>
-                <th className="txt-l fs-12 c-ab">#</th>
-                <th className="txt-l fs-12 c-ab" colSpan="2">Name</th>
-                <th className="txt-r fs-12 c-ab">Price</th>
-                <th className="txt-r fs-12 c-ab">24h%</th>
-                <th className="txt-r fs-12 c-ab">7d%</th>
-                <th className="txt-r fs-12 c-ab">TVL</th>
-                <th className="txt-r fs-12 c-ab">Supply</th>
-                <th className="txt-r fs-12 c-ab">7d Chart</th>
+            <thead className="">
+              <tr className=""> 
+                <th className="txt-l fs-12 c-ab pdn">#</th>
+                <th className="txt-l fs-12 c-ab pdn" colSpan="2">Name</th>
+                <th className="txt-r fs-12 c-ab pdn" colSpan="2">Price</th>
+                <th className="txt-r fs-12 c-ab pdn">24h%</th>
+                <th className="txt-r fs-12 c-ab pdn">7d%</th>
+                <th className="txt-r fs-12 c-ab pdn">TVL</th>
+                <th className="txt-r fs-12 c-ab pdn">Supply</th>
+                <th className="txt-r fs-12 c-ab pdn">7d Chart</th>
               </tr>
             </thead>
             <tbody>

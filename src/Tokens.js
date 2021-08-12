@@ -123,7 +123,7 @@ export default class Tokens extends React.Component {
             <td className="txt-r charttdd fw-400 fs-14 pd "><Smallchart histData={every_nth(histData[i], 4)} weekChange={tokens[i].weekChange} col={chartCol[i]} /></td>
             <td className="txt-r pricetd fs-14">${parseFloat(tokens[i].price).toPrecision(4)}
               <br className="pdd" />
-              <span className={"txt-r pctd fw-400 fs-12 pd " + dayCol[i]}>{parseFloat(tokens[i].dayChange).toFixed(2)}%</span>
+              <span className={"txt-r pctd fw-500 fs-12 pd " + dayCol[i]}>{parseFloat(tokens[i].dayChange).toFixed(2)}%</span>
             </td>
             <td className={"txt-r pctd fw-400 fs-14 pdn " + dayCol[i]}>{parseFloat(tokens[i].dayChange).toFixed(2)}%</td>
             <td className={"txt-r pctd fw-400 fs-14 pdn " + weekCol[i]}>{parseFloat(tokens[i].weekChange).toFixed(2)}%</td>

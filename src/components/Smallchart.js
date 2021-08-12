@@ -15,7 +15,7 @@ export default function Smallchart(props) {
                     fill: false,
                     lineTension: 0,
                     pointRadius: 0,
-                    borderWidth:2.5
+                    borderWidth:3
                 }
                 ],
             }}

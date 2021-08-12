@@ -107,7 +107,7 @@ export default class Tokens extends React.Component {
         }
         histData.push([...tokens[i].histData].reverse())
       }
-
+      const every_nth = (arr, nth) => arr.filter((e, i) => i % nth === nth - 1);
 
 
       for (let i = 0; i < tokens.length; i++) {
@@ -120,7 +120,7 @@ export default class Tokens extends React.Component {
               <br />
               <span className="fs-12 t-s fw-400">{tokens[i].symbol}<span className="pd fs-12 t-s fw-400"> - Tvl: ${abbreviateNumber(tokens[i].tvl)}</span></span>
             </td>
-            <td className="txt-r charttd fw-400 fs-14 pd "><Smallchart histData={histData[i]} weekChange={tokens[i].weekChange} col={chartCol[i]} /></td>
+            <td className="txt-r charttdd fw-400 fs-14 pd "><Smallchart histData={every_nth(histData[i], 4)} weekChange={tokens[i].weekChange} col={chartCol[i]} /></td>
             <td className="txt-r pricetd fs-14">${parseFloat(tokens[i].price).toPrecision(4)}
               <br className="pdd" />
               <span className={"txt-r pctd fw-400 fs-12 pd " + dayCol[i]}>{parseFloat(tokens[i].dayChange).toFixed(2)}%</span>
@@ -129,7 +129,7 @@ export default class Tokens extends React.Component {
             <td className={"txt-r pctd fw-400 fs-14 pdn " + weekCol[i]}>{parseFloat(tokens[i].weekChange).toFixed(2)}%</td>
             <td className="txt-r pricetd fw-400 fs-14 pdn ">${numberWithCommas(tokens[i].tvl.toFixed(2))}</td>
             <td className="txt-r suptd fw-400 fs-14 pdn ">{abbreviateNumber(tokens[i].supply)}</td>
-            <td className="txt-r charttd fw-400 fs-14 pdn "><Smallchart histData={histData[i]} weekChange={tokens[i].weekChange} col={chartCol[i]} /></td>
+            <td className="txt-r charttd fw-400 fs-14 pdn "><Smallchart histData={every_nth(histData[i], 3)} weekChange={tokens[i].weekChange} col={chartCol[i]} /></td>
           </tr>
         )
       }

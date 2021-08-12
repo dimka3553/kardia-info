@@ -399,9 +399,13 @@ thead {
 		margin: 0px!important;
 		padding-left: 0px;
 	}
-	.charttd canvas{
+	.charttdd{
+		width: 120px;
+	}
+	.charttdd canvas{
 		max-width: 100%;
-		max-height: 53px;
+		width: 95px;
+		max-height: 48px;
 	}
 	.numtd{
 		padding-right: 0px;
@@ -425,6 +429,12 @@ thead {
 @media(max-width: 350px) {
 	.textsvg {
 		margin-top: -60px !important;
+	}
+	.charttdd{
+		display: none;
+	}
+	.charttdd canvas{
+		display: none;
 	}
 }
 

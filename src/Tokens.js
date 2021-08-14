@@ -1,6 +1,7 @@
 import React from 'react'
 import Loader from './components/Loader';
 import Smallchart from './components/Smallchart';
+import Td from './components/subcomponents/Td';
 
 export default class Tokens extends React.Component {
   constructor(props) {
@@ -29,6 +30,7 @@ export default class Tokens extends React.Component {
       }
     )
   }
+
 
   render() {
     const { error, isLoaded, data } = this.state;
@@ -109,28 +111,36 @@ export default class Tokens extends React.Component {
       }
       const every_nth = (arr, nth) => arr.filter((e, i) => i % nth === nth - 1);
 
-
       for (let i = 0; i < tokens.length; i++) {
+        let link = `/tokens/${tokens[i].symbol.replace(/\s+/g, '_')}`
         table.push(
-          <tr key={i} className="table-row">
-            <td className="txt-l fw-400 t-lg fs-14 numtd trans-0-2 psnu">{i + 1}</td>
-            <td className="logotd trans-0-2 pslo"><img alt={tokens[i].name} className="tokenlogo ab-c-m" src={tokens[i].logo} /></td>
-            <td className="psnam trans-0-2">
-              <span className="fs-14">{tokens[i].name}</span>
-              <br />
-              <span className="fs-12 t-s fw-400">{tokens[i].symbol}<span className="pd fs-12 t-s fw-400"> - Tvl: ${abbreviateNumber(tokens[i].tvl)}</span></span>
-            </td>
-            <td className="txt-r charttdd fw-400 fs-14 pd "><Smallchart histData={every_nth(histData[i], 4)} weekChange={tokens[i].weekChange} col={chartCol[i]} /></td>
-            <td className="txt-r pricetd fs-14">${parseFloat(tokens[i].price).toPrecision(4)}
-              <br className="pdd" />
-              <span className={"txt-r pctd fw-500 fs-12 pd " + dayCol[i]}>{parseFloat(tokens[i].dayChange).toFixed(2)}%</span>
-            </td>
-            <td className={"txt-r pctd fw-400 fs-14 pdn " + dayCol[i]}>{parseFloat(tokens[i].dayChange).toFixed(2)}%</td>
-            <td className={"txt-r pctd fw-400 fs-14 pdn " + weekCol[i]}>{parseFloat(tokens[i].weekChange).toFixed(2)}%</td>
-            <td className="txt-r pricetd fw-400 fs-14 pdn ">${numberWithCommas(tokens[i].tvl.toFixed(2))}</td>
-            <td className="txt-r suptd fw-400 fs-14 pdn ">{abbreviateNumber(tokens[i].supply)}</td>
-            <td className="txt-r charttd fw-400 fs-14 pdn "><Smallchart histData={every_nth(histData[i], 3)} weekChange={tokens[i].weekChange} col={chartCol[i]} /></td>
-          </tr>
+            <tr key={i} className="table-row">
+              <Td cn="numtd trans-0-2 psnu" to={link}>
+                <span className="txt-l fw-400 t-lg fs-14 ">{i + 1}</span>
+              </Td>
+              <Td cn="logotd trans-0-2 pslo" to={link}>
+                <img alt={tokens[i].name} className="tokenlogo ab-c-m" src={tokens[i].logo} />
+              </Td>
+              <Td cn="psnam trans-0-2" to={link}>
+                <span className="fs-14">{tokens[i].name}</span>
+                <br />
+                <span className="fs-12 t-s fw-400">{tokens[i].symbol}<span className="pd fs-12 t-s fw-400"> - Tvl: ${abbreviateNumber(tokens[i].tvl)}</span></span>
+              </Td>
+              <Td to={link} cn="txt-r charttdd fw-400 fs-14 pd ">
+                <Smallchart histData={every_nth(histData[i], 4)} weekChange={tokens[i].weekChange} col={chartCol[i]} />
+              </Td>
+              <Td to={link} cn="txt-r pricetd fs-14">
+                <span>${parseFloat(tokens[i].price).toPrecision(4)}</span>
+                <br className="pdd" />
+                <span className={"txt-r pctd fw-400 fs-12 pd " + dayCol[i]}>{parseFloat(tokens[i].dayChange).toFixed(2)}%</span>
+              </Td>
+              <Td to={link} cn={"txt-r pctd pdn "}><span className={"fw-400 fs-14 "+ dayCol[i]}>{parseFloat(tokens[i].dayChange).toFixed(2)}%</span></Td>
+              <Td to={link} cn={"txt-r pctd pdn "}><span className={"fw-400 fs-14 "+ weekCol[i]}>{parseFloat(tokens[i].weekChange).toFixed(2)}%</span></Td>
+              <Td to={link} cn="txt-r pricetd pdn "><span className="fw-400 fs-14">${numberWithCommas(tokens[i].tvl.toFixed(2))}</span></Td>
+              <Td to={link} cn="txt-r suptd pdn "><span className="fw-400 fs-14 ">{abbreviateNumber(tokens[i].supply)}</span></Td>
+              <Td to={link} cn="txt-r charttd pdn "><Smallchart histData={every_nth(histData[i], 3)} weekChange={tokens[i].weekChange} col={chartCol[i]} /></Td>
+            </tr>
+          
         )
       }
       return (

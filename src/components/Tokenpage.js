@@ -1,7 +1,5 @@
 import React from 'react'
 import Loader from './Loader';
-import Smallchart from './Smallchart';
-import Td from './subcomponents/Td';
 
 export default class Tokens extends React.Component {
     constructor(props) {
@@ -44,20 +42,7 @@ export default class Tokens extends React.Component {
         else {
             var tokens = data.tokens;
             var token = {}
-            const abbreviateNumber = function (num, fixed) {
-                if (num === null) { return null; } // terminate early
-                if (num === 0) { return '0'; } // terminate early
-                fixed = (!fixed || fixed < 0) ? 0 : fixed; // number of decimal places to show
-                var b = (num).toPrecision(4).split("e"), // get power
-                    k = b.length === 1 ? 0 : Math.floor(Math.min(b[1].slice(1), 14) / 3), // floor at decimals, ceiling at trillions
-                    c = k < 1 ? num.toFixed(0 + fixed) : (num / Math.pow(10, k * 3)).toFixed(1 + fixed), // divide by power
-                    d = c < 0 ? c : Math.abs(c), // enforce -0 is 0
-                    e = d + ['', 'k', 'm', 'b', 't'][k]; // append power
-                return e;
-            }
-            function numberWithCommas(x) {
-                return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            }
+            var dayCol = ""
             console.log(tokens)
             for (let i = 0; i < tokens.length; i++) {
                 if (tokens[i].symbol === symbol) {
@@ -65,10 +50,74 @@ export default class Tokens extends React.Component {
                     break;
                 }
             }
+            if (token.dayChange < 0) {
+                dayCol = 't-red'
+            }
+            else if (token.dayChange === 0) {
+                dayCol = 't-grey'
+            }
+            else if (token.dayChange > 0) {
+                dayCol = 't-green'
+            }
+            else {
+                dayCol = 't-grey'
+            }
 
         }
         return (
-            <img src={token.logo}></img>
+            <div className="tokenpage">
+                <div className="box left">
+                    <div className="section top">
+                        graph
+                    </div>
+                    <div className="section">
+                        price changes
+                    </div>
+                    <div className="section">
+                        Pairs:
+                    </div>
+                    <div className="section">
+                        pairs
+                    </div>
+                </div>
+
+                <div className="box right">
+                    <div className="section top tokeninfo">
+                        <div className="tokn p-t-8 p-b-8">
+                            <img className="tok-p-logo" alt={token.name} src={token.logo}></img>
+                            <span className="p-l-8"><span className="p-r-8">{token.name}</span><span className=" t-g fw-400 fs-12"> {token.symbol}</span></span>
+                        </div>
+                        <div className="tokp p-t-8 p-b-8">
+                            <span className="fw-700">${parseFloat(token.price).toPrecision(4)}</span>
+                            <span className={"fe p-l-8 fs-14 " + dayCol}>{parseFloat(token.dayChange).toFixed(2)}%</span>
+                        </div>
+                    </div>
+                    <div className="section op">
+                        graph
+                    </div>
+                    <div className="section op">
+                        price changes
+                    </div>
+                    <div className="section">
+                        <div>mcap supply</div>
+                        <div>volume tvl</div>
+                        <div>day c week c</div>
+                    </div>
+                    <div className="section">
+                        <div>Trade on kaidex</div>
+                        <div>View Website</div>
+                    </div>
+                    <div className="section">
+                        <div>calculator</div>
+                    </div>
+                    <div className="section">
+                        Pairs:
+                    </div>
+                    <div className="section">
+                        pairs
+                    </div>
+                </div>
+            </div>
         )
     }
 }

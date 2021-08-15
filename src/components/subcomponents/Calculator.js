@@ -27,11 +27,17 @@ export default function Calculator(props) {
         }  
       }
     return (
-        <div className="section calc">
-            <p className="fs-14">Calculator:</p>
-            <label>{props.symbol}:</label><input type="number" value={inp1} placeholder="0" onChange={changeInp1} className="tokeninp m-b-15"></input>
+        <div className="section calc p-l-15 p-r-15">
+            <p className="fs-14 m-t-8 p-l-8 m-b-16">Calculator:</p>
+            <div className="calcinp">
+                <label className="ab-l-m m-l-15">{props.symbol}:</label>
+                <input type="number" value={inp1} placeholder="0" onChange={changeInp1} className="tokeninp m-b-15"></input>
+            </div>
             <br/>
-            <label>USD:</label><input type="number" value={inp2} placeholder="0" onChange={changeInp2} className="tokeninp"></input>
+            <div className="calcinp m-b-15">
+                <label className="ab-l-m m-l-15">USD:</label>
+                <input type="number" value={inp2} placeholder="0" onChange={changeInp2} className="tokeninp m-b-15"></input>
+            </div>
         </div>
     )
 }

@@ -28,8 +28,8 @@ export default function Calculator(props) {
       }
     return (
         <div className="section calc p-l-15 p-r-15">
-            <p className="fs-14 m-t-8 p-l-8 m-b-16">Calculator:</p>
-            <div className="calcinp">
+            <p className="fs-14 m-t-8 p-l-8 m-b-8">Calculator:</p>
+            <div className="calcinp ">
                 <label className="ab-l-m m-l-15">{props.symbol}:</label>
                 <input type="number" value={inp1} placeholder="0" onChange={changeInp1} className="tokeninp m-b-15"></input>
             </div>

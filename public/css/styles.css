@@ -111,6 +111,9 @@ p {
 	background: #E4F2FF;
 }
 
+.sidelink.bl svg path{
+	fill: #0066FF;
+}
 .sidelink svg path {
 	fill: #666666;
 }
@@ -524,7 +527,7 @@ thead {
 		max-width: 28px!important;
 		min-width: 28px!important;
 	}
-	.pdn, .pdn a{
+	.pdn, .pdn a, .pdn a canvas{
 		opacity: 0;
 		height: 0px!important;
 		min-height: 0px!important;

@@ -1,6 +1,7 @@
 import React from 'react'
 import Loader from './Loader';
 import Calculator from './subcomponents/Calculator';
+import Tokenlinks from './subcomponents/Tokenlinks';
 
 export default class Tokens extends React.Component {
     constructor(props) {
@@ -10,8 +11,8 @@ export default class Tokens extends React.Component {
             isLoaded: false,
             symbol: props.match.params.id.replace(/_/g, ' '),
             data: [],
-            inp1:"",
-            inp2:""
+            inp1: "",
+            inp2: ""
         };
     }
 
@@ -67,14 +68,14 @@ export default class Tokens extends React.Component {
             else {
                 dayCol = 't-grey'
             }
-            var high=token.price;;
-            var low=token.price;
-            for(let i=0;i<25;i++){
-                if(token.histData[i]>high){
-                    high=token.histData[i]
+            var high = token.price;;
+            var low = token.price;
+            for (let i = 0; i < 25; i++) {
+                if (token.histData[i] > high) {
+                    high = token.histData[i]
                 }
-                if(token.histData[i]<low){
-                    low=token.histData[i]
+                if (token.histData[i] < low) {
+                    low = token.histData[i]
                 }
             }
 
@@ -146,15 +147,12 @@ export default class Tokens extends React.Component {
                         <div className="smallsec bl">
                             <p>
                                 <span className="fs-12 t-g fw-400">KAI Pr </span>
-                                <span className="fs-12 p-l-20">{(parseFloat(token.price)/parseFloat(kai.price)).toPrecision(4)}</span>
+                                <span className="fs-12 p-l-20">{(parseFloat(token.price) / parseFloat(kai.price)).toPrecision(4)}</span>
                             </p>
                         </div>
                     </div>
-                    <div className="section">
-                        <div>Trade on kaidex</div>
-                        <div>View Website</div>
-                    </div>
-                    <Calculator symbol={token.symbol} price={token.price}/>
+                    <Tokenlinks id={token.id} website={token.website} chat={token.chat}/>
+                    <Calculator symbol={token.symbol} price={token.price} />
                     <div className="op section">
                         Pairs:
                     </div>

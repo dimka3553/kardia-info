@@ -1,5 +1,6 @@
 import React from 'react'
 import Loader from './Loader';
+import Calculator from './subcomponents/Calculator';
 
 export default class Tokens extends React.Component {
     constructor(props) {
@@ -8,7 +9,9 @@ export default class Tokens extends React.Component {
             error: null,
             isLoaded: false,
             symbol: props.match.params.id.replace(/_/g, ' '),
-            data: []
+            data: [],
+            inp1:"",
+            inp2:""
         };
     }
 
@@ -44,7 +47,6 @@ export default class Tokens extends React.Component {
             var token = {}
             var kai = {}
             var dayCol = ""
-            console.log(tokens)
             for (let i = 0; i < tokens.length; i++) {
                 if (tokens[i].symbol.toLowerCase() === symbol.toLowerCase()) {
                     token = tokens[i];
@@ -152,9 +154,7 @@ export default class Tokens extends React.Component {
                         <div>Trade on kaidex</div>
                         <div>View Website</div>
                     </div>
-                    <div className="section">
-                        <div>calculator</div>
-                    </div>
+                    <Calculator symbol={token.symbol} price={token.price}/>
                     <div className="op section">
                         Pairs:
                     </div>

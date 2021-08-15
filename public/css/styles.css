@@ -346,6 +346,9 @@ thead {
 	justify-content: space-between;
 	overflow: auto;
 }
+.tokeninp{
+
+}
 @media (max-width:1000px){
 	.box.left{
 		display: none;
@@ -476,7 +479,7 @@ thead {
 		padding-top: 0;
 	}
 	.section.top{
-		border-top: 0;
+		border-top: 0px solid #ffffff00;
 		border-left: 0;
 		border-right: 0;
 	}

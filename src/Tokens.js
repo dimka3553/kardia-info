@@ -134,10 +134,10 @@ export default class Tokens extends React.Component {
                 <br className="pdd" />
                 <span className={"txt-r pctd fw-400 fs-12 pd " + dayCol[i]}>{parseFloat(tokens[i].dayChange).toFixed(2)}%</span>
               </Td>
-              <Td to={link} cn={"txt-r pctd pdn "}><span className={"fw-400 fs-14 "+ dayCol[i]}>{parseFloat(tokens[i].dayChange).toFixed(2)}%</span></Td>
-              <Td to={link} cn={"txt-r pctd pdn "}><span className={"fw-400 fs-14 "+ weekCol[i]}>{parseFloat(tokens[i].weekChange).toFixed(2)}%</span></Td>
-              <Td to={link} cn="txt-r pricetd pdn "><span className="fw-400 fs-14">${numberWithCommas(tokens[i].tvl.toFixed(2))}</span></Td>
-              <Td to={link} cn="txt-r suptd pdn "><span className="fw-400 fs-14 ">{abbreviateNumber(tokens[i].supply)}</span></Td>
+              <Td to={link} cn={"txt-r pctd pdn "}><span className={"fw-400 fs-14 pdn "+ dayCol[i]}>{parseFloat(tokens[i].dayChange).toFixed(2)}%</span></Td>
+              <Td to={link} cn={"txt-r pctd pdn "}><span className={"fw-400 fs-14 pdn "+ weekCol[i]}>{parseFloat(tokens[i].weekChange).toFixed(2)}%</span></Td>
+              <Td to={link} cn="txt-r pricetd pdn "><span className="fw-400 fs-14 pdn ">${numberWithCommas(tokens[i].tvl.toFixed(2))}</span></Td>
+              <Td to={link} cn="txt-r suptd pdn "><span className="fw-400 fs-14 pdn ">{abbreviateNumber(tokens[i].supply)}</span></Td>
               <Td to={link} cn="txt-r charttd pdn "><Smallchart histData={every_nth(histData[i], 3)} weekChange={tokens[i].weekChange} col={chartCol[i]} /></Td>
             </tr>
           

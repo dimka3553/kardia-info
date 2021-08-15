@@ -3,6 +3,7 @@
 	font-weight: 500;
 	box-sizing: border-box;
 	color: black;
+	font-smooth: always;
 }
 
 body, html, #screen {
@@ -454,6 +455,11 @@ thead {
 	.tokenpage{
 		padding-top: 0;
 	}
+	.section.top{
+		border-top: 0;
+		border-left: 0;
+		border-right: 0;
+	}
 }
 
 @media(max-width: 484px) {
@@ -483,7 +489,7 @@ thead {
 		max-width: 28px!important;
 		min-width: 28px!important;
 	}
-	.pdn{
+	.pdn, .pdn a{
 		opacity: 0;
 		height: 0px!important;
 		min-height: 0px!important;

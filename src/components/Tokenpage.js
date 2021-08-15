@@ -45,7 +45,7 @@ export default class Tokens extends React.Component {
             var dayCol = ""
             console.log(tokens)
             for (let i = 0; i < tokens.length; i++) {
-                if (tokens[i].symbol === symbol) {
+                if (tokens[i].symbol.toLowerCase() === symbol.toLowerCase()) {
                     token = tokens[i];
                     break;
                 }

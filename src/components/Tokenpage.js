@@ -110,10 +110,10 @@ export default class Tokens extends React.Component {
                     <div className="section">
                         <div>calculator</div>
                     </div>
-                    <div className="section">
+                    <div className="op section">
                         Pairs:
                     </div>
-                    <div className="section">
+                    <div className="op section">
                         pairs
                     </div>
                 </div>

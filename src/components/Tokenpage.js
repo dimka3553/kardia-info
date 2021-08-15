@@ -42,12 +42,15 @@ export default class Tokens extends React.Component {
         else {
             var tokens = data.tokens;
             var token = {}
+            var kai = {}
             var dayCol = ""
             console.log(tokens)
             for (let i = 0; i < tokens.length; i++) {
                 if (tokens[i].symbol.toLowerCase() === symbol.toLowerCase()) {
                     token = tokens[i];
-                    break;
+                }
+                if (tokens[i].symbol.toLowerCase() === 'kai') {
+                    kai = tokens[i];
                 }
             }
             if (token.dayChange < 0) {
@@ -62,6 +65,17 @@ export default class Tokens extends React.Component {
             else {
                 dayCol = 't-grey'
             }
+            var high=token.price;;
+            var low=token.price;
+            for(let i=0;i<25;i++){
+                if(token.histData[i]>high){
+                    high=token.histData[i]
+                }
+                if(token.histData[i]<low){
+                    low=token.histData[i]
+                }
+            }
+
 
         }
         return (
@@ -98,10 +112,41 @@ export default class Tokens extends React.Component {
                     <div className="section op">
                         price changes
                     </div>
-                    <div className="section">
-                        <div>mcap supply</div>
-                        <div>volume tvl</div>
-                        <div>day c week c</div>
+                    <div className="section infosec">
+                        <div className="smallsec">
+                            <p>
+                                <span className="fs-12 t-g fw-400">Open </span>
+                                <span className="fs-12 p-l-20">${parseFloat(token.histData[24]).toPrecision(4)}</span>
+                            </p>
+                            <p>
+                                <span className="fs-12 t-g fw-400">High </span>
+                                <span className="fs-12 p-l-20">${parseFloat(high).toPrecision(4)}</span>
+                            </p>
+                            <p>
+                                <span className="fs-12 t-g fw-400">Low </span>
+                                <span className="fs-12 p-l-20">${parseFloat(low).toPrecision(4)}</span>
+                            </p>
+                        </div>
+                        <div className="smallsec bl">
+                            <p>
+                                <span className="fs-12 t-g fw-400">Mcap </span>
+                                <span className="fs-12 p-l-20">${abbreviateNumber(token.mcap, 1)}</span>
+                            </p>
+                            <p>
+                                <span className="fs-12 t-g fw-400">TVL </span>
+                                <span className="fs-12 p-l-20">${abbreviateNumber(token.tvl, 1)}</span>
+                            </p>
+                            <p>
+                                <span className="fs-12 t-g fw-400">Supply </span>
+                                <span className="fs-12 p-l-20">{abbreviateNumber(token.supply, 1)}</span>
+                            </p>
+                        </div>
+                        <div className="smallsec bl">
+                            <p>
+                                <span className="fs-12 t-g fw-400">KAI Pr </span>
+                                <span className="fs-12 p-l-20">{(parseFloat(token.price)/parseFloat(kai.price)).toPrecision(4)}</span>
+                            </p>
+                        </div>
                     </div>
                     <div className="section">
                         <div>Trade on kaidex</div>
@@ -122,3 +167,14 @@ export default class Tokens extends React.Component {
     }
 }
 
+const abbreviateNumber = function (num, fixed) {
+    if (num === null) { return null; } // terminate early
+    if (num === 0) { return '0'; } // terminate early
+    fixed = (!fixed || fixed < 0) ? 0 : fixed; // number of decimal places to show
+    var b = (num).toPrecision(4).split("e"), // get power
+        k = b.length === 1 ? 0 : Math.floor(Math.min(b[1].slice(1), 14) / 3), // floor at decimals, ceiling at trillions
+        c = k < 1 ? num.toFixed(0 + fixed) : (num / Math.pow(10, k * 3)).toFixed(1 + fixed), // divide by power
+        d = c < 0 ? c : Math.abs(c), // enforce -0 is 0
+        e = d + ['', 'k', 'm', 'b', 't'][k]; // append power
+    return e;
+}

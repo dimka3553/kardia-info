@@ -326,6 +326,26 @@ thead {
 	height: 40px;
 	width: 40px;
 }
+.smallsec{
+	min-width: fit-content;
+	width: 33%;
+	padding-left: 8px;
+	padding-right: 8px;
+}
+.smallsec p{
+	justify-content: space-between;
+	display: flex;
+	margin-top: 12px;
+	margin-bottom: 12px;
+}
+.smallsec.bl{
+	border-left: 1px solid #f0f0f0;
+}
+.infosec{
+	display: flex;
+	justify-content: space-between;
+	overflow: auto;
+}
 @media (max-width:1000px){
 	.box.left{
 		display: none;

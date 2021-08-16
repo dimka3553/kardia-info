@@ -385,6 +385,9 @@ thead {
 	flex-wrap: wrap;
 	transition: 0.2s;
 }
+.pairsec{
+	border-bottom: 0px solid #ffffff00;
+}
 .nopad{
 	padding: 0px!important;
 }

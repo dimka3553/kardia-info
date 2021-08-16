@@ -31,7 +31,7 @@ export default function Tokenpairs(props) {
         )
     }
     return (
-        <div className={"section " + props.cn}>
+        <div className={"section pairsec " + props.cn}>
             <div className="fs-14 p-t-15 p-b-15 p-l-8 bor">
                 Pairs:
             </div>

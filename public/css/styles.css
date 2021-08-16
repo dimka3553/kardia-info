@@ -127,7 +127,7 @@ p {
 	background: #BEE0FF;
 }
 
-.sidelink:active {
+.sidelink:active, .pairstats:active{
 	background: #eaeaea;
 }
 
@@ -196,7 +196,7 @@ td a span, td a canvas, td a img, td a br{
 	cursor: pointer;
 }
 
-tbody tr:hover, tbody tr:hover .psnu, tbody tr:hover .psna, tbody tr:hover .pslo, tbody tr:hover .psnam {
+tbody tr:hover, tbody tr:hover .psnu, tbody tr:hover .psna, tbody tr:hover .pslo, tbody tr:hover .psnam, .pairstats:hover {
 	background: #f6f6f6;
 }
 
@@ -363,6 +363,37 @@ thead {
 	text-align: right;
 	font-size: 16px;
 	padding-right: 10px;
+}
+.pairimg{
+	width: 40px;
+	height: 40px;
+	position: relative;
+}
+.sm-tk-img{
+	width:27px;
+	height: 27px;
+	background: white;
+	border: 1px solid #f0f0f0;
+	border-radius: 50%;
+}
+.pairstats{
+	display: flex;
+	align-items: center;
+	padding: 12px;
+	justify-content: space-between;
+	border-bottom: 1px solid #f0f0f0;
+	flex-wrap: wrap;
+	transition: 0.2s;
+}
+.nopad{
+	padding: 0px!important;
+}
+.pair-name{
+	display: flex;
+	align-items: center;
+}
+.bor{
+	border-bottom: 1px solid #f0f0f0;
 }
 @media (max-width:1000px){
 	.box.left{

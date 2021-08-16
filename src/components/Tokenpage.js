@@ -2,6 +2,7 @@ import React from 'react'
 import Loader from './Loader';
 import Calculator from './subcomponents/Calculator';
 import Tokenlinks from './subcomponents/Tokenlinks';
+import Tokenpairs from './subcomponents/Tokenpairs';
 
 export default class Tokens extends React.Component {
     constructor(props) {
@@ -90,12 +91,7 @@ export default class Tokens extends React.Component {
                     <div className="section">
                         price changes
                     </div>
-                    <div className="section">
-                        Pairs:
-                    </div>
-                    <div className="section">
-                        pairs
-                    </div>
+                    <Tokenpairs token={token} tokens={tokens} cn="nopad"/>
                 </div>
 
                 <div className="box right">
@@ -153,12 +149,7 @@ export default class Tokens extends React.Component {
                     </div>
                     <Tokenlinks id={token.id} website={token.website} chat={token.chat}/>
                     <Calculator symbol={token.symbol} price={token.price} />
-                    <div className="op section">
-                        Pairs:
-                    </div>
-                    <div className="op section">
-                        pairs
-                    </div>
+                    <Tokenpairs token={token} tokens={tokens} cn="op nopad"/>
                 </div>
             </div>
         )

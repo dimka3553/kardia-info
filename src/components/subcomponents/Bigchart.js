@@ -12,7 +12,7 @@ export default function Smallchart(props) {
                 datasets: [{
                     backgroundColor: props.col,
                     borderColor: props.col,
-                    data: dps(props.histData),
+                    data: props.histData,
                     fill: false,
                     lineTension: 0,
                     pointRadius: 0,
@@ -67,12 +67,4 @@ function range(now, time, length) {
         timearr.push(new Date(arr[i]))
     }
     return (timearr)
-}
-
-function dps(arr) {
-    var ret = [];
-    for (let i = 0; i < arr.length; i++) {
-        ret.push(arr[i].toPrecision(4))
-    }
-    return (ret)
 }

@@ -25,7 +25,6 @@ export default function Tokenlinks(props) {
         )
     }
     if (props.chat !== "" && props.chat !== undefined) {
-        console.log(props.chat)
         tklnks.push(
             <a key="3" rel="noreferrer" target="_blank" href={props.chat}>
                 <div className=" sidelink bl m-t-9">

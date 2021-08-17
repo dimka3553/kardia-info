@@ -3,6 +3,7 @@ import Loader from './Loader';
 import Calculator from './subcomponents/Calculator';
 import Tokenlinks from './subcomponents/Tokenlinks';
 import Tokenpairs from './subcomponents/Tokenpairs';
+import Bigchart from './subcomponents/Bigchart';
 
 export default class Tokens extends React.Component {
     constructor(props) {
@@ -10,20 +11,32 @@ export default class Tokens extends React.Component {
         this.state = {
             error: null,
             isLoaded: false,
+            link: props.match.params.id,
             symbol: props.match.params.id.replace(/_/g, ' '),
             data: [],
             inp1: "",
-            inp2: ""
+            inp2: "",
+            allHistData: {},
+            chartData: [],
+            chartCol: ""
         };
     }
 
     componentDidMount() {
         Promise.all([
-            fetch('https://kardia-info-backend.herokuapp.com/api').then(res => res.json())
-        ]).then(([urlData]) => {
+            fetch('https://kardia-info-backend.herokuapp.com/api').then(res => res.json()),
+            fetch(`https://kardia-info-backend.herokuapp.com/api/hist/${this.state.link}`).then(res => res.json())
+        ]).then(([urlData, url2Data]) => {
+            var d = []
+            d.push([...url2Data.weekHist].reverse())
+            d = d[0]
+            var col = getCol(d)
             this.setState({
                 isLoaded: true,
-                data: urlData
+                data: urlData,
+                allHistData: url2Data,
+                chartData: d,
+                chartCol: col
             });
         },
             (error) => {
@@ -35,9 +48,70 @@ export default class Tokens extends React.Component {
         )
     }
 
+    dayChart = () => {
+        var d = []
+        d.push([...this.state.allHistData.dayHist].reverse())
+        d = d[0]
+        var col = getCol(d)
+        this.setState({
+            chartData: d,
+            chartCol: col
+        })
+    }
+    weekChart = () => {
+        var d = []
+        d.push([...this.state.allHistData.weekHist].reverse())
+        d = d[0]
+        var col = getCol(d)
+        this.setState({
+            chartData: d,
+            chartCol: col
+        })
+    }
+    monthChart = () => {
+        var d = []
+        d.push([...this.state.allHistData.monthHist].reverse())
+        d = d[0]
+        var col = getCol(d)
+        this.setState({
+            chartData: d,
+            chartCol: col
+        })
+    }
+    sixMonthChart = () => {
+        var d = []
+        d.push([...this.state.allHistData.sixMonthHist].reverse())
+        d = d[0]
+        var col = getCol(d)
+        this.setState({
+            chartData: d,
+            chartCol: col
+        })
+    }
+    yearChart = () => {
+        var d = []
+        d.push([...this.state.allHistData.yearHist].reverse())
+        d = d[0]
+        var col = getCol(d)
+        this.setState({
+            chartData: d,
+            chartCol: col
+        })
+    }
+    allChart = () => {
+        var d = []
+        d.push([...this.state.allHistData.allHist].reverse())
+        d = d[0]
+        var col = getCol(d)
+        this.setState({
+            chartData: d,
+            chartCol: col
+        })
+    }
+
 
     render() {
-        const { error, isLoaded, data, symbol } = this.state;
+        const { error, isLoaded, data, symbol, allHistData, chartData, timeframe } = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;
         }
@@ -45,6 +119,7 @@ export default class Tokens extends React.Component {
             return <Loader />;
         }
         else {
+            console.log(chartData)
             var tokens = data.tokens;
             var token = {}
             var kai = {}
@@ -86,12 +161,18 @@ export default class Tokens extends React.Component {
             <div className="tokenpage">
                 <div className="box left">
                     <div className="section top">
-                        graph
+                        <Bigchart histData={this.state.chartData} weekChange={-1} col={this.state.chartCol} />
+                        <button onClick={this.dayChart}>1D</button>
+                        <button onClick={this.weekChart}>1W</button>
+                        <button onClick={this.monthChart}> 1M</button>
+                        <button onClick={this.sixMonthChart}>6M</button>
+                        <button onClick={this.yearChart}>1Y</button>
+                        <button onClick={this.allChart}>All</button>
                     </div>
                     <div className="section">
                         price changes
                     </div>
-                    <Tokenpairs token={token} tokens={tokens} cn="nopad"/>
+                    <Tokenpairs token={token} tokens={tokens} cn="nopad" />
                 </div>
 
                 <div className="box right">
@@ -106,7 +187,13 @@ export default class Tokens extends React.Component {
                         </div>
                     </div>
                     <div className="section op">
-                        graph
+                        <Bigchart histData={this.state.chartData} weekChange={-1} col={this.state.chartCol} />
+                        <button onClick={this.dayChart}>1D</button>
+                        <button onClick={this.weekChart}>1W</button>
+                        <button onClick={this.monthChart}> 1M</button>
+                        <button onClick={this.sixMonthChart}>6M</button>
+                        <button onClick={this.yearChart}>1Y</button>
+                        <button onClick={this.allChart}>All</button>
                     </div>
                     <div className="section op">
                         price changes
@@ -147,9 +234,9 @@ export default class Tokens extends React.Component {
                             </p>
                         </div>
                     </div>
-                    <Tokenlinks id={token.id} website={token.website} chat={token.chat}/>
+                    <Tokenlinks id={token.id} website={token.website} chat={token.chat} />
                     <Calculator symbol={token.symbol} price={token.price} />
-                    <Tokenpairs token={token} tokens={tokens} cn="op nopad"/>
+                    <Tokenpairs token={token} tokens={tokens} cn="op nopad" />
                 </div>
             </div>
         )
@@ -166,4 +253,18 @@ const abbreviateNumber = function (num, fixed) {
         d = c < 0 ? c : Math.abs(c), // enforce -0 is 0
         e = d + ['', 'k', 'm', 'b', 't'][k]; // append power
     return e;
+}
+
+function getCol(arr) {
+    var col = ""
+    if (parseFloat(arr[0]) > arr[arr.length - 1]) {
+        col = "#ea3943"
+    }
+    else if (parseFloat(arr[0]) < arr[arr.length - 1]) {
+        col = "#16c784"
+    }
+    else {
+        col = "#16c784"
+    }
+    return (col)
 }

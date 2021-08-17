@@ -19,8 +19,8 @@ export default function Tokenpairs(props) {
         }
         var pairlink="https://kaidex.io/exchange/"+props.token.pairs[i].pairID
         pairs.push(
-            <a className="t-d-none" rel="noreferrer" target="_blank" href={pairlink}>
-                <div className="pairstats" key={i}>
+            <a key={i} className="t-d-none" rel="noreferrer" target="_blank" href={pairlink}>
+                <div className="pairstats">
                     <div className="pair-name">
                         <Pairimg img1={img1} img2={img2} />
                         <span className="fs-14 p-l-12 p-r-25">{props.token.pairs[i].pairName}</span>

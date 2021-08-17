@@ -1,0 +1,58 @@
+import React from 'react'
+
+import { Line } from 'react-chartjs-2';
+
+export default function Smallchart(props) {
+
+    return (
+        <Line
+            data={{
+                labels: range(0, props.histData.length - 1),
+                datasets: [{
+                    backgroundColor: props.col,
+                    borderColor: props.col,
+                    data: props.histData,
+                    fill: false,
+                    lineTension: 0,
+                    pointRadius: 0,
+                    borderWidth:3
+                }
+                ],
+            }}
+            options={{
+                scales: {
+                    x: {
+                        grid: {
+                            display: false,
+                            drawBorder: false
+                        },
+                        ticks:{
+
+                        }
+                    },
+                    y:
+                    {
+                        grid: {
+                            
+                        },
+                        ticks:{
+
+                            min: Math.min(...props.histData),
+                            max: Math.max(...props.histData)
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }}
+
+        />
+    )
+}
+
+function range(start, end) {
+    return Array(end - start + 1).fill().map((_, idx) => start + idx)
+}

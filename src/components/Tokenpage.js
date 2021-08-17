@@ -18,7 +18,9 @@ export default class Tokens extends React.Component {
             inp2: "",
             allHistData: {},
             chartData: [],
-            chartCol: ""
+            chartCol: "",
+            timeframe:3600,
+            now: parseInt(Math.floor(new Date().getTime() / 1000.0))
         };
     }
 
@@ -55,7 +57,8 @@ export default class Tokens extends React.Component {
         var col = getCol(d)
         this.setState({
             chartData: d,
-            chartCol: col
+            chartCol: col,
+            timeframe:900
         })
     }
     weekChart = () => {
@@ -65,7 +68,8 @@ export default class Tokens extends React.Component {
         var col = getCol(d)
         this.setState({
             chartData: d,
-            chartCol: col
+            chartCol: col,
+            timeframe:3600
         })
     }
     monthChart = () => {
@@ -75,7 +79,8 @@ export default class Tokens extends React.Component {
         var col = getCol(d)
         this.setState({
             chartData: d,
-            chartCol: col
+            chartCol: col,
+            timeframe:14400
         })
     }
     sixMonthChart = () => {
@@ -85,7 +90,8 @@ export default class Tokens extends React.Component {
         var col = getCol(d)
         this.setState({
             chartData: d,
-            chartCol: col
+            chartCol: col,
+            timeframe:86400
         })
     }
     yearChart = () => {
@@ -95,7 +101,8 @@ export default class Tokens extends React.Component {
         var col = getCol(d)
         this.setState({
             chartData: d,
-            chartCol: col
+            chartCol: col,
+            timeframe:86400
         })
     }
     allChart = () => {
@@ -105,13 +112,14 @@ export default class Tokens extends React.Component {
         var col = getCol(d)
         this.setState({
             chartData: d,
-            chartCol: col
+            chartCol: col,
+            timeframe:604800
         })
     }
 
 
     render() {
-        const { error, isLoaded, data, symbol, allHistData, chartData, timeframe } = this.state;
+        const { error, isLoaded, data, symbol, chartData, now} = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;
         }
@@ -161,7 +169,7 @@ export default class Tokens extends React.Component {
             <div className="tokenpage">
                 <div className="box left">
                     <div className="section top">
-                        <Bigchart histData={this.state.chartData} weekChange={-1} col={this.state.chartCol} />
+                        <Bigchart histData={this.state.chartData} time={this.state.timeframe} col={this.state.chartCol} now={now} />
                         <button onClick={this.dayChart}>1D</button>
                         <button onClick={this.weekChart}>1W</button>
                         <button onClick={this.monthChart}> 1M</button>

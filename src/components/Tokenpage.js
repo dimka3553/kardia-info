@@ -20,7 +20,8 @@ export default class Tokens extends React.Component {
             chartData: [],
             chartCol: "",
             timeframe: 3600,
-            now: parseInt(Math.floor(new Date().getTime() / 1000.0))
+            now: parseInt(Math.floor(new Date().getTime() / 1000.0)),
+            cns: ["", "active", "", "", "", ""]
         };
     }
 
@@ -49,7 +50,7 @@ export default class Tokens extends React.Component {
             }
         )
     }
-   
+
 
     dayChart = () => {
         var d = []
@@ -59,7 +60,8 @@ export default class Tokens extends React.Component {
         this.setState({
             chartData: d,
             chartCol: col,
-            timeframe: 900
+            timeframe: 900,
+            cns: ["active", "", "", "", "", ""]
         })
     }
     weekChart = () => {
@@ -70,7 +72,8 @@ export default class Tokens extends React.Component {
         this.setState({
             chartData: d,
             chartCol: col,
-            timeframe: 3600
+            timeframe: 3600,
+            cns: ["", "active", "", "", "", ""]
         })
     }
     monthChart = () => {
@@ -81,7 +84,8 @@ export default class Tokens extends React.Component {
         this.setState({
             chartData: d,
             chartCol: col,
-            timeframe: 14400
+            timeframe: 14400,
+            cns: ["", "", "active", "", "", ""]
         })
     }
     sixMonthChart = () => {
@@ -92,7 +96,8 @@ export default class Tokens extends React.Component {
         this.setState({
             chartData: d,
             chartCol: col,
-            timeframe: 86400
+            timeframe: 86400,
+            cns: ["", "", "", "active", "", ""]
         })
     }
     yearChart = () => {
@@ -103,7 +108,8 @@ export default class Tokens extends React.Component {
         this.setState({
             chartData: d,
             chartCol: col,
-            timeframe: 86400
+            timeframe: 86400,
+            cns: ["", "", "", "", "active", ""]
         })
     }
     allChart = () => {
@@ -114,7 +120,8 @@ export default class Tokens extends React.Component {
         this.setState({
             chartData: d,
             chartCol: col,
-            timeframe: 604800
+            timeframe: 604800,
+            cns: ["", "", "", "", "", "active"]
         })
     }
 
@@ -169,14 +176,21 @@ export default class Tokens extends React.Component {
         return (
             <div className="tokenpage">
                 <div className="box left">
-                    <div className="section top">
+                    <div className="section top charttitle">
+                        <h2 className="fs-16 p-l-12">Chart</h2>
+                        <div className="btns ">
+                            <button className={this.state.cns[0]} onClick={this.dayChart}>1D</button>
+                            <button className={this.state.cns[1]} onClick={this.weekChart}>1W</button>
+                            <button className={this.state.cns[2]} onClick={this.monthChart}> 1M</button>
+                            <button className={this.state.cns[3]} onClick={this.sixMonthChart}>6M</button>
+                            <button className={this.state.cns[4]} onClick={this.yearChart}>1Y</button>
+                            <button className={this.state.cns[5]} onClick={this.allChart}>All</button>
+                        </div>
+                    </div>
+                    <div className="section">
+                        <br />
                         <Bigchart histData={this.state.chartData} time={this.state.timeframe} col={this.state.chartCol} now={now} />
-                        <button onClick={this.dayChart}>1D</button>
-                        <button onClick={this.weekChart}>1W</button>
-                        <button onClick={this.monthChart}> 1M</button>
-                        <button onClick={this.sixMonthChart}>6M</button>
-                        <button onClick={this.yearChart}>1Y</button>
-                        <button onClick={this.allChart}>All</button>
+                        <br />
                     </div>
                     <div className="section">
                         price changes
@@ -195,14 +209,21 @@ export default class Tokens extends React.Component {
                             <span className={"fe p-l-8 fs-14 " + dayCol}>{parseFloat(token.dayChange).toFixed(2)}%</span>
                         </div>
                     </div>
+                    <div className="section op charttitle">
+                        <h2 className="fs-16 p-l-12">Chart</h2>
+                        <div className="btns">
+                            <button className={this.state.cns[0]} onClick={this.dayChart}>1D</button>
+                            <button className={this.state.cns[1]} onClick={this.weekChart}>1W</button>
+                            <button className={this.state.cns[2]} onClick={this.monthChart}> 1M</button>
+                            <button className={this.state.cns[3]} onClick={this.sixMonthChart}>6M</button>
+                            <button className={this.state.cns[4]} onClick={this.yearChart}>1Y</button>
+                            <button className={this.state.cns[5]} onClick={this.allChart}>All</button>
+                        </div>
+                    </div>
                     <div className="section op">
+                        <br/>
                         <Bigchart histData={this.state.chartData} time={this.state.timeframe} col={this.state.chartCol} now={now} />
-                        <button onClick={this.dayChart}>1D</button>
-                        <button onClick={this.weekChart}>1W</button>
-                        <button onClick={this.monthChart}> 1M</button>
-                        <button onClick={this.sixMonthChart}>6M</button>
-                        <button onClick={this.yearChart}>1Y</button>
-                        <button onClick={this.allChart}>All</button>
+                        <br/>
                     </div>
                     <div className="section op">
                         price changes

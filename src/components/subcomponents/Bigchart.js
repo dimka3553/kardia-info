@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Line, Chart } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 import 'chartjs-adapter-date-fns';
 
 export default function Smallchart(props) {

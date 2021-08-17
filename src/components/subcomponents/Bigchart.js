@@ -1,10 +1,9 @@
 import React from 'react'
 
-import { Line } from 'react-chartjs-2';
+import { Line, Chart } from 'react-chartjs-2';
 import 'chartjs-adapter-date-fns';
 
 export default function Smallchart(props) {
-
     return (
         <Line
             data={{
@@ -13,7 +12,7 @@ export default function Smallchart(props) {
                     backgroundColor: props.col,
                     borderColor: props.col,
                     data: props.histData,
-                    fill: false,
+                    fill: props.col,
                     lineTension: 0,
                     pointRadius: 0,
                     borderWidth: 3
@@ -25,13 +24,13 @@ export default function Smallchart(props) {
                     x: {
                         grid: {
                             display: false,
-                            drawBorder: false
+                            drawBorder: false,
                         },
                         ticks: {
-                            maxTicksLimit: 8,
+                            maxTicksLimit: 6,
+                            autoSkip: true,
                             maxRotation: 0,
                             minRotation: 0,
-                            format: { style: 'currency', currency: 'USD' }
                         },
                         type: "time"
                     },
@@ -39,16 +38,25 @@ export default function Smallchart(props) {
                     {
                         grid: {
                             drawBorder: false,
-                            precision: 1
+                            precision: 1,
+                            color:"#f0f0f0"
                         },
                         ticks: {
-
+                            callback: function (value, index, values) {
+                                return ("$" + value.toPrecision(3))
+                            },
+                            maxTicksLimit: 6,
+                            padding: 10
                         }
                     }
                 },
                 plugins: {
                     legend: {
                         display: false
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false
                     }
                 }
             }}
@@ -61,10 +69,16 @@ function range(now, time, length) {
     var arr = [now * 1000]
     var timearr = []
     for (let i = 0; i < length; i++) {
-        arr.unshift(arr[0] - (time * 1000))
+        var n = arr[0] - (time * 1000)
+        arr.unshift(round(n, (time * 1000)))
     }
     for (let i = 0; i < arr.length; i++) {
+
         timearr.push(new Date(arr[i]))
     }
     return (timearr)
+}
+
+function round(num, time) {
+    return Math.ceil(num / time) * time;
 }

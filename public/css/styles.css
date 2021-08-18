@@ -339,9 +339,6 @@ thead {
 	justify-self: right;
 }
 
-.op {
-	display: none;
-}
 
 .tok-p-logo {
 	height: 40px;
@@ -465,6 +462,27 @@ thead {
 .charttitle.op {
 	display: none;
 }
+.changes{
+	display: flex;
+	justify-content: space-evenly;
+	overflow: auto;
+}
+.changesec{
+	display: flex ;
+	justify-content: space-evenly;
+	padding: 25px;
+	text-align: center;
+	white-space: nowrap;
+	border-right: 1px solid #f0f0f0;
+}
+.nob{
+	border-right: 0px solid #f0f0f0;
+}
+@media(min-width:1000px){
+	.op {
+		display: none !important;
+	}
+}
 
 @media (max-width:1000px) {
 	.box.left {
@@ -482,6 +500,11 @@ thead {
 		align-items: center;
 		justify-content: space-between;
 		flex-wrap: wrap;
+	}
+	.changes{
+		display: flex;
+		justify-content: space-between;
+		overflow: auto;
 	}
 }
 

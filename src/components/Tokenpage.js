@@ -4,6 +4,7 @@ import Calculator from './subcomponents/Calculator';
 import Tokenlinks from './subcomponents/Tokenlinks';
 import Tokenpairs from './subcomponents/Tokenpairs';
 import Bigchart from './subcomponents/Bigchart';
+import Changes from './subcomponents/Changes';
 
 export default class Tokens extends React.Component {
     constructor(props) {
@@ -171,7 +172,6 @@ export default class Tokens extends React.Component {
                 }
             }
 
-
         }
         return (
             <div className="tokenpage">
@@ -192,9 +192,7 @@ export default class Tokens extends React.Component {
                         <Bigchart histData={this.state.chartData} time={this.state.timeframe} col={this.state.chartCol} now={now} />
                         <br />
                     </div>
-                    <div className="section">
-                        price changes
-                    </div>
+                    <Changes data={this.state.allHistData} tkn={token}/>
                     <Tokenpairs token={token} tokens={tokens} cn="nopad" />
                 </div>
 
@@ -225,9 +223,7 @@ export default class Tokens extends React.Component {
                         <Bigchart histData={this.state.chartData} time={this.state.timeframe} col={this.state.chartCol} now={now} />
                         <br/>
                     </div>
-                    <div className="section op">
-                        price changes
-                    </div>
+                    <Changes cn="op" data={this.state.allHistData} tkn={token}/>
                     <div className="section infosec">
                         <div className="smallsec">
                             <p>

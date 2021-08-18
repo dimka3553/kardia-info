@@ -277,6 +277,9 @@ thead {
 .pdn, .pd {
 	transition: 0.2s;
 }
+.d-none{
+	display: none !important;
+}
 
 .botdiv {
 	height: 60px;
@@ -464,19 +467,23 @@ thead {
 }
 .changes{
 	display: flex;
-	justify-content: space-evenly;
+	justify-content: space-between;
 	overflow: auto;
 }
 .changesec{
-	display: flex ;
-	justify-content: space-evenly;
 	padding: 25px;
 	text-align: center;
-	white-space: nowrap;
 	border-right: 1px solid #f0f0f0;
+	width: 100%;
+}
+.changesec span{
+	white-space: nowrap;
 }
 .nob{
 	border-right: 0px solid #f0f0f0;
+}
+.section canvas{
+	max-height: 400px;
 }
 @media(min-width:1000px){
 	.op {

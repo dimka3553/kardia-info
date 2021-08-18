@@ -152,9 +152,6 @@ export default class Tokens extends React.Component {
             if (token.dayChange < 0) {
                 dayCol = 't-red'
             }
-            else if (token.dayChange === 0) {
-                dayCol = 't-grey'
-            }
             else if (token.dayChange > 0) {
                 dayCol = 't-green'
             }

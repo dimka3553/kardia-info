@@ -34,6 +34,7 @@ export default class Tokens extends React.Component {
             var d = []
             d.push([...url2Data.weekHist].reverse())
             d = d[0]
+            console.log(d)
             var col = getCol(d)
             this.setState({
                 isLoaded: true,

@@ -1,12 +1,12 @@
 import React from 'react'
 
 export default function Changes(props) {
-    var hc = (((props.tkn.price - props.data.dayHist[5]) / props.data.dayHist[5]) * 100).toFixed(3)
-    var dc = props.tkn.dayChange.toFixed(3)
-    var wc = props.tkn.weekChange.toFixed(3)
-    var mc = (((props.tkn.price - props.data.monthHist[179]) / props.data.monthHist[179]) * 100).toFixed(3)
-    var yc = (((props.tkn.price - props.data.yearHist[364]) / props.data.monthHist[364]) * 100).toFixed(3)
-    var ac = (((props.tkn.price - props.data.firstPrice) / props.data.firstPrice) * 100).toFixed(3)
+    var hc = (((props.tkn.price - props.data.dayHist[5]) / props.data.dayHist[5]) * 100)
+    var dc = parseFloat(props.tkn.dayChange)
+    var wc = parseFloat(props.tkn.weekChange)
+    var mc = (((props.tkn.price - props.data.monthHist[179]) / props.data.monthHist[179]) * 100)
+    var yc = (((props.tkn.price - props.data.yearHist[364]) / props.data.monthHist[364]) * 100)
+    var ac = (((props.tkn.price - props.data.firstPrice) / props.data.firstPrice) * 100)
 
     var pcs = [hc, dc, wc, mc, yc, ac]
     var cols = [];
@@ -19,6 +19,7 @@ export default function Changes(props) {
     var diff = d2.getTime() - d1.getTime();
 
     var days = (diff / (1000 * 60 * 60 * 24)).toFixed(0);
+
 
     for (let i = 0; i < pcs.length; i++) {
         if (pcs[i] < 0) {
@@ -44,37 +45,37 @@ export default function Changes(props) {
                 <span>1H Change:</span>
                 <br />
                 <br />
-                <span className={cols[0]}>{hc}%</span>
+                <span className={cols[0]}>{hc.toFixed(3)}%</span>
             </div>
             <div className={`changesec fs-14 ${cls[1]}`}>
                 <span>1D Change:</span>
                 <br />
                 <br />
-                <span className={cols[1]}>{dc}%</span>
+                <span className={cols[1]}>{dc.toFixed(3)}%</span>
             </div>
             <div className={`changesec fs-14 ${cls[2]}`}>
                 <span>1W Change:</span>
                 <br />
                 <br />
-                <span className={cols[2]}>{wc}%</span>
+                <span className={cols[2]}>{wc.toFixed(3)}%</span>
             </div>
             <div className={`changesec fs-14 ${cls[3]}`}>
                 <span>1M Change:</span>
                 <br />
                 <br />
-                <span className={cols[3]}>{mc}%</span>
+                <span className={cols[3]}>{mc.toFixed(3)}%</span>
             </div>
             <div className={`changesec fs-14 ${cls[4]}`}>
                 <span>1Y Change:</span>
                 <br />
                 <br />
-                <span className={cols[4]}>{yc}%</span>
+                <span className={cols[4]}>{yc.toFixed(3)}%</span>
             </div>
             <div className={`changesec fs-14 nob  ${cls[5]}`}>
                 <span>All Change ({days} Days):</span>
                 <br />
                 <br />
-                <span className={cols[5]}>{ac}%</span>
+                <span className={cols[5]}>{ac.toFixed(3)}%</span>
             </div>
         </div>
     )

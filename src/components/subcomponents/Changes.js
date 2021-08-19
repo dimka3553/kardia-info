@@ -9,6 +9,11 @@ export default function Changes(props) {
     var ac = parseFloat((((props.tkn.price - props.data.firstPrice) / props.data.firstPrice) * 100))
 
     var pcs = [hc, dc, wc, mc, yc, ac]
+    for (let i = 0; i < pcs.length; i++) {
+        if (pcs[i]===null){
+            pcs[i]=-10000000
+        }
+    }
     var cols = [];
     var cls = []
     var d2 = new Date();
@@ -22,7 +27,7 @@ export default function Changes(props) {
 
 
     for (let i = 0; i < pcs.length; i++) {
-        if (pcs[i] < 0) {
+        if (pcs[i] < 0 && pcs[i]>-99999) {
             cols.push('t-red')
             cls.push("")
         }
@@ -30,7 +35,7 @@ export default function Changes(props) {
             cols.push('t-green')
             cls.push("")
         }
-        else if (pcs[i] === 0) {
+        else if (pcs[i] == 0) {
             cols.push('t-grey')
             cls[i] = ""
         }

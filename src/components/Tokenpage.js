@@ -25,6 +25,7 @@ export default class Tokens extends React.Component {
             cns: ["", "active", "", "", "", ""]
         };
     }
+    
 
     componentDidMount() {
         Promise.all([

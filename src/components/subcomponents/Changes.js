@@ -1,12 +1,12 @@
 import React from 'react'
 
 export default function Changes(props) {
-    var hc = (((props.tkn.price - props.data.dayHist[5]) / props.data.dayHist[5]) * 100)
+    var hc = parseFloat((((props.tkn.price - props.data.dayHist[5]) / props.data.dayHist[5]) * 100))
     var dc = parseFloat(props.tkn.dayChange)
     var wc = parseFloat(props.tkn.weekChange)
-    var mc = (((props.tkn.price - props.data.monthHist[179]) / props.data.monthHist[179]) * 100)
-    var yc = (((props.tkn.price - props.data.yearHist[364]) / props.data.monthHist[364]) * 100)
-    var ac = (((props.tkn.price - props.data.firstPrice) / props.data.firstPrice) * 100)
+    var mc = parseFloat((((props.tkn.price - props.data.monthHist[179]) / props.data.monthHist[179]) * 100))
+    var yc = parseFloat((((props.tkn.price - props.data.yearHist[364]) / props.data.monthHist[364]) * 100))
+    var ac = parseFloat((((props.tkn.price - props.data.firstPrice) / props.data.firstPrice) * 100))
 
     var pcs = [hc, dc, wc, mc, yc, ac]
     var cols = [];

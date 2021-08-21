@@ -59,7 +59,7 @@ export default function Homesmall() {
                     </svg>
                 </div>
                 <div className="lef">
-                    <h1 className="lanhead m-b-50">Get the latest KardiaChain stats in one place</h1>
+                    <h1 className="lanhead m-b-50 fw-700">Get the latest KardiaChain stats in one place</h1>
                     <p className="t-g toptext fs-20">With <span className="t-bl">Kardia Info</span> - you will have quick access to information regarding all things kardiachain.</p>
                 </div>
                 <img className="phoneimg m-b-50" src="./img/iphone.png"></img>
@@ -72,7 +72,7 @@ export default function Homesmall() {
             </div>
             <div className="lansec2 p-t-50 p-b-50 p-l-20 p-r-20">
                 <img className="phoneimg m-b-50 m-t-50" src="./img/tgbot.png"></img>
-                <h1 className="t-w lanhead">Kardia Info Telegram bot</h1>
+                <h1 className="t-w lanhead fw-700">Kardia Info Telegram bot</h1>
                 <p className="t-w fs-20 imgtext">
                     Get the latest info with a simple message in PMs or Group chats
                     <br />
@@ -82,7 +82,7 @@ export default function Homesmall() {
                 </p>
             </div>
             <div className="lansec3 p-t-50 p-b-50 p-l-20 p-r-20">
-                <h1 className="apit m-t-50 m-b-50 lanhead">Kardia Info <span className="fw-900 fs-40 t-t">API</span></h1>
+                <h1 className="apit m-t-50 m-b-50 lanhead fw-700">Kardia Info <span className="fw-900 fs-40 t-t">API</span></h1>
                 <p className="t-g fs-20 imgtext">The backend service for kardiainfo allows for very quick loading times and the ability to fetch historical price data for each KRC-20 token with just 1 request.
                     <br />
                     <br />
@@ -92,7 +92,7 @@ export default function Homesmall() {
             </div>
             <div className="lansec4 p-t-50 p-b-50">
                 <img className="phoneimg" src="./../img/tokenspinning.gif"></img>
-                <h1 className="m-b-50 lanhead">INFO Token</h1>
+                <h1 className="m-b-50 lanhead fw-700">INFO Token</h1>
                 <p className="t-g fs-20 imgtext">
                     A token that will be filled with use cases that do not yet exist anywhere in the DeFi world. Sound tokenomics that ensure minimal inflationary pressures and maximum incentive to hold.
                     <br />
@@ -104,7 +104,7 @@ export default function Homesmall() {
                 </p>
             </div>
             <div className="lansec5 p-t-50 p-b-50">
-                <h1 className="m-b-50 t-w lanhead">Want to learn more?</h1>
+                <h1 className="m-b-50 t-w lanhead fw-700">Want to learn more?</h1>
                 <p className="t-w fs-20 imgtext">
                     join the Kardia Info group chat and ask away
                     <br />

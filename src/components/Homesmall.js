@@ -82,24 +82,6 @@ export default function Homesmall() {
                 </p>
             </div>
             <div className="lansec3 p-t-50 p-b-50 p-l-20 p-r-20">
-                <svg className="phoneimg servesvg" width="298" height="249" viewBox="0 0 298 249" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="91" width="10" height="249" fill="#F5F5F5" />
-                    <rect x="195" width="10" height="249" fill="#F5F5F5" />
-                    <rect y="33" width="10" height="298" transform="rotate(-90 0 33)" fill="#F5F5F5" />
-                    <rect y="146" width="10" height="298" transform="rotate(-90 0 146)" fill="#F5F5F5" />
-                    <rect x="235" y="106" width="3" height="33" transform="rotate(-90 235 106)" fill="#F5F5F5" />
-                    <rect x="235" y="86" width="3" height="33" transform="rotate(-90 235 86)" fill="#F5F5F5" />
-                    <rect x="235" y="66" width="3" height="33" transform="rotate(-90 235 66)" fill="#F5F5F5" />
-                    <rect x="132" y="66" width="3" height="33" transform="rotate(-90 132 66)" fill="#F5F5F5" />
-                    <rect x="132" y="86" width="3" height="33" transform="rotate(-90 132 86)" fill="#F5F5F5" />
-                    <rect x="132" y="106" width="3" height="33" transform="rotate(-90 132 106)" fill="#F5F5F5" />
-                    <rect x="30" y="66" width="3" height="33" transform="rotate(-90 30 66)" fill="#F5F5F5" />
-                    <rect x="30" y="86" width="3" height="33" transform="rotate(-90 30 86)" fill="#F5F5F5" />
-                    <rect x="30" y="106" width="3" height="33" transform="rotate(-90 30 106)" fill="#F5F5F5" />
-                    <rect x="26" y="219" width="40" height="40" rx="20" transform="rotate(-90 26 219)" fill="#F5F5F5" />
-                    <rect x="129" y="219" width="40" height="40" rx="20" transform="rotate(-90 129 219)" fill="#F5F5F5" />
-                    <rect x="231" y="219" width="40" height="40" rx="20" transform="rotate(-90 231 219)" fill="#F5F5F5" />
-                </svg>
                 <h1 className="apit m-t-50 m-b-50 lanhead">Kardia Info <span className="fw-900 fs-40 t-t">API</span></h1>
                 <p className="t-g fs-20 imgtext">The backend service for kardiainfo allows for very quick loading times and the ability to fetch historical price data for each KRC-20 token with just 1 request.
                     <br />

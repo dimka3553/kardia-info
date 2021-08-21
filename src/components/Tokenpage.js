@@ -29,8 +29,8 @@ export default class Tokens extends React.Component {
 
     componentDidMount() {
         Promise.all([
-            fetch('https://kardia-info-backend.herokuapp.com/api').then(res => res.json()),
-            fetch(`https://kardia-info-backend.herokuapp.com/api/hist/${this.state.link}`).then(res => res.json())
+            fetch('https://api.kardiainfo.com/tokens').then(res => res.json()),
+            fetch(`https://api.kardiainfo.com/hist/${this.state.link}`).then(res => res.json())
         ]).then(([urlData, url2Data]) => {
             var d = []
             d.push([...url2Data.weekHist].reverse())

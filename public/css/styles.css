@@ -13,6 +13,12 @@ body, html, #screen {
 	background: #fbfbfb;
 }
 
+body {
+	max-width: 1920px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 p {
 	max-width: 100%;
 	overflow-wrap: break-word;
@@ -34,9 +40,10 @@ p {
 	width: 100%;
 	position: fixed;
 	top: 0;
-	background: white;
-	z-index: 1;
+	max-width: 1920px;
+	background: #ffffff;
 	border-bottom: 1px solid #f0f0f0;
+	z-index: 1;
 }
 
 .navbar-wal {
@@ -277,7 +284,8 @@ thead {
 .pdn, .pd {
 	transition: 0.2s;
 }
-.d-none{
+
+.d-none {
 	display: none !important;
 }
 
@@ -341,7 +349,6 @@ thead {
 	text-align: right;
 	justify-self: right;
 }
-
 
 .tok-p-logo {
 	height: 40px;
@@ -465,27 +472,149 @@ thead {
 .charttitle.op {
 	display: none;
 }
-.changes{
+
+.changes {
 	display: flex;
 	justify-content: space-between;
 	overflow: auto;
 }
-.changesec{
+
+.changesec {
 	padding: 25px;
 	text-align: center;
 	border-right: 1px solid #f0f0f0;
 	width: 100%;
 }
-.changesec span{
+
+.changesec span {
 	white-space: nowrap;
 }
-.nob{
+
+.nob {
 	border-right: 0px solid #f0f0f0;
 }
-.section canvas{
+
+.section canvas {
 	max-height: 400px;
 }
-@media(min-width:1000px){
+
+.homepage {
+	overflow-x: hidden;
+	transition: 0.2s;
+}
+
+.kisvg {
+	height: 450px;
+	width: 100%;
+	position: relative;
+}
+
+.swirlysvg {
+	left: 40%;
+}
+
+.lef {
+	padding: 25px;
+}
+.secl{
+	width: 50%;
+}
+.secr{
+	width: 50%;
+}
+
+.lanhead {
+	font-size: 30px;
+	text-align: center;
+}
+
+.toptext {
+	max-width: 320px;
+	text-align: center;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.phoneimg {
+	width: calc(100% - 40px);
+	max-width: 320px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.imgtext {
+	max-width: 320px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 20px;
+	text-align: center;
+	padding-top: 0;
+}
+
+.lansec2 {
+	background-color: black;
+}
+
+.lansec3 {
+	background-color: #f5f5f5;
+}
+
+.apit {
+	background-image: url("./../img/tech.png");
+	background-clip: text;
+	-webkit-background-clip: text;
+	color: transparent;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: center;
+}
+
+.servesvg {
+	background-image: url("./../img/tech.png");
+	-webkit-background-image: url("./../img/tech.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	fill: transparent;
+	width: fit-content;
+	height: fit-content;
+}
+
+.toksvg {
+	height: 350px;
+	width: 100%;
+	position: relative;
+}
+
+.mw{
+	max-width: 400px;
+}
+.tokl {
+	right: 60%;
+	top: 10%;
+}
+
+.tokr {
+	left: 60%;
+	bottom: 10%;
+}
+
+.lansec5 {
+	background: black;
+}
+
+.content {
+	padding-bottom: 0;
+}
+.homesectop{
+	display: flex;
+}
+
+@media(min-width:1000px) {
 	.op {
 		display: none !important;
 	}
@@ -508,7 +637,7 @@ thead {
 		justify-content: space-between;
 		flex-wrap: wrap;
 	}
-	.changes{
+	.changes {
 		display: flex;
 		justify-content: space-between;
 		overflow: auto;
@@ -577,9 +706,37 @@ thead {
 		left: 245px;
 		background: #fbfbfb;
 	}
+	.homepage.phone {
+		position: fixed!important;
+		opacity: 0!important;
+		transition: 0!important;
+		width: 0px!important;
+		max-width: 0px!important;
+		overflow: hidden!important;
+	}
+	.lsec {
+		width: 50%;
+	}
+	.rsec {
+		width: 50%
+	}
+	.lansec2{
+		border-radius: 150px 0px 0px 0px;
+	}
+	.lansec3{
+		border-radius: 0px 0px 0px 150px;
+	}
 }
 
 @media(max-width: 850px) {
+	.homepage.pc {
+		position: fixed;
+		opacity: 0;
+		transition: 0;
+		width: 0px;
+		max-width: 0px;
+		overflow: hidden;
+	}
 	.content {
 		padding-left: 0px;
 		padding-right: 0px;
@@ -675,7 +832,6 @@ thead {
 		padding: 0px!important;
 		font-size: 0px!important;
 		width: 0px!important;
-		;
 	}
 }
 
@@ -694,6 +850,45 @@ thead {
 @media(max-width: 187px) {
 	.buyinfo-link {
 		margin-top: -60px !important;
+	}
+}
+
+@media(min-width: 1500px) {
+	#smallsidebar {
+		display: none;
+	}
+	.hamb-menu {
+		display: none;
+	}
+	.logotd {
+		width: 33px!important;
+		min-width: 33px;
+		position: relative;
+	}
+	.numtd {
+		width: 45px;
+		min-width: 45px;
+	}
+	.pricetd {
+		width: auto;
+		min-width: 115px;
+		max-width: 300px;
+	}
+	.charttd {
+		width: auto;
+		min-width: 135px;
+		max-width: 135px;
+		padding-left: 20px;
+		padding-top: 0px;
+		padding-bottom: 0px;
+	}
+	.suptd, .pctd {
+		width: auto;
+		min-width: 95px;
+		max-width: 300px;
+	}
+	.charttd canvas {
+		max-height: 53px;
 	}
 }
 

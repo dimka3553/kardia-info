@@ -3,6 +3,7 @@ import Sidebar from './components/Sidebar';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Tokens from './Tokens';
 import Tokenpage from './components/Tokenpage';
+import Home from './Home';
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         <div className="content">
           <Switch>
             <Route exact path="/">
-              <p>Kardia info - Super early edition</p>
+              <Home/>
             </Route>
             <Route exact path="/tokens">
               <Tokens />

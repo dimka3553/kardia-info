@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Tokens from './Tokens';
 import Tokenpage from './components/Tokenpage';
 import Home from './Home';
+import Lps from './Lps';
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
               <Tokens />
             </Route>
             <Route exact path="/lps">
-              This page will display the value of lps
+              <Lps/>
             </Route>
             <Route path="/tokens/:id" component={Tokenpage}/>
           </Switch>

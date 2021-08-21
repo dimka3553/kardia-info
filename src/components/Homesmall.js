@@ -10,8 +10,8 @@ export default function Homesmall() {
                         <path d="M66.2183 116.756C73.8279 105.855 83.0768 96.1956 93.6374 88.1202L182.151 20.4366C192.622 12.4301 204.643 6.68789 217.451 3.57446C277.314 -10.9774 335 34.3662 335 95.9727V247.846C335 303.058 299.863 352.148 247.601 369.954L199.48 386.348C168.401 396.936 134.454 395.275 104.557 381.704L76.2389 368.849C2.78876 335.506 -22.3877 243.689 23.7833 177.547L66.2183 116.756Z" fill="url(#paint1430_linear)" />
                         <defs>
                             <linearGradient id="paint1430_linear" x1="135" y1="-25" x2="135" y2="402.831" gradientUnits="userSpaceOnUse">
-                                <stop stop-color="#0063F7" />
-                                <stop offset="1" stop-color="#5498FF" />
+                                <stop stopColor="#0063F7" />
+                                <stop offset="1" stopColor="#5498FF" />
                             </linearGradient>
                         </defs>
                     </svg>
@@ -62,7 +62,7 @@ export default function Homesmall() {
                     <h1 className="lanhead m-b-50 fw-700">Get the latest KardiaChain stats in one place</h1>
                     <p className="t-g toptext fs-20">With <span className="t-bl">Kardia Info</span> - you will have quick access to information regarding all things kardiachain.</p>
                 </div>
-                <img className="phoneimg m-b-50" src="./img/iphone.png"></img>
+                <img className="phoneimg m-b-50" alt="phone" src="./img/iphone.png"></img>
                 <p className="fs-20 imgtext t-g ">Kardia Info is there to ensure that all the information is easily accessible and presented with a simple to navigate design.
                     <br />
                     <br />
@@ -71,14 +71,14 @@ export default function Homesmall() {
                 </p>
             </div>
             <div className="lansec2 p-t-50 p-b-50 p-l-20 p-r-20">
-                <img className="phoneimg m-b-50 m-t-50" src="./img/tgbot.png"></img>
+                <img className="phoneimg m-b-50 m-t-50" alt="telegram bot" src="./img/tgbot.png"></img>
                 <h1 className="t-w lanhead fw-700">Kardia Info Telegram bot</h1>
                 <p className="t-w fs-20 imgtext">
                     Get the latest info with a simple message in PMs or Group chats
                     <br />
                     <br />
                     <br />
-                    <a className="t-bl t-d-none" target="_blank" href="https://t.me/crypto328bot">t.me/crypto328bot</a>
+                    <a className="t-bl t-d-none" rel="noreferrer" target="_blank" href="https://t.me/test835bot">t.me/crypto328bot (alpha)</a>
                 </p>
             </div>
             <div className="lansec3 p-t-50 p-b-50 p-l-20 p-r-20">
@@ -87,11 +87,11 @@ export default function Homesmall() {
                     <br />
                     <br />
                     <br />
-                    <a className="t-bl t-d-none" target="_blank" href="https://api.kardiainfo.com">api.kardiainfo.com</a>
+                    <a className="t-bl t-d-none" rel="noreferrer" target="_blank" href="https://api.kardiainfo.com">api.kardiainfo.com</a>
                 </p>
             </div>
             <div className="lansec4 p-t-50 p-b-50">
-                <img className="phoneimg" src="./../img/tokenspinning.gif"></img>
+                <img className="phoneimg"  alt="token" src="./../img/tokenspinning.gif"></img>
                 <h1 className="m-b-50 lanhead fw-700">INFO Token</h1>
                 <p className="t-g fs-20 imgtext">
                     A token that will be filled with use cases that do not yet exist anywhere in the DeFi world. Sound tokenomics that ensure minimal inflationary pressures and maximum incentive to hold.

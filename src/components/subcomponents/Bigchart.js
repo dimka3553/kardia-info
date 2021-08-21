@@ -15,9 +15,9 @@ export default function Smallchart(props) {
                     fill: props.col,
                     lineTension: 0,
                     pointRadius: 0,
-                    borderWidth: 3
-                }
-                ],
+                    borderWidth: 3,
+                    pointHoverRadius: 5
+                }],
             }}
             options={{
                 scales: {
@@ -39,7 +39,7 @@ export default function Smallchart(props) {
                         grid: {
                             drawBorder: false,
                             precision: 1,
-                            color:"#f0f0f0"
+                            color: "#f0f0f0"
                         },
                         ticks: {
                             callback: function (value, index, values) {
@@ -56,8 +56,12 @@ export default function Smallchart(props) {
                     },
                     tooltip: {
                         mode: 'index',
-                        intersect: false
+                        intersect: false,
                     }
+                },
+                hover: {
+                    intersect: false,
+                    mode:'index',
                 }
             }}
 

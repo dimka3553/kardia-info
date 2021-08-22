@@ -573,34 +573,9 @@ thead {
 	background-position: center;
 }
 
-.servesvg {
-	background-image: url("./../img/tech.png");
-	-webkit-background-image: url("./../img/tech.png");
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center;
-	fill: transparent;
-	width: fit-content;
-	height: fit-content;
-}
-
-.toksvg {
-	height: 350px;
-	width: 100%;
-	position: relative;
-}
 
 .mw{
 	max-width: 400px;
-}
-.tokl {
-	right: 60%;
-	top: 10%;
-}
-
-.tokr {
-	left: 60%;
-	bottom: 10%;
 }
 
 .lansec5 {
@@ -610,8 +585,47 @@ thead {
 .content {
 	padding-bottom: 0;
 }
-.homesectop{
+.hometopsec{
 	display: flex;
+	justify-content: space-between;
+}
+.hometopsec .l{
+	min-width: 310px;
+	max-width: 400px;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+}
+.hometopsec .r{
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+.tsec{
+	display: flex;
+	align-items: center;
+	height: 100%;
+	max-height: calc(100% - 450px);
+	flex-wrap: wrap;
+}
+.tgsec{
+	background: black;
+	display: flex;
+	justify-content: space-between;
+	border-radius: 100px 100px 100px 100px;
+}
+.tgsec .l, .tgsec .r{
+	width: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+.gwrap{
+	border-radius: 100px 100px 100px 100px;
+	background-color: #f5f5f5;
+
 }
 
 @media(min-width:1000px) {

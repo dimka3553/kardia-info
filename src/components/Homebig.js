@@ -52,7 +52,7 @@ export default function Homebig() {
                                     <br />
                                     <br />
                                     <br />
-                                    <a className="t-bl t-d-none" rel="noreferrer" target="_blank" href="https://t.me/test835bot">t.me/crypto328bot (alpha)</a>
+                                    <a className="t-bl t-d-none" rel="noreferrer" target="_blank" href="https://t.me/test835bot">t.me/test835bot (alpha)</a>
                                 </p>
                             </div>
                         </div>

@@ -78,7 +78,7 @@ export default function Homesmall() {
                     <br />
                     <br />
                     <br />
-                    <a className="t-bl t-d-none" rel="noreferrer" target="_blank" href="https://t.me/test835bot">t.me/crypto328bot (alpha)</a>
+                    <a className="t-bl t-d-none" rel="noreferrer" target="_blank" href="https://t.me/test835bot">t.me/test835bot (alpha)</a>
                 </p>
             </div>
             <div className="lansec3 p-t-50 p-b-50 p-l-20 p-r-20">

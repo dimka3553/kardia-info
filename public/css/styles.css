@@ -501,8 +501,13 @@ thead {
 .homepage {
 	overflow-x: hidden;
 	transition: 0.2s;
+	max-width: 1200px;
+	width: 100%;
 }
-
+.hpwrapper{
+	display: flex;
+	justify-content: space-around;
+}
 .kisvg {
 	height: 450px;
 	width: 100%;
@@ -616,7 +621,7 @@ thead {
 	justify-content: space-between;
 	border-radius: 100px 100px 100px 100px;
 }
-.tgsec .l, .tgsec .r{
+.tgsec .l, .tgsec .r, .inftok .l, .inftok .r{
 	width: 50%;
 	display: flex;
 	align-items: center;
@@ -625,7 +630,17 @@ thead {
 .gwrap{
 	border-radius: 100px 100px 100px 100px;
 	background-color: #f5f5f5;
-
+}
+.inftok{
+	display: flex;
+	justify-content: space-between;
+}
+.blsec{
+	background-color: black;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	border-radius: 100px 100px 0px 0px;
 }
 
 @media(min-width:1000px) {

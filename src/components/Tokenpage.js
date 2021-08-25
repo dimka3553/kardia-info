@@ -32,6 +32,7 @@ export default class Tokens extends React.Component {
             fetch('https://api.kardiainfo.com/tokens').then(res => res.json()),
             fetch(`https://api.kardiainfo.com/hist/${this.state.link}`).then(res => res.json())
         ]).then(([urlData, url2Data]) => {
+            document.title =  `${this.state.symbol} - Kardia info`;
             var d = []
             d.push([...url2Data.weekHist].reverse())
             d = d[0]

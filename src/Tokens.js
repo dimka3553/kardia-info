@@ -14,6 +14,7 @@ export default class Tokens extends React.Component {
   }
 
   componentDidMount() {
+    document.title =  `Tokens - Kardia info`;
     Promise.all([
       fetch('https://api.kardiainfo.com/tokens').then(res => res.json())
     ]).then(([urlData]) => {

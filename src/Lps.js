@@ -13,6 +13,7 @@ export default class Lps extends React.Component {
     }
 
     componentDidMount() {
+        document.title = 'LPs - Kardia info';
         Promise.all([
             fetch('https://api.kardiainfo.com/lps').then(res => res.json())
         ]).then(([urlData]) => {

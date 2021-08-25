@@ -1,7 +1,6 @@
 import React from 'react'
 import Loader from './components/Loader';
-import Smallchart from './components/Smallchart';
-import Td from './components/subcomponents/Td';
+import Pairimg from './components/subcomponents/Pairimg';
 
 export default class Lps extends React.Component {
     constructor(props) {
@@ -68,8 +67,11 @@ export default class Lps extends React.Component {
                 let link = `/lps/${lps[i].name.replace(/\s+/g, '_')}`
                 table.push(
                     <tr key={i}>
-                        <td>
+                        <td className="fs-12 t-g">
                             {i + 1}
+                        </td>
+                        <td>
+                            <Pairimg img1={lps[i].token1.logo} img2={lps[i].token2.logo}/>
                         </td>
                         <td>
                             {lps[i].name}
@@ -93,7 +95,7 @@ export default class Lps extends React.Component {
                         <thead className="">
                             <tr className="">
                                 <th className="txt-l fs-12 c-ab pdn">#</th>
-                                <th className="txt-l fs-12 c-ab pdn ">Name</th>
+                                <th className="txt-l fs-12 c-ab pdn " colSpan="2">Name</th>
                                 <th className="txt-l fs-12 c-ab pdn ">Price</th>
                                 <th className="txt-l fs-12 c-ab pdn ">TVL</th>
                                 <th className="txt-l fs-12 c-ab pdn ">Supply</th>

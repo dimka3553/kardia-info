@@ -15,7 +15,7 @@ export default class Tokens extends React.Component {
 
   componentDidMount() {
     Promise.all([
-      fetch('https://kardia-info-backend.herokuapp.com/api').then(res => res.json())
+      fetch('https://api.kardiainfo.com/tokens').then(res => res.json())
     ]).then(([urlData]) => {
       this.setState({
         isLoaded: true,

@@ -67,22 +67,22 @@ export default class Lps extends React.Component {
                 let link = `/lps/${lps[i].name.replace(/\s+/g, '_')}`
                 table.push(
                     <tr key={i}>
-                        <td className="fs-12 t-g">
+                        <td className="fs-12 txt-l p-l-8 p-r-8 t-g">
                             {i + 1}
                         </td>
                         <td>
                             <Pairimg img1={lps[i].token1.logo} img2={lps[i].token2.logo}/>
                         </td>
-                        <td>
+                        <td className="fs-14 p-l-8 p-r-8">
                             {lps[i].name}
                         </td>
-                        <td>
+                        <td className="fs-14 txt-r p-l-8 p-r-8">
                             ${abbreviateNumber(lps[i].price, 3)}
                         </td>
-                        <td>
+                        <td className="fs-14 txt-r p-l-8 p-r-8">
                             ${numberWithCommas(parseFloat(lps[i].tvl).toFixed(0))}
                         </td>
-                        <td>
+                        <td className="fs-14 txt-r p-l-8 p-r-8">
                             {lps[i].supply.toFixed(18)}
                         </td>
                     </tr>
@@ -90,15 +90,14 @@ export default class Lps extends React.Component {
             }
             return (
                 <div>
-                    Ignore the design this is a very early version to simply demonstrate that it somewhat works.
                     <table className="w-full" id="table">
                         <thead className="">
                             <tr className="">
                                 <th className="txt-l fs-12 c-ab pdn">#</th>
                                 <th className="txt-l fs-12 c-ab pdn " colSpan="2">Name</th>
-                                <th className="txt-l fs-12 c-ab pdn ">Price</th>
-                                <th className="txt-l fs-12 c-ab pdn ">TVL</th>
-                                <th className="txt-l fs-12 c-ab pdn ">Supply</th>
+                                <th className="txt-r fs-12 c-ab pdn ">Price</th>
+                                <th className="txt-r fs-12 c-ab pdn ">TVL</th>
+                                <th className="txt-r fs-12 c-ab pdn ">Supply</th>
                             </tr>
                         </thead>
                         <tbody>

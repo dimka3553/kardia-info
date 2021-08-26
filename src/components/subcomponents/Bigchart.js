@@ -3,7 +3,7 @@ import React from 'react'
 import { Line } from 'react-chartjs-2';
 import 'chartjs-adapter-date-fns';
 
-export default function Smallchart(props) {
+export default function Bigchart(props) {
     return (
         <Line
             data={{

@@ -92,10 +92,10 @@ export default class Lps extends React.Component {
                     <table className="w-full" id="table">
                         <thead className="">
                             <tr className="">
-                                <th className="txt-l fs-12 c-ab pdn">#</th>
-                                <th className="txt-l fs-12 c-ab pdn " colSpan="2">Name</th>
-                                <th className="txt-r fs-12 c-ab pdn ">Price</th>
-                                <th className="txt-r fs-12 c-ab pdn ">TVL</th>
+                                <th className="txt-l fs-12 c-ab ">#</th>
+                                <th className="txt-l fs-12 c-ab " colSpan="2">Name</th>
+                                <th className="txt-r fs-12 c-ab ">Price</th>
+                                <th className="txt-r fs-12 c-ab  ">TVL</th>
                             </tr>
                         </thead>
                         <tbody>

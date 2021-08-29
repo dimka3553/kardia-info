@@ -69,10 +69,10 @@ export default class Lps extends React.Component {
                 let link = `/lps/${lps[i].name.replace(/\s+/g, '_')}`
                 table.push(
                     <tr className="" key={i}>
-                        <td className="fs-12 txt-l p-l-8 p-r-8 t-g">
+                        <td className="fs-12 txt-l p-l-8 p-r-8 t-g numtd">
                             {i + 1}
                         </td>
-                        <td className=" p-l-8 p-r-8 p-t-8 p-b-8">
+                        <td className=" p-l-8 p-r-8 p-t-8 p-b-8 lptd">
                             <Pairimg img1={lps[i].token1.logo} img2={lps[i].token2.logo}/>
                         </td>
                         <td className="fs-14 p-l-8 p-r-8 p-t-8 p-b-8">
@@ -83,9 +83,6 @@ export default class Lps extends React.Component {
                         </td>
                         <td className="fs-14 txt-r p-l-8 p-r-8 p-t-8 p-b-8">
                             ${numberWithCommas(parseFloat(lps[i].tvl).toFixed(0))}
-                        </td>
-                        <td className="fs-14 txt-r p-l-8 p-r-8 p-t-8 p-b-8">
-                            {lps[i].supply.toFixed(18)}
                         </td>
                     </tr>
                 )
@@ -99,7 +96,6 @@ export default class Lps extends React.Component {
                                 <th className="txt-l fs-12 c-ab pdn " colSpan="2">Name</th>
                                 <th className="txt-r fs-12 c-ab pdn ">Price</th>
                                 <th className="txt-r fs-12 c-ab pdn ">TVL</th>
-                                <th className="txt-r fs-12 c-ab pdn ">Supply</th>
                             </tr>
                         </thead>
                         <tbody>

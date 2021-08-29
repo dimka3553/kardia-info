@@ -13,7 +13,6 @@ export default class Lps extends React.Component {
     }
 
     componentDidMount() {
-        console.log("lps")
         document.title = 'LPs - Kardia info';
         Promise.all([
             fetch('https://api.kardiainfo.com/lps').then(res => res.json())
@@ -66,7 +65,6 @@ export default class Lps extends React.Component {
             var table = [];
 
             for (let i = 0; i < lps.length; i++) {
-                let link = `/lps/${lps[i].name.replace(/\s+/g, '_')}`
                 table.push(
                     <tr className="" key={i}>
                         <td className="fs-12 txt-l p-l-8 p-r-8 t-g numtd">

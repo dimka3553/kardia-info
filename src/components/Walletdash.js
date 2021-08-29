@@ -24,7 +24,7 @@ export default class Tokens extends React.Component {
             fetch(`https://backend.kardiachain.io/api/v1/addresses/${this.state.wallet}/tokens`).then(res => res.json()),
             fetch(`https://backend.kardiachain.io/api/v1/addresses/${this.state.wallet}`).then(res => res.json())
         ]).then(([urlData, url2Data, url3Data]) => {
-            document.title = `${this.state.wallet} - Kardia info`;
+            document.title = `Wallet - Kardia info`;
 
             this.setState({
                 isLoaded: true,

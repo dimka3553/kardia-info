@@ -115,8 +115,8 @@ export default class Tokens extends React.Component {
                                 <div className="assetname">
                                     <img className="tokenlogo m-l-12 m-r-12" src={assets[i].logo} />
                                     <div>
-                                        <p className="fs-14 m-b-5">{assets[i].name}</p>
-                                        <p className="fs-12 t-s fw-400 m-t-5">Bal: {assets[i].balance} {assets[i].symbol}</p>
+                                        <p className="fs-14 m-b-5 m-t-8">{assets[i].name}</p>
+                                        <p className="fs-12 t-s fw-400 m-t-5 m-b-8">Bal: {assets[i].balance} {assets[i].symbol}</p>
                                     </div>
                                 </div>
                             </div>
@@ -139,7 +139,7 @@ export default class Tokens extends React.Component {
                                     />
                                     {wal}
                                 </div>
-                                <div className="r p-l-25">
+                                <div className="r p-l-25 p-t-14 p-b-14">
                                     {"$" + total.toFixed(2)}
                                 </div>
                             </div>

@@ -63,6 +63,7 @@ export default function Homesmall() {
                     <p className="t-g toptext fs-20">With <span className="t-bl">Kardia Info</span> - you will have quick access to information regarding all things kardiachain.</p>
                 </div>
                 <img className="phoneimg m-b-50" alt="phone" src="./img/iphone.png"></img>
+                <h1 className="lanhead m-b-50 m-t-0 fw-700">Real-time price updates</h1>
                 <p className="fs-20 imgtext t-g ">Kardia Info is there to ensure that all the information is easily accessible and presented with a simple to navigate design.
                     <br />
                     <br />
@@ -78,7 +79,7 @@ export default function Homesmall() {
                     <br />
                     <br />
                     <br />
-                    <a className="t-bl t-d-none" rel="noreferrer" target="_blank" href="https://t.me/test835bot">t.me/test835bot (alpha)</a>
+                    <a className="t-bl t-d-none" rel="noreferrer" target="_blank" href="https://t.me/KardiaInfo_bot">t.me/KardiaInfo_bot</a>
                 </p>
             </div>
             <div className="lansec3 p-t-50 p-b-50 p-l-20 p-r-20">

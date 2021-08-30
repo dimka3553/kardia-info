@@ -21,7 +21,7 @@ export default function Wallet() {
                 <div className="inputsdiv">
                     <input value={inp} onChange={changeInp} className="walletinp m-r-10 fs-16" placeholder="Input your wallet" />
                     <Link to={`/wallet/${inp}`}>
-                        <button className="walletbtn fs-16 c-pointer">View wallet</button>
+                        <button className="walletbtn fs-16 c-pointer">View info</button>
                     </Link>
                 </div>
 

@@ -75,7 +75,7 @@ export default function Homesmall() {
                 <img className="phoneimg m-b-50 m-t-50" alt="telegram bot" src="./img/tgbot.png"></img>
                 <h1 className="t-w lanhead fw-700">Kardia Info Telegram bot</h1>
                 <p className="t-w fs-20 imgtext">
-                    Get the latest info with a simple message in PMs or Group chats
+                    Get the latest info with a simple message in any telegram group chat.
                     <br />
                     <br />
                     <br />
@@ -92,7 +92,7 @@ export default function Homesmall() {
                 </p>
             </div>
             <div className="lansec4 p-t-50 p-b-50">
-                <img className="phoneimg"  alt="token" src="./../img/tokenspinning.gif"></img>
+                <img className="phoneimg" alt="token" src="./../img/tokenspinning.gif"></img>
                 <h1 className="m-b-50 lanhead fw-700">INFO Token</h1>
                 <p className="t-g fs-20 imgtext">
                     A token that will be filled with use cases that do not yet exist anywhere in the DeFi world. Sound tokenomics that ensure minimal inflationary pressures and maximum incentive to hold.
@@ -104,17 +104,26 @@ export default function Homesmall() {
                     </a>
                 </p>
             </div>
-            <div className="lansec5 p-t-50 p-b-50">
-                <h1 className="m-b-50 t-w lanhead fw-700">Want to learn more?</h1>
-                <p className="t-w fs-20 imgtext">
-                    join the Kardia Info group chat and ask away
-                    <br />
-                    <br />
-                    <br />
-                    <a className="t-bl t-d-none" href="https://t.me/kardiainfo">
-                        t.me/kardiainfo
-                    </a>
-                </p>
+            <div className="lansec5 bottomsec p-t-50 p-b-50">
+                <div className="background-container">
+                    <img className="moon" src="./img/moon.png" alt="" />
+                    <div className="stars"></div>
+                    <div className="twinkling"></div>
+                    <div className="clouds"></div>
+                </div>
+                <div className="bottom text pos-r">
+                    <h1 className="m-b-50 t-w lanhead bottom text fw-700">Want to learn more?</h1>
+                    <p className="t-w fs-20 imgtext bottom text">
+                        join the Kardia Info group chat and ask away
+                        <br />
+                        <br />
+                        <br />
+                        <a className="t-bl t-d-none bottom text" href="https://t.me/kardiainfo">
+                            t.me/kardiainfo
+                        </a>
+                    </p>
+                </div>
+
             </div>
         </div>
     )

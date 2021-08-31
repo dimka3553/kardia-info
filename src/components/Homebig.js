@@ -48,7 +48,7 @@ export default function Homebig() {
                             <div className="">
                                 <h1 className="t-w lanhead m-b-50 fw-700">Kardia info Telegram bot</h1>
                                 <p className="t-w fs-20 imgtext">
-                                    Get the latest info with a simple message in PMs or Group chats
+                                    Get the latest info with a simple message in any telegram group chat.
                                     <br />
                                     <br />
                                     <br />
@@ -87,8 +87,14 @@ export default function Homebig() {
                         </div>
                     </div>
                 </div>
-                <div className="blsec p-t-100 p-b-100">
-                    <div>
+                <div className="blsec bottomsec p-t-100 p-b-100">
+                    <div className="background-container">
+                        <img className="moon" src="./img/moon.png" alt="" />
+                        <div className="stars"></div>
+                        <div className="twinkling"></div>
+                        <div className="clouds"></div>
+                    </div>
+                    <div className="bottom text">
                         <h1 className="m-b-50 t-w lanhead fw-700">Want to learn more?</h1>
                         <p className="t-w fs-20 imgtext">
                             join the Kardia Info group chat and ask away

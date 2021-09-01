@@ -91,7 +91,7 @@ export default function Homebig() {
                     <div>
                         <h1 className="m-b-50 t-w lanhead fw-700">Want to learn more?</h1>
                         <p className="t-w fs-20 imgtext">
-                            join the Kardia Info group chat and ask away
+                            Join the Kardia info group chat and ask away
                             <br />
                             <br />
                             <br />

@@ -7,6 +7,7 @@ import Home from './Home';
 import Lps from './Lps';
 import Wallet from './Wallet';
 import Walletdash from './components/Walletdash'
+import Infotoken from './Infotoken'
 
 function App() {
   return (
@@ -30,6 +31,9 @@ function App() {
               <Wallet/>
             </Route>
             <Route path="/wallet/:id" component={Walletdash}/>
+            <Route exact path="/info">
+              <Infotoken/>
+            </Route>
           </Switch>
         </div>
       </div>

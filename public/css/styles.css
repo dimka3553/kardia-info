@@ -260,7 +260,7 @@ thead {
 
 .loader {
 	position: fixed;
-	height: 100vh;
+	height: 100%;
 	width: 100vw;
 	top: 0;
 	right: 0;
@@ -801,14 +801,14 @@ thead {
 		position: sticky;
 		position: -webkit-sticky;
 		-webkit-position: sticky;
-		left: 290px;
+		left: 275px;
 		background: #fbfbfb;
 	}
 	.psnam {
 		position: sticky;
 		-webkit-position: sticky;
 		position: -webkit-sticky;
-		left: 323px;
+		left: 308px;
 		background: #fbfbfb;
 		padding-right: 10px;
 	}
@@ -816,7 +816,7 @@ thead {
 		position: sticky;
 		-webkit-position: sticky;
 		position: -webkit-sticky;
-		left: 245px;
+		left: 230px;
 		background: #fbfbfb;
 	}
 	.homepage.phone {

@@ -14,7 +14,7 @@ export default class Tokens extends React.Component {
   }
 
   componentDidMount() {
-    document.title =  `Tokens - Kardia info`;
+    document.title = `Tokens - Kardia info`;
     Promise.all([
       fetch('https://api.kardiainfo.com/tokens').then(res => res.json())
     ]).then(([urlData]) => {
@@ -145,25 +145,23 @@ export default class Tokens extends React.Component {
         )
       }
       return (
-        <div>
-          <table className="w-full" id="table">
-            <thead className="">
-              <tr className="">
-                <th className="txt-l fs-12 c-ab pdn psnu">#</th>
-                <th className="txt-l fs-12 c-ab pdn psna" colSpan="2">Name</th>
-                <th className="txt-r fs-12 c-ab pdn" colSpan="2">Price</th>
-                <th className="txt-r fs-12 c-ab pdn">24h%</th>
-                <th className="txt-r fs-12 c-ab pdn">7d%</th>
-                <th className="txt-r fs-12 c-ab pdn">TVL</th>
-                <th className="txt-r fs-12 c-ab pdn">Supply</th>
-                <th className="txt-r fs-12 c-ab pdn">7d Chart</th>
-              </tr>
-            </thead>
-            <tbody>
-              {table}
-            </tbody>
-          </table>
-        </div>
+        <table className="w-full" id="table">
+          <thead className="">
+            <tr className="">
+              <th className="txt-l fs-12 c-ab pdn psnu">#</th>
+              <th className="txt-l fs-12 c-ab pdn psna" colSpan="2">Name</th>
+              <th className="txt-r fs-12 c-ab pdn" colSpan="2">Price</th>
+              <th className="txt-r fs-12 c-ab pdn">24h%</th>
+              <th className="txt-r fs-12 c-ab pdn">7d%</th>
+              <th className="txt-r fs-12 c-ab pdn">TVL</th>
+              <th className="txt-r fs-12 c-ab pdn">Supply</th>
+              <th className="txt-r fs-12 c-ab pdn">7d Chart</th>
+            </tr>
+          </thead>
+          <tbody>
+            {table}
+          </tbody>
+        </table>
       )
     }
   }

@@ -81,7 +81,7 @@ export default class Tokens extends React.Component {
                 }
                 for (let i = 0; i < this.state.tokensbal.length; i++) {
                     for (let b = 0; b < this.state.tokens.length; b++) {
-                        if (this.state.tokensbal[i].contractAddress.toLowerCase() === this.state.tokens[b].id.toLowerCase() && this.state.tokensbal[i].balance != 0) {
+                        if (this.state.tokensbal[i].contractAddress.toLowerCase() === this.state.tokens[b].id.toLowerCase() && this.state.tokensbal[i].balance !== 0) {
                             obj = {
                                 name: this.state.tokensbal[i].tokenName,
                                 logo: this.state.tokens[b].logo,
@@ -113,7 +113,7 @@ export default class Tokens extends React.Component {
                             <div className="l">
                                 <span className="fs-12 t-g m-l-12 m-r-12">{i + 1}</span>
                                 <div className="assetname">
-                                    <img className="tokenlogo m-l-12 m-r-12" src={assets[i].logo} />
+                                    <img alt="logo" className="tokenlogo m-l-12 m-r-12" src={assets[i].logo} />
                                     <div>
                                         <p className="fs-14 m-b-5 m-t-8">{assets[i].name}</p>
                                         <p className="fs-12 t-s fw-400 m-t-5 m-b-8">Bal: {assets[i].balance} {assets[i].symbol}</p>

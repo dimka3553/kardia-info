@@ -35,7 +35,7 @@ export default function Changes(props) {
             cols.push('t-green')
             cls.push("")
         }
-        else if (pcs[i] == 0) {
+        else if (pcs[i] === 0) {
             cols.push('t-grey')
             cls[i] = ""
         }

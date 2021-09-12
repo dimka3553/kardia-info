@@ -81,7 +81,7 @@ export default class Tokens extends React.Component {
                 }
                 for (let i = 0; i < this.state.tokensbal.length; i++) {
                     for (let b = 0; b < this.state.tokens.length; b++) {
-                        if (this.state.tokensbal[i].contractAddress.toLowerCase() === this.state.tokens[b].id.toLowerCase() && this.state.tokensbal[i].balance !== 0) {
+                        if (this.state.tokensbal[i].contractAddress.toLowerCase() === this.state.tokens[b].id.toLowerCase() && this.state.tokensbal[i].balance != 0) {
                             obj = {
                                 name: this.state.tokensbal[i].tokenName,
                                 logo: this.state.tokens[b].logo,

@@ -255,7 +255,7 @@ export default class Tokens extends React.Component {
                         </div>
                         <div className="smallsec bl">
                             <p>
-                                <span className="fs-12 t-g fw-400">KAI Pr </span>
+                                <span className="fs-12 t-g fw-400">KAI Price </span>
                                 <span className="fs-12 p-l-20">{(parseFloat(token.price) / parseFloat(kai.price)).toPrecision(4)}</span>
                             </p>
                         </div>

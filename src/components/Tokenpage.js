@@ -263,8 +263,8 @@ export default class Tokens extends React.Component {
                     <Calculator symbol={token.symbol} price={token.price} />
                     <div className="section">
                         <div className="p-l-7 p-r-7">
-                            <p className="fs-18 fw-500">Info about {token.name}</p>
-                            <p style={{ whiteSpace: "pre-wrap" }} className="fs-16 fw-400 t-g">{token.description}</p>
+                            <p className=" fw-500">Info about {token.name}</p>
+                            <p style={{ whiteSpace: "pre-wrap" }} className="fw-400 t-g">{token.description}</p>
                         </div>
                     </div>
                     <Tokenpairs token={token} tokens={tokens} cn="op nopad" />

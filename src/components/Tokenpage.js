@@ -25,14 +25,14 @@ export default class Tokens extends React.Component {
             cns: ["", "active", "", "", "", ""]
         };
     }
-    
+
 
     componentDidMount() {
         Promise.all([
             fetch('https://api.kardiainfo.com/tokens').then(res => res.json()),
             fetch(`https://api.kardiainfo.com/hist/${this.state.link}`).then(res => res.json())
         ]).then(([urlData, url2Data]) => {
-            document.title =  `${this.state.symbol} - Kardia info`;
+            document.title = `${this.state.symbol} - Kardia info`;
             var d = []
             d.push([...url2Data.weekHist].reverse())
             d = d[0]
@@ -139,7 +139,6 @@ export default class Tokens extends React.Component {
             return <Loader />;
         }
         else {
-            console.log(chartData)
             var tokens = data.tokens;
             var token = {}
             var kai = {}
@@ -192,7 +191,7 @@ export default class Tokens extends React.Component {
                         <Bigchart histData={this.state.chartData} time={this.state.timeframe} col={this.state.chartCol} now={now} />
                         <br />
                     </div>
-                    <Changes data={this.state.allHistData} tkn={token}/>
+                    <Changes data={this.state.allHistData} tkn={token} />
                     <Tokenpairs token={token} tokens={tokens} cn="nopad" />
                 </div>
 
@@ -219,11 +218,11 @@ export default class Tokens extends React.Component {
                         </div>
                     </div>
                     <div className="section op">
-                        <br/>
+                        <br />
                         <Bigchart histData={this.state.chartData} time={this.state.timeframe} col={this.state.chartCol} now={now} />
-                        <br/>
+                        <br />
                     </div>
-                    <Changes cn="op" data={this.state.allHistData} tkn={token}/>
+                    <Changes cn="op" data={this.state.allHistData} tkn={token} />
                     <div className="section infosec">
                         <div className="smallsec">
                             <p>
@@ -262,6 +261,12 @@ export default class Tokens extends React.Component {
                     </div>
                     <Tokenlinks id={token.id} website={token.website} chat={token.chat} />
                     <Calculator symbol={token.symbol} price={token.price} />
+                    <div className="section">
+                        <div className="p-l-7 p-r-7">
+                            <p className="fs-18 fw-500">Info about {token.name}</p>
+                            <p style={{ whiteSpace: "pre-wrap" }} className="fs-16 fw-400 t-g">{token.description}</p>
+                        </div>
+                    </div>
                     <Tokenpairs token={token} tokens={tokens} cn="op nopad" />
                 </div>
             </div>

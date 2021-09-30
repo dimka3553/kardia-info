@@ -69,7 +69,7 @@ export default class Tokens extends React.Component {
                     if (this.state.tokens[i].id === "0xAF984E23EAA3E7967F3C5E007fbe397D8566D23d") {
                         var obj = {
                             name: "KardiaChain",
-                            logo: "https://kardiachain-explorer.s3-ap-southeast-1.amazonaws.com/explorer.kardiachain.io/logo/AF984E23EAA3E7967F3C5E007fbe397D8566D23d.png",
+                            logo: "https://api.kardiainfo.com/images/KAI.png",
                             symbol: "KAI",
                             balance: parseFloat(this.state.kaibal / 10 ** 18),
                             usd: this.state.kaibal / 10 ** 18 * this.state.tokens[i].price

@@ -131,7 +131,7 @@ export default class Tokens extends React.Component {
 
 
     render() {
-        const { error, isLoaded, data, symbol, chartData, now } = this.state;
+        const { error, isLoaded, data, symbol, now } = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;
         }

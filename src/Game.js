@@ -133,7 +133,6 @@ class Game extends Component {
         var maxrev = parseFloat(this.state.gameBal) / 10.05
         var rev = inp * mul
 
-        console.log(inp, max)
 
         if (inp > max) {
             if (rev > maxrev) {
@@ -431,6 +430,10 @@ class Game extends Component {
                 else {
                     info.isStaking = ""
                 }
+                info.gameres = {
+                    bg: "",
+                    message: ""
+                }
                 var num;
                 if (info.lastGame !== false) {
                     num = info.lastGame.ran;
@@ -438,10 +441,6 @@ class Game extends Component {
                     else if (num < 100) num = "00" + num;
                     else if (num < 1000) num = "0" + num;
                     num = Array.from(num.toString()).map(Number);
-                    info.gameres = {
-                        bg: "",
-                        message: ""
-                    }
 
                     if (this.state.hasPlayed === true) {
                         if (info.lastGame.won === true) {
@@ -514,7 +513,11 @@ class Game extends Component {
                         num2: "0",
                         num3: "0",
                         num4: "0",
-                        isStaking: info.isStaking
+                        isStaking: info.isStaking,
+                        gameres: {
+                            bg: info.gameres.bg,
+                            message: info.gameres.message
+                        },
                     });
                 }
 

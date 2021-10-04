@@ -144,7 +144,6 @@ class Game extends Component {
             }
         }
         else if (inp > 0.0001 && inp < max) {
-            console.log('hmm')
             if (inp * mul > maxrev) {
                 this.setState({ wager: (maxrev / mul).toFixed(4), winnings: (maxrev).toFixed(4) });
             }
@@ -192,7 +191,14 @@ class Game extends Component {
         lo = "< " + lo
 
         if (event.target.value > 4750) {
-            this.setState({ multiplier: 4750, winnings: (4750 * this.state.wager).toFixed(4), hi: "> 9998", lo: "< 2" });
+            this.setState({ multiplier: 4750, winnings: (4750 * this.state.wager).toFixed(4), hi: "> 9998", lo: "< 2" },() => {
+                event = {
+                    target: {
+                        value: this.state.wager
+                    }
+                }
+                this.handleBetMaths(event)
+            });
         }
         else if (event.target.value <= 4750 && event.target.value >= 1.01) {
             this.setState({
@@ -200,6 +206,13 @@ class Game extends Component {
                 lo: lo,
                 multiplier: event.target.value,
                 winnings: (event.target.value * this.state.wager).toFixed(4)
+            },() => {
+                event = {
+                    target: {
+                        value: this.state.wager
+                    }
+                }
+                this.handleBetMaths(event)
             });
         }
         else {
@@ -208,34 +221,57 @@ class Game extends Component {
                 lo: lo,
                 multiplier: event.target.value,
                 winnings: (event.target.value * this.state.wager).toFixed(4)
+            },() => {
+                event = {
+                    target: {
+                        value: this.state.wager
+                    }
+                }
+                this.handleBetMaths(event)
             });
         }
-        event = {
-            target: {
-                value: this.state.wager
-            }
-        }
-        this.handleBetMaths(event)
     }
     handleMultiplierMaths(event) {
         if (event.target.value < 1.01) {
-            this.setState({ multiplier: 1.01, winnings: (1.01 * this.state.wager).toFixed(4), hi: "> 594", lo: "< 9406" });
+            this.setState({ multiplier: 1.01, winnings: (1.01 * this.state.wager).toFixed(4), hi: "> 594", lo: "< 9406" },() => {
+                event = {
+                    target: {
+                        value: this.state.wager
+                    }
+                }
+                this.handleBetMaths(event)
+            });
         }
         else if (event.target.value > 4750) {
-            this.setState({ multiplier: 4750, winnings: (4750 * this.state.wager).toFixed(4), hi: "> 9998", lo: "< 2" });
+            this.setState({ multiplier: 4750, winnings: (4750 * this.state.wager).toFixed(4), hi: "> 9998", lo: "< 2" },() => {
+                event = {
+                    target: {
+                        value: this.state.wager
+                    }
+                }
+                this.handleBetMaths(event)
+            });
         }
         else if (event.target.value <= 4750 && event.target.value >= 1.01) {
-            this.setState({ multiplier: event.target.value, winnings: (event.target.value * this.state.wager).toFixed(4) });
+            this.setState({ multiplier: event.target.value, winnings: (event.target.value * this.state.wager).toFixed(4) },() => {
+                event = {
+                    target: {
+                        value: this.state.wager
+                    }
+                }
+                this.handleBetMaths(event)
+            });
         }
         else {
-            this.setState({ multiplier: 2, winnings: (2 * this.state.wager).toFixed(4), hi: "> 5250", lo: "< 4750" });
+            this.setState({ multiplier: 2, winnings: (2 * this.state.wager).toFixed(4), hi: "> 5250", lo: "< 4750" },() => {
+                event = {
+                    target: {
+                        value: this.state.wager
+                    }
+                }
+                this.handleBetMaths(event)
+            });
         }
-        event = {
-            target: {
-                value: this.state.wager
-            }
-        }
-        this.handleBetMaths(event)
     }
 
     async handleHigh(event) {

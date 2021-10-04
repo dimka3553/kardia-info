@@ -865,6 +865,7 @@ thead {
 
 .btn:disabled:hover{
 	background: #83b5ff;
+	cursor: default;
 }
 
 .txwait{
@@ -955,7 +956,7 @@ thead {
 	position: relative;
 }
 
-.btn.Staking, .btn.Playing, .btn.Unstaking{
+.btn.Staking, .btn.Playing, .btn.Unstaking, .btn.Approving{
 	animation-name:active;
 	animation-duration: 1.3s;
   	animation-iteration-count: infinite;

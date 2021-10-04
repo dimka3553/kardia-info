@@ -278,7 +278,7 @@ class Game extends Component {
         if (this.state.approved === true) {
             var wager = this.state.web3.utils.toWei(this.state.wager.toString(), 'ether');
             this.setState({ tr: "hi" })
-            await this.state.game.methods.play(1, (Math.round(this.state.multiplier * 100)), wager).send({ from: this.state.accounts[0] }, async function (error) {
+            await this.state.game.methods.play(1, (Math.round(this.state.multiplier * 100)), wager).send({ from: this.state.accounts[0],gasPrice: '3000000000', gas:'700000' }, async function (error) {
                 if (error !== undefined && error !== null) {
                     console.log(error)
                     this.setState({ tr: "" })
@@ -290,7 +290,7 @@ class Game extends Component {
         }
         else {
             this.setState({ tr: "appr" })
-            await this.state.token.methods.approve(this.state.gameAddress, "10000000000000000000000000000000000000000000").send({ from: this.state.accounts[0] }, async function (error) {
+            await this.state.token.methods.approve(this.state.gameAddress, "10000000000000000000000000000000000000000000").send({ from: this.state.accounts[0],gasPrice: '3000000000', gas:'700000'  }, async function (error) {
                 if (error !== undefined && error !== null) {
                     console.log(error)
                     this.setState({ tr: "" })
@@ -305,7 +305,7 @@ class Game extends Component {
             this.setState({ tr: "lo" })
             var wager = this.state.web3.utils.toWei(this.state.wager.toString(), 'ether');
             console.log(wager)
-            await this.state.game.methods.play(0, Math.round(this.state.multiplier * 100), wager).send({ from: this.state.accounts[0] }, async function (error) {
+            await this.state.game.methods.play(0, Math.round(this.state.multiplier * 100), wager).send({ from: this.state.accounts[0],gasPrice: '3000000000', gas:'700000'  }, async function (error) {
                 if (error !== undefined && error !== null) {
                     console.log(error)
                     this.setState({ tr: "" })
@@ -316,7 +316,7 @@ class Game extends Component {
         }
         else {
             this.setState({ tr: "appr" })
-            await this.state.token.methods.approve(this.state.gameAddress, "10000000000000000000000000000000000000000000").send({ from: this.state.accounts[0] }, async function (error) {
+            await this.state.token.methods.approve(this.state.gameAddress, "10000000000000000000000000000000000000000000").send({ from: this.state.accounts[0],gasPrice: '3000000000', gas:'700000'  }, async function (error) {
                 if (error !== undefined && error !== null) {
                     console.log(error)
                     this.setState({ tr: "" })
@@ -331,7 +331,7 @@ class Game extends Component {
             this.setState({ tr: "st" })
             if (this.state.approved === true) {
                 var stake = this.state.web3.utils.toWei(this.state.newStake.toString(), 'ether');
-                await this.state.game.methods.stakeTokens(stake).send({ from: this.state.accounts[0] }, async function (error) {
+                await this.state.game.methods.stakeTokens(stake).send({ from: this.state.accounts[0],gasPrice: '3000000000', gas:'700000'  }, async function (error) {
                     if (error !== undefined && error !== null) {
                         console.log(error)
                         this.setState({ tr: "" })
@@ -342,7 +342,7 @@ class Game extends Component {
             }
             else {
                 this.setState({ tr: "appr" })
-                await this.state.token.methods.approve(this.state.gameAddress, "10000000000000000000000000000000000000000000").send({ from: this.state.accounts[0] }, async function (error) {
+                await this.state.token.methods.approve(this.state.gameAddress, "10000000000000000000000000000000000000000000").send({ from: this.state.accounts[0],gasPrice: '3000000000', gas:'700000'  }, async function (error) {
                     if (error !== undefined && error !== null) {
                         console.log(error)
                         this.setState({ tr: "" })
@@ -359,7 +359,7 @@ class Game extends Component {
             if (this.state.approved === true) {
                 this.setState({ tr: "uns" })
                 var stake = this.state.web3.utils.toWei(this.state.newStake.toString(), 'ether');
-                await this.state.game.methods.unstakeTokens(stake).send({ from: this.state.accounts[0] }, async function (error) {
+                await this.state.game.methods.unstakeTokens(stake).send({ from: this.state.accounts[0],gasPrice: '3000000000', gas:'700000'  }, async function (error) {
                     if (error !== undefined && error !== null) {
                         console.log(error)
                         this.setState({ tr: "" })
@@ -371,7 +371,7 @@ class Game extends Component {
 
             else {
                 this.setState({ tr: "appr" })
-                await this.state.token.methods.approve(this.state.gameAddress, "10000000000000000000000000000000000000000000").send({ from: this.state.accounts[0] }, async function (error) {
+                await this.state.token.methods.approve(this.state.gameAddress, "10000000000000000000000000000000000000000000").send({ from: this.state.accounts[0],gasPrice: '3000000000', gas:'700000'  }, async function (error) {
                     if (error !== undefined && error !== null) {
                         console.log(error)
                         this.setState({ tr: "" })

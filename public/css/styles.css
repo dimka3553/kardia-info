@@ -1276,6 +1276,9 @@ thead {
 	.charttd canvas {
 		max-height: 53px;
 	}
+	#smallsidebar, #navbar .hamb-menu{
+		margin-left: -100vw;
+	}
 }
 
 /*[ HAMBURGER MENU ]

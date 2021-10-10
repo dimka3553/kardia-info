@@ -2563,7 +2563,15 @@
 .d-none{
 	display: none;
 }
-
+.d-block{
+	display: block;
+}
+.d-flex{
+	display:flex;
+}
+.al-c{
+	align-items: center;
+}
 .smooth-scroll{
 	-webkit-overflow-scrolling: touch;
 }

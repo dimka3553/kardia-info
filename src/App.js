@@ -8,6 +8,7 @@ import Lps from './Lps';
 import Wallet from './Wallet';
 import Walletdash from './components/Walletdash'
 import Game from './Game';
+import Airdrop from './Airdrop';
 
 function App() {
   return (
@@ -18,21 +19,24 @@ function App() {
         <div className="content">
           <Switch>
             <Route exact path="/">
-              <Home/>
+              <Home />
             </Route>
             <Route exact path="/tokens">
               <Tokens />
             </Route>
             <Route exact path="/lps">
-              <Lps/>
+              <Lps />
             </Route>
-            <Route path="/tokens/:id" component={Tokenpage}/>
+            <Route path="/tokens/:id" component={Tokenpage} />
             <Route exact path="/wallet">
-              <Wallet/>
+              <Wallet />
             </Route>
-            <Route path="/wallet/:id" component={Walletdash}/>
+            <Route path="/wallet/:id" component={Walletdash} />
             <Route exact path="/game">
-              <Game/>
+              <Game />
+            </Route>
+            <Route exact path="/airdrop">
+              <Airdrop />
             </Route>
           </Switch>
         </div>

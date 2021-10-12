@@ -67,7 +67,9 @@ export default class Home extends React.Component {
                 }
             }
             while(randTks2.length!==3){
+                // eslint-disable-next-line
                 var rand = Math.floor(Math.random() * tokens.length-1);
+                // eslint-disable-next-line
                 var isSame=false;
                 for(let i=0;i<randTks2.length;i++){
                     if(rand === randTks2[i]){

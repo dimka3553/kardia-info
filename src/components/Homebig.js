@@ -58,7 +58,7 @@ export default function Homebig(props) {
                             <div className="hp-tok-sec m-b-22">
                                 <div className="d-flex al-c">
                                     <div className="hp-log m-r-24">
-                                        <img className="ab-c-m" src={props.tokens[0].logo}></img>
+                                        <img alt=""  className="ab-c-m" src={props.tokens[0].logo}></img>
                                     </div>
                                     <div className="hp-name">
                                         <p className="m-t-0 fs-24 m-b-2">{props.tokens[0].symbol}</p>
@@ -80,7 +80,7 @@ export default function Homebig(props) {
                             <div className="hp-tok-sec shad m-b-22">
                                 <div className="d-flex al-c">
                                     <div className="hp-log m-r-24">
-                                        <img className="ab-c-m" src={props.tokens[props.ran[1]].logo}></img>
+                                        <img alt=""  className="ab-c-m" src={props.tokens[props.ran[1]].logo}></img>
                                     </div>
                                     <div className="hp-name">
                                         <p className="m-t-0 fs-24 m-b-2">{props.tokens[props.ran[1]].symbol}</p>
@@ -103,7 +103,7 @@ export default function Homebig(props) {
                             <div className="hp-tok-sec m-b-150">
                                 <div className="d-flex al-c">
                                     <div className="hp-log m-r-24">
-                                        <img className="ab-c-m" src={props.tokens[props.ran[2]].logo}></img>
+                                        <img alt=""  className="ab-c-m" src={props.tokens[props.ran[2]].logo}></img>
                                     </div>
                                     <div className="hp-name">
                                         <p className="m-t-0 fs-24 m-b-2">{props.tokens[props.ran[2]].symbol}</p>

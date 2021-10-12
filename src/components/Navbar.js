@@ -12,7 +12,7 @@ function navbar() {
                 <Logo/>
                 <Logotext/>
             </Link>
-            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" className="buyinfo-link ab-r-m m-r-15 fs-16 t-bl w-f-c nowrap t-d-none trans-0-2">Buy INFO</a>
+            <a href="https://t.me/kardiainfo" className="buyinfo-link ab-r-m m-r-15 fs-16 t-bl w-f-c nowrap t-d-none trans-0-2">Join our Telegram</a>
             
         </div>
     )

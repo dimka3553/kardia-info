@@ -1083,7 +1083,7 @@ thead {
 	z-index: 3;
 }
 
-.topsec .right {
+.topsec .right, .topsec .rt{
 	width: 50%;
 	position: relative;
 }
@@ -1096,6 +1096,18 @@ thead {
 	height: 1300px;
 	position: absolute;
 	left: -68%;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-moz-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	-o-transform: translateY(-50%);
+	transform: translateY(-50%);
+	z-index: 2;
+}
+
+.topsec .rt svg{
+	position: absolute;
+	left: 0%;
 	top: 50%;
 	-webkit-transform: translateY(-50%);
 	-moz-transform: translateY(-50%);
@@ -1589,20 +1601,26 @@ thead {
 }
 
 .hpwrapper {
-	transition: 0.2s;
+	transition: 0.5s;
 }
-
+.bottomsvg{
+	z-index: 0;
+}
+.smwrapper.airdrop{
+	z-index: 2;
+	position: relative;
+}
 @media (max-width:1250px) {
-	.hpwrapper.big {
-		width: 0px;
+	.hpwrapper.big *{
+		opacity: 0;
 		overflow: hidden;
 		position: fixed;
+		top:56px;
+		height: 0;
 	}
 	.hpwrapper.small {
 		width: 100%;
-		display: block;
-		margin-left: auto;
-		margin-right: auto;
+		opacity: 1;
 	}
 	.smtopsec {
 		background: #ffffff;
@@ -1682,9 +1700,13 @@ thead {
 
 @media (min-width:1251px) {
 	.hpwrapper.small {
-		width: 0px;
+		opacity: 0;
 		overflow: hidden;
 		position: fixed;
+		top:56px;
+	}
+	.hpwrapper.big{
+		opacity: 1;
 	}
 }
 

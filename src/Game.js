@@ -384,6 +384,7 @@ class Game extends Component {
     }
 
     async refreshData() {
+        window.dispatchEvent( new Event('load') );
         if (this.state.tr === "") {
             try {
                 // Get network provider and web3 instance.
@@ -587,6 +588,9 @@ class Game extends Component {
         this.refreshData()
         this.interval = setInterval(() => this.refreshData(), 1000);
     };
+    componentWillUnmount = async () => {
+        clearInterval(this.interval)
+    }
 
 
     render() {

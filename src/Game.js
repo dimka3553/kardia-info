@@ -585,6 +585,7 @@ class Game extends Component {
     }
 
     componentDidMount = async () => {
+        document.title = `Game - Kardia info`;
         this.refreshData()
         this.interval = setInterval(() => this.refreshData(), 1000);
     };

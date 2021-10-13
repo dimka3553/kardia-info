@@ -79,6 +79,9 @@ export default class Home extends React.Component {
                 if(rand <=1){
                     isSame=true;
                 }
+                if (isNaN(parseFloat(tokens[rand].dayChange)) === true){
+                    isSame=true;
+                }
                 if(isSame===false){
                     randTks2.push(rand);
                 }

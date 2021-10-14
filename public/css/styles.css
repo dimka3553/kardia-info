@@ -1543,6 +1543,12 @@ thead {
 .identicon {
 	border-radius: 50%;
 }
+@media(max-width: 370px) {
+	.textsvg {
+		margin-top: -60px !important;
+	}
+}
+
 
 @media(max-width: 350px) {
 	.textsvg {
@@ -1557,6 +1563,7 @@ thead {
 	.hp-name{
 		display: none;
 	}
+	
 }
 
 @media(max-width: 187px) {
@@ -1611,13 +1618,14 @@ thead {
 	position: relative;
 }
 @media (max-width:1250px) {
-	.hpwrapper.big *{
+	.hpwrapper.big *, .hpwrapper.big{
 		opacity: 0;
 		overflow: hidden;
 		position: fixed;
 		height: 0;
 		top:56px;
 		height: 0;
+		display: none;
 	}
 	.hpwrapper.small {
 		width: 100%;

@@ -257,6 +257,14 @@ export default class Tokens extends React.Component {
                                 <span className="fs-12 t-g fw-400">KAI Price </span>
                                 <span className="fs-12 p-l-20">{(parseFloat(token.price) / parseFloat(kai.price)).toPrecision(4)}</span>
                             </p>
+                            <p>
+                                <span className="fs-12 t-g fw-400">24h Vol </span>
+                                <span className="fs-12 p-l-20">${abbreviateNumber(token.Vol24h)}</span>
+                            </p>
+                            <p>
+                                <span className="fs-12 t-g fw-400">7d Vol </span>
+                                <span className="fs-12 p-l-20">${abbreviateNumber(token.Vol7d)}</span>
+                            </p>
                         </div>
                     </div>
                     <Tokenlinks id={token.id} website={token.website} chat={token.chat} />

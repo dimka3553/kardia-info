@@ -137,6 +137,7 @@ export default class Tokens extends React.Component {
             </Td>
             <Td to={link} cn={"txt-r pctd pdn "}><span className={"fw-400 fs-14 pdn " + dayCol[i]}>{parseFloat(tokens[i].dayChange).toFixed(2)}%</span></Td>
             <Td to={link} cn={"txt-r pctd pdn "}><span className={"fw-400 fs-14 pdn " + weekCol[i]}>{parseFloat(tokens[i].weekChange).toFixed(2)}%</span></Td>
+            <Td to={link} cn="txt-r pricetd pdn "><span className="fw-400 fs-14 pdn ">${numberWithCommas(tokens[i].Vol24h.toFixed(2))}</span></Td>
             <Td to={link} cn="txt-r pricetd pdn "><span className="fw-400 fs-14 pdn ">${numberWithCommas(tokens[i].tvl.toFixed(2))}</span></Td>
             <Td to={link} cn="txt-r suptd pdn "><span className="fw-400 fs-14 pdn ">{abbreviateNumber(tokens[i].supply)}</span></Td>
             <Td to={link} cn="txt-r charttd pdn "><Smallchart histData={every_nth(histData[i], 3)} weekChange={tokens[i].weekChange} col={chartCol[i]} /></Td>
@@ -153,6 +154,7 @@ export default class Tokens extends React.Component {
               <th className="txt-r fs-12 c-ab pdn" colSpan="2">Price</th>
               <th className="txt-r fs-12 c-ab pdn">24h%</th>
               <th className="txt-r fs-12 c-ab pdn">7d%</th>
+              <th className="txt-r fs-12 c-ab pdn">24h Volume</th>
               <th className="txt-r fs-12 c-ab pdn">TVL</th>
               <th className="txt-r fs-12 c-ab pdn">Supply</th>
               <th className="txt-r fs-12 c-ab pdn">7d Chart</th>

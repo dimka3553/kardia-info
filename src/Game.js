@@ -473,15 +473,18 @@ class Game extends Component {
                 async function getInfo() {
                     var ret = {}
                     if (accounts[0] !== "0x0000000000000000000000000000000000000000") {
-                        ret.InfoBal = await token.methods.balanceOf(accounts[0]).call();
-                        ret.gameBal = await token.methods.balanceOf(gameAddress).call();
-                        ret.allowed = await token.methods.allowance(accounts[0], gameAddress).call();
-                        ret.stakedBal = await game.methods.currentBalance(accounts[0]).call();
-                        ret.originalBal = await game.methods.originalBalance(accounts[0]).call();
-                        ret.gameID = await game.methods.id().call();
-                        ret.wagered = await game.methods.wagered().call();
-                        ret.totalWon = await game.methods.totalWon().call();
-                        ret.arrayLen = await game.methods.gamesPlayed(accounts[0]).call();
+                        ret = {
+                            InfoBal: await token.methods.balanceOf(accounts[0]).call(),
+                            gameBal: await token.methods.balanceOf(gameAddress).call(),
+                            allowed: await token.methods.allowance(accounts[0], gameAddress).call(),
+                            stakedBal: await game.methods.currentBalance(accounts[0]).call(),
+                            originalBal: await game.methods.originalBalance(accounts[0]).call(),
+                            gameID: await game.methods.id().call(),
+                            wagered: await game.methods.wagered().call(),
+                            totalWon: await game.methods.totalWon().call(),
+                            arrayLen: await game.methods.gamesPlayed(accounts[0]).call()
+                        }
+
                         if (ret.arrayLen > 0) {
                             ret.lastGame = await game.methods.gameHistory(accounts[0], (ret.arrayLen - 1)).call();
                         }
@@ -504,15 +507,18 @@ class Game extends Component {
                         }
                     }
                     else {
-                        ret.InfoBal = "0"
-                        ret.gameBal = await token.methods.balanceOf(gameAddress).call();
-                        ret.allowed = "0"
-                        ret.stakedBal = "0"
-                        ret.originalBal = "0"
-                        ret.gameID = await game.methods.id().call();
-                        ret.wagered = await game.methods.wagered().call();
-                        ret.totalWon = await game.methods.totalWon().call();
-                        ret.arrayLen = await game.methods.gamesPlayed('0x0000000000000000000000000000000000000000').call();
+                        ret = {
+                            InfoBal: "0",
+                            gameBal: await token.methods.balanceOf(gameAddress).call(),
+                            allowed: "0",
+                            stakedBal: "0",
+                            originalBal: "0",
+                            gameID: await game.methods.id().call(),
+                            wagered: await game.methods.wagered().call(),
+                            totalWon: await game.methods.totalWon().call(),
+                            arrayLen: await game.methods.gamesPlayed('0x0000000000000000000000000000000000000000').call()
+                        }
+
                         if (ret.arrayLen > 0) {
                             ret.lastGame = await game.methods.gameHistory(0, (ret.arrayLen - 1)).call();
                         }

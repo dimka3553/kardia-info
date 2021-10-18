@@ -191,7 +191,7 @@ class Game extends Component {
         lo = "< " + lo
 
         if (event.target.value > 4750) {
-            this.setState({ multiplier: 4750, winnings: (4750 * this.state.wager).toFixed(4), hi: "> 9998", lo: "< 2" },() => {
+            this.setState({ multiplier: 4750, winnings: (4750 * this.state.wager).toFixed(4), hi: "> 9998", lo: "< 2" }, () => {
                 event = {
                     target: {
                         value: this.state.wager
@@ -206,7 +206,7 @@ class Game extends Component {
                 lo: lo,
                 multiplier: event.target.value,
                 winnings: (event.target.value * this.state.wager).toFixed(4)
-            },() => {
+            }, () => {
                 event = {
                     target: {
                         value: this.state.wager
@@ -221,7 +221,7 @@ class Game extends Component {
                 lo: lo,
                 multiplier: event.target.value,
                 winnings: (event.target.value * this.state.wager).toFixed(4)
-            },() => {
+            }, () => {
                 event = {
                     target: {
                         value: this.state.wager
@@ -233,7 +233,7 @@ class Game extends Component {
     }
     handleMultiplierMaths(event) {
         if (event.target.value < 1.01) {
-            this.setState({ multiplier: 1.01, winnings: (1.01 * this.state.wager).toFixed(4), hi: "> 594", lo: "< 9406" },() => {
+            this.setState({ multiplier: 1.01, winnings: (1.01 * this.state.wager).toFixed(4), hi: "> 594", lo: "< 9406" }, () => {
                 event = {
                     target: {
                         value: this.state.wager
@@ -243,7 +243,7 @@ class Game extends Component {
             });
         }
         else if (event.target.value > 4750) {
-            this.setState({ multiplier: 4750, winnings: (4750 * this.state.wager).toFixed(4), hi: "> 9998", lo: "< 2" },() => {
+            this.setState({ multiplier: 4750, winnings: (4750 * this.state.wager).toFixed(4), hi: "> 9998", lo: "< 2" }, () => {
                 event = {
                     target: {
                         value: this.state.wager
@@ -253,7 +253,7 @@ class Game extends Component {
             });
         }
         else if (event.target.value <= 4750 && event.target.value >= 1.01) {
-            this.setState({ multiplier: event.target.value, winnings: (event.target.value * this.state.wager).toFixed(4) },() => {
+            this.setState({ multiplier: event.target.value, winnings: (event.target.value * this.state.wager).toFixed(4) }, () => {
                 event = {
                     target: {
                         value: this.state.wager
@@ -263,7 +263,7 @@ class Game extends Component {
             });
         }
         else {
-            this.setState({ multiplier: 2, winnings: (2 * this.state.wager).toFixed(4), hi: "> 5250", lo: "< 4750" },() => {
+            this.setState({ multiplier: 2, winnings: (2 * this.state.wager).toFixed(4), hi: "> 5250", lo: "< 4750" }, () => {
                 event = {
                     target: {
                         value: this.state.wager
@@ -276,73 +276,80 @@ class Game extends Component {
 
     async handleHigh(event) {
         if (this.state.approved === true) {
-            var wager = this.state.web3.utils.toWei(this.state.wager.toString(), 'ether');
-            this.setState({ tr: "hi" })
-            await this.state.game.methods.play(1, (Math.round(this.state.multiplier * 100)), wager).send({ from: this.state.accounts[0],gasPrice: '3000000000', gas:'700000' }, async function (error) {
-                if (error !== undefined && error !== null) {
-                    console.log(error)
-                    this.setState({ tr: "" })
-                }
-            }.bind(this)).then(function () {
-                this.setState({ tr: "", hasPlayed: true })
-            }.bind(this))
-
+            if (this.state.InfoBal < 0.0001) {
+                alert('Please buy INFO to play')
+            }
+            else {
+                var wager = this.state.web3.utils.toWei(this.state.wager.toString(), 'ether');
+                this.setState({ tr: "hi" })
+                await this.state.game.methods.play(1, (Math.round(this.state.multiplier * 100)), wager).send({ from: this.state.accounts[0], gasPrice: '3000000000', gas: '700000' }, async function (error) {
+                    if (error !== undefined && error !== null) {
+                        console.log(error)
+                        this.setState({ tr: "" })
+                    }
+                }.bind(this)).then(function () {
+                    this.setState({ tr: "", hasPlayed: true })
+                }.bind(this)).then(
+                    event = {
+                        target: {
+                            value: this.state.wager
+                        }
+                    },
+                    this.handleBetMaths(event)
+                )
+            }
         }
         else {
-            this.setState({ tr: "appr" })
-            await this.state.token.methods.approve(this.state.gameAddress, "10000000000000000000000000000000000000000000").send({ from: this.state.accounts[0],gasPrice: '3000000000', gas:'700000'  }, async function (error) {
-                if (error !== undefined && error !== null) {
-                    console.log(error)
+            if (this.state.accounts[0] === "0x0000000000000000000000000000000000000000") {
+                alert('please install the KAI wallet to play')
+            }
+            else {
+                this.setState({ tr: "appr" })
+                await this.state.token.methods.approve(this.state.gameAddress, "10000000000000000000000000000000000000000000").send({ from: this.state.accounts[0], gasPrice: '3000000000', gas: '700000' }, async function (error) {
+                    if (error !== undefined && error !== null) {
+                        console.log(error)
+                        this.setState({ tr: "" })
+                    }
+                }.bind(this)).then(function () {
                     this.setState({ tr: "" })
-                }
-            }.bind(this)).then(function () {
-                this.setState({ tr: "" })
-            }.bind(this))
+                }.bind(this))
+            }
         }
     }
     async handleLow(event) {
         if (this.state.approved === true) {
-            this.setState({ tr: "lo" })
-            var wager = this.state.web3.utils.toWei(this.state.wager.toString(), 'ether');
-            console.log(wager)
-            await this.state.game.methods.play(0, Math.round(this.state.multiplier * 100), wager).send({ from: this.state.accounts[0],gasPrice: '3000000000', gas:'700000'  }, async function (error) {
-                if (error !== undefined && error !== null) {
-                    console.log(error)
-                    this.setState({ tr: "" })
-                }
-            }.bind(this)).then(function () {
-                this.setState({ tr: "", hasPlayed: true })
-            }.bind(this))
-        }
-        else {
-            this.setState({ tr: "appr" })
-            await this.state.token.methods.approve(this.state.gameAddress, "10000000000000000000000000000000000000000000").send({ from: this.state.accounts[0],gasPrice: '3000000000', gas:'700000'  }, async function (error) {
-                if (error !== undefined && error !== null) {
-                    console.log(error)
-                    this.setState({ tr: "" })
-                }
-            }.bind(this)).then(function () {
-                this.setState({ tr: "" })
-            }.bind(this))
-        }
-    }
-    async handleStakeTx(event) {
-        if (this.state.newStake !== "") {
-            this.setState({ tr: "st" })
-            if (this.state.approved === true) {
-                var stake = this.state.web3.utils.toWei(this.state.newStake.toString(), 'ether');
-                await this.state.game.methods.stakeTokens(stake).send({ from: this.state.accounts[0],gasPrice: '3000000000', gas:'700000'  }, async function (error) {
+            if (this.state.InfoBal < 0.0001) {
+                alert('Please buy INFO to play')
+            }
+            else {
+                this.setState({ tr: "lo" })
+                var wager = this.state.web3.utils.toWei(this.state.wager.toString(), 'ether');
+                console.log(wager)
+                await this.state.game.methods.play(0, Math.round(this.state.multiplier * 100), wager).send({ from: this.state.accounts[0], gasPrice: '3000000000', gas: '700000' }, async function (error) {
                     if (error !== undefined && error !== null) {
                         console.log(error)
                         this.setState({ tr: "" })
                     }
                 }.bind(this)).then(function () {
-                    this.setState({ tr: "" })
-                }.bind(this))
+                    this.setState({ tr: "", hasPlayed: true })
+                }.bind(this)).then(
+                    event = {
+                        target: {
+                            value: this.state.wager
+                        }
+                    },
+                    this.handleBetMaths(event)
+                )
+            }
+
+        }
+        else {
+            if (this.state.accounts[0] === "0x0000000000000000000000000000000000000000") {
+                alert('please install the KAI wallet to play')
             }
             else {
                 this.setState({ tr: "appr" })
-                await this.state.token.methods.approve(this.state.gameAddress, "10000000000000000000000000000000000000000000").send({ from: this.state.accounts[0],gasPrice: '3000000000', gas:'700000'  }, async function (error) {
+                await this.state.token.methods.approve(this.state.gameAddress, "10000000000000000000000000000000000000000000").send({ from: this.state.accounts[0], gasPrice: '3000000000', gas: '700000' }, async function (error) {
                     if (error !== undefined && error !== null) {
                         console.log(error)
                         this.setState({ tr: "" })
@@ -351,15 +358,63 @@ class Game extends Component {
                     this.setState({ tr: "" })
                 }.bind(this))
             }
-        }
 
+        }
+    }
+    async handleStakeTx(event) {
+        if (this.state.accounts[0] === "0x0000000000000000000000000000000000000000") {
+            alert('please install the KAI wallet to stake')
+        }
+        else {
+            if (this.state.InfoBal < 0.0001) {
+                alert('Please buy INFO to stake')
+            }
+            else {
+                if (this.state.newStake !== "") {
+                    if (this.state.newStake > this.state.InfoBal) {
+                        alert('Please buy more INFO to stake this amount')
+                    }
+                    else {
+                        this.setState({ tr: "st" })
+                        if (this.state.approved === true) {
+                            var stake = this.state.web3.utils.toWei(this.state.newStake.toString(), 'ether');
+                            await this.state.game.methods.stakeTokens(stake).send({ from: this.state.accounts[0], gasPrice: '3000000000', gas: '700000' }, async function (error) {
+                                if (error !== undefined && error !== null) {
+                                    console.log(error)
+                                    this.setState({ tr: "" })
+                                }
+                            }.bind(this)).then(function () {
+                                this.setState({ tr: "" })
+                            }.bind(this))
+                        }
+                        else {
+                            if (this.state.accounts[0] !== "0x0000000000000000000000000000000000000000") {
+                                this.setState({ tr: "appr" })
+                                await this.state.token.methods.approve(this.state.gameAddress, "10000000000000000000000000000000000000000000").send({ from: this.state.accounts[0], gasPrice: '3000000000', gas: '700000' }, async function (error) {
+                                    if (error !== undefined && error !== null) {
+                                        console.log(error)
+                                        this.setState({ tr: "" })
+                                    }
+                                }.bind(this)).then(function () {
+                                    this.setState({ tr: "" })
+                                }.bind(this))
+                            }
+                        }
+                    }
+
+                }
+                else {
+                    alert("please input an amount of INFO to stake")
+                }
+            }
+        }
     }
     async handleUnstakeTx(event) {
         if (this.state.newStake !== "") {
             if (this.state.approved === true) {
                 this.setState({ tr: "uns" })
                 var stake = this.state.web3.utils.toWei(this.state.newStake.toString(), 'ether');
-                await this.state.game.methods.unstakeTokens(stake).send({ from: this.state.accounts[0],gasPrice: '3000000000', gas:'700000'  }, async function (error) {
+                await this.state.game.methods.unstakeTokens(stake).send({ from: this.state.accounts[0], gasPrice: '3000000000', gas: '700000' }, async function (error) {
                     if (error !== undefined && error !== null) {
                         console.log(error)
                         this.setState({ tr: "" })
@@ -371,7 +426,7 @@ class Game extends Component {
 
             else {
                 this.setState({ tr: "appr" })
-                await this.state.token.methods.approve(this.state.gameAddress, "10000000000000000000000000000000000000000000").send({ from: this.state.accounts[0],gasPrice: '3000000000', gas:'700000'  }, async function (error) {
+                await this.state.token.methods.approve(this.state.gameAddress, "10000000000000000000000000000000000000000000").send({ from: this.state.accounts[0], gasPrice: '3000000000', gas: '700000' }, async function (error) {
                     if (error !== undefined && error !== null) {
                         console.log(error)
                         this.setState({ tr: "" })
@@ -384,7 +439,7 @@ class Game extends Component {
     }
 
     async refreshData() {
-        window.dispatchEvent( new Event('load') );
+        window.dispatchEvent(new Event('load'));
         if (this.state.tr === "") {
             try {
                 // Get network provider and web3 instance.
@@ -397,7 +452,13 @@ class Game extends Component {
                 }
 
                 // Use web3 to get the user's accounts.
-                const accounts = await web3.eth.getAccounts();
+                var accounts
+                try {
+                    accounts = await web3.eth.getAccounts();
+                }
+                catch (err) {
+                    accounts = ["0x0000000000000000000000000000000000000000"]
+                }
 
                 const tokenAddress = "0xFbdD162a0FD45657d3754b9d17A4e9Cce33543dd";
                 const gameAddress = "0x8659Be7d4bC2752544F8aC2aC1505ef4A906863d";
@@ -410,37 +471,69 @@ class Game extends Component {
                 var info = await getInfo();
 
                 async function getInfo() {
-                    var ret = {};
-                    ret.InfoBal = await token.methods.balanceOf(accounts[0]).call();
-                    ret.gameBal = await token.methods.balanceOf(gameAddress).call();
-                    ret.allowed = await token.methods.allowance(accounts[0], gameAddress).call();
-                    ret.stakedBal = await game.methods.currentBalance(accounts[0]).call();
-                    ret.originalBal = await game.methods.originalBalance(accounts[0]).call();
-                    ret.gameID = await game.methods.id().call();
-                    ret.wagered = await game.methods.wagered().call();
-                    ret.totalWon = await game.methods.totalWon().call();
-                    ret.arrayLen = await game.methods.gamesPlayed(accounts[0]).call();
-                    if (ret.arrayLen > 0) {
-                        ret.lastGame = await game.methods.gameHistory(accounts[0], (ret.arrayLen - 1)).call();
+                    var ret = {}
+                    if (accounts[0] !== "0x0000000000000000000000000000000000000000") {
+                        ret.InfoBal = await token.methods.balanceOf(accounts[0]).call();
+                        ret.gameBal = await token.methods.balanceOf(gameAddress).call();
+                        ret.allowed = await token.methods.allowance(accounts[0], gameAddress).call();
+                        ret.stakedBal = await game.methods.currentBalance(accounts[0]).call();
+                        ret.originalBal = await game.methods.originalBalance(accounts[0]).call();
+                        ret.gameID = await game.methods.id().call();
+                        ret.wagered = await game.methods.wagered().call();
+                        ret.totalWon = await game.methods.totalWon().call();
+                        ret.arrayLen = await game.methods.gamesPlayed(accounts[0]).call();
+                        if (ret.arrayLen > 0) {
+                            ret.lastGame = await game.methods.gameHistory(accounts[0], (ret.arrayLen - 1)).call();
+                        }
+                        else {
+                            ret.lastGame = false;
+                        }
+
+                        ret.gameBal = web3.utils.fromWei(ret.gameBal);
+                        ret.InfoBal = web3.utils.fromWei(ret.InfoBal);
+                        ret.totalWon = web3.utils.fromWei(ret.totalWon);
+                        ret.wagered = web3.utils.fromWei(ret.wagered);
+                        ret.originalBal = web3.utils.fromWei(ret.originalBal);
+                        ret.stakedBal = web3.utils.fromWei(ret.stakedBal);
+                        // eslint-disable-next-line
+                        if (ret.allowed == 0) {
+                            ret.allowed = false;
+                        }
+                        else {
+                            ret.allowed = true;
+                        }
                     }
                     else {
-                        ret.lastGame = false;
-                    }
+                        ret.InfoBal = "0"
+                        ret.gameBal = await token.methods.balanceOf(gameAddress).call();
+                        ret.allowed = "0"
+                        ret.stakedBal = "0"
+                        ret.originalBal = "0"
+                        ret.gameID = await game.methods.id().call();
+                        ret.wagered = await game.methods.wagered().call();
+                        ret.totalWon = await game.methods.totalWon().call();
+                        ret.arrayLen = await game.methods.gamesPlayed('0x0000000000000000000000000000000000000000').call();
+                        if (ret.arrayLen > 0) {
+                            ret.lastGame = await game.methods.gameHistory(0, (ret.arrayLen - 1)).call();
+                        }
+                        else {
+                            ret.lastGame = false;
+                        }
 
-                    ret.gameBal = web3.utils.fromWei(ret.gameBal);
-                    ret.InfoBal = web3.utils.fromWei(ret.InfoBal);
-                    ret.totalWon = web3.utils.fromWei(ret.totalWon);
-                    ret.wagered = web3.utils.fromWei(ret.wagered);
-                    ret.originalBal = web3.utils.fromWei(ret.originalBal);
-                    ret.stakedBal = web3.utils.fromWei(ret.stakedBal);
-                    // eslint-disable-next-line
-                    if (ret.allowed == 0) {
-                        ret.allowed = false;
+                        ret.gameBal = web3.utils.fromWei(ret.gameBal);
+                        ret.InfoBal = web3.utils.fromWei(ret.InfoBal);
+                        ret.totalWon = web3.utils.fromWei(ret.totalWon);
+                        ret.wagered = web3.utils.fromWei(ret.wagered);
+                        ret.originalBal = web3.utils.fromWei(ret.originalBal);
+                        ret.stakedBal = web3.utils.fromWei(ret.stakedBal);
+                        // eslint-disable-next-line
+                        if (ret.allowed == 0) {
+                            ret.allowed = false;
+                        }
+                        else {
+                            ret.allowed = true;
+                        }
                     }
-                    else {
-                        ret.allowed = true;
-                    }
-
                     return (ret)
                 }
                 var lo = (950000 / (this.state.multiplier * 100)).toFixed(0);
@@ -467,9 +560,17 @@ class Game extends Component {
                 else {
                     info.isStaking = ""
                 }
-                info.gameres = {
-                    bg: "",
-                    message: ""
+                if (accounts[0] !== "0x0000000000000000000000000000000000000000") {
+                    info.gameres = {
+                        bg: "",
+                        message: ""
+                    }
+                }
+                else {
+                    info.gameres = {
+                        bg: "bg-blue",
+                        message: <a className="t-bl t-d-none" target="_blank" rel="noopener noreferrer" href="https://chrome.google.com/webstore/detail/kardiachain-wallet/pdadjkfkgcafgbceimcpbkalnfnepbnk">Please install the KardiaChain wallet to play</a>
+                    }
                 }
                 var num;
                 if (info.lastGame !== false) {

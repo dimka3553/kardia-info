@@ -1028,6 +1028,13 @@ thead {
 	padding: 15px;
 	font-size: 16px;
 }
+.bg-blue{
+	background: #EEF6FF;
+	color: #0066FF;
+	padding: 15px;
+	font-size: 16px;
+}
+
 
 .onenum.one.Playing::after {
 	animation-name: playingone;

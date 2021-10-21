@@ -14,15 +14,15 @@ export default function Airdrop() {
                         <div className="left">
                             <div className="textdiv ab-l-m m-l-70">
                                 <h1 className="fs-48 fw-600">Welcome to the <span className="t-bl fw-600">Kardia info </span>Airdrop</h1>
-                                <p className="hp-g fs-18 lh-1-8"> You can swap ‘Airdrop INFO’ for INFO after we officially launch our token. To do it, you need to:<br /><br />1. Join our Telegram.<br />2. Take a look at the features we offer.</p>
+                                <p className="hp-g fs-18 lh-1-8"> You can swap ‘Airdrop INFO’ for INFO after we officially launch our token. To do it, you need to:<br /><br />1. Join KAI and INFO Telegram.<br />2. Take a look at the features we offer.</p>
                                 <br />
                                 <br />
                                 <a className="t-d-none" href="https://t.me/kardiainfo">
-                                    <button className="hpbtn-bl m-r-15 c-pointer">Join our Telegram</button>
+                                    <button className="hpbtn-bl m-r-15 c-pointer">1. Join INFO TG</button>
                                 </a>
-                                <Link className="t-d-none" to="/">
-                                    <button className="hpbtn-tr c-pointer">Learn more</button>
-                                </Link>
+                                <a className="t-d-none" href="https://t.me/kardiachain">
+                                    <button className="hpbtn-tr m-r-15 c-pointer">2. Join KAI TG</button>
+                                </a>
                             </div>
                         </div>
                         <div className="rt">
@@ -65,14 +65,14 @@ export default function Airdrop() {
                         <div className="bottom p-l-20 p-r-20">
                             <div className="smtxtsec">
                                 <h1 className="fs-40 fw-600">Welcome to the <span className="t-bl fw-600">Kardia info </span>Airdrop</h1>
-                                <p className="hp-g fs-18 lh-1-8 ">You can swap ‘Airdrop INFO’ for INFO after we officially launch our token. To do it, you need to:<br /><br />1. Join our Telegram.<br />2. Take a look at the features we offer.</p>
+                                <p className="hp-g fs-18 lh-1-8 ">You can swap ‘Airdrop INFO’ for INFO after we officially launch our token. To do it, you need to:<br /><br />1. Join KAI and INFO Telegram.<br />2. Take a look at the features we offer.</p>
                                 <br />
                                 <a className="t-d-none" href="https://t.me/kardiainfo">
-                                    <button className="hpbtn-bl m-b-15  c-pointer">Join our Telegram</button>
+                                    <button className="hpbtn-bl m-r-15 c-pointer m-b-15">1. Join INFO TG</button>
                                 </a>
-                                <Link className="t-d-none  " to="/">
-                                    <button className="hpbtn-tr c-pointer m-b-100">Learn more</button>
-                                </Link>
+                                <a className="t-d-none" href="https://t.me/kardiachain">
+                                    <button className="hpbtn-tr m-r-15 c-pointer m-b-100">2. Join KAI TG</button>
+                                </a>
                             </div>
                         </div>
                     </div>

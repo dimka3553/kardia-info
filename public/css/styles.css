@@ -64,7 +64,9 @@ p {
 	width: 230px;
 	transition: 0.2s;
 	overflow: auto;
-	padding: 15px;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top: 9px;
 	z-index: 2;
 }
 
@@ -104,14 +106,20 @@ p {
 	position: relative;
 	width: 100% !important;
 	height: 48px !important;
-	border-radius: 7px;
+	border-radius: 8px;
 	background: #fbfbfb;
 	transition: 0.2s;
 	cursor: pointer;
 }
+.sidelink svg{
+	width: 24px !important;
+}
 
 .sidelink:hover {
 	background: #f6f6f6;
+}
+.sidelink-text{
+	color: #000000a0;
 }
 
 .sidelinkwrapper.active .sidelink {
@@ -123,7 +131,7 @@ p {
 }
 
 .sidelink svg path {
-	fill: #666666;
+	fill: #999999;
 }
 
 .sidelinkwrapper.active .sidelink svg path, .sidelinkwrapper.active .sidelink .sidelink-text {

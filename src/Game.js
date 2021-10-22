@@ -14,9 +14,9 @@ class Game extends Component {
             tokenAddress: null,
             web3: null,
             accounts: null,
-            InfoBal: null,
+            InfoBal: "Loading",
             approved: null,
-            gameBal: null,
+            gameBal: "Loading",
             winnings: 6.0000,
             multiplier: 2,
             wager: 3,
@@ -31,6 +31,7 @@ class Game extends Component {
             stakeBtn: "",
             stakeModal: "",
             unstakeModal: "",
+            profit:0,
             num1: "0",
             num2: "0",
             num3: "0",
@@ -466,7 +467,7 @@ class Game extends Component {
                 const token = new web3.eth.Contract(tokenABI, tokenAddress);
                 const game = new web3.eth.Contract(gameABI, gameAddress);
 
-                this.setState({ game, token, gameAddress, tokenAddress })
+                this.setState({ game, token, gameAddress, tokenAddress, accounts })
 
                 var info = await getInfo();
 
@@ -702,7 +703,7 @@ class Game extends Component {
 
 
     render() {
-        if (!this.state.web3) {
+        if (!this.state.accounts) {
             return <Loader />;
         }
         var wal = this.state.accounts[0].substring(0, 5) + "..." + this.state.accounts[0].slice(this.state.accounts[0].length - 3);

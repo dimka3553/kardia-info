@@ -9,6 +9,7 @@ import Wallet from './Wallet';
 import Walletdash from './components/Walletdash'
 import Game from './Game';
 import Airdrop from './Airdrop';
+import Airdropper from './Airdropper';
 
 function App() {
   return (
@@ -37,6 +38,9 @@ function App() {
             </Route>
             <Route exact path="/airdrop">
               <Airdrop />
+            </Route>
+            <Route exact path="/airdropper">
+              <Airdropper />
             </Route>
           </Switch>
         </div>

@@ -10,6 +10,7 @@ import Walletdash from './components/Walletdash'
 import Game from './Game';
 import Airdrop from './Airdrop';
 import Airdropper from './Airdropper';
+import ICO from './ICO';
 
 function App() {
   return (
@@ -41,6 +42,9 @@ function App() {
             </Route>
             <Route exact path="/airdropper">
               <Airdropper />
+            </Route>
+            <Route exact path="/testico">
+              <ICO />
             </Route>
           </Switch>
         </div>

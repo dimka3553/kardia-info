@@ -1,23 +1,307 @@
 import React, { Component } from 'react'
+import Loader from "./components/Loader";
+import getWeb3 from "./components/getWeb3";
+import getWob3 from "./components/getWob3";
 import Cards from './components/subcomponents/svgs/Cards';
 import Playsvg from './components/subcomponents/svgs/Playsvg'
 import Altlogo from './components/subcomponents/svgs/Altlogo';
+import icoABI from "./ABI/ico.json"
 
 export default class ICO extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+            buyModal: "",
+            kaiBal: 0,
+            kaiBalUsd: 0,
+            infoBought: 0,
+            price: 0,
+            priceusd: 0,
+            kaiDep: 0,
+            kaiDepUsd: 0,
+            userDep: 0,
+            userDepUsd: 0,
+            tr: "",
+            started: false,
+            ended: false,
+            timeLeft: 0,
+            clock: "",
+            kaiPrice: 0,
+            infoBoughtPer: 0,
+            newBuy: "",
+            buyBtn: "ICO not started",
+            disabled: true,
+            bigBuyBtn: "Buy INFO now",
+            disabled2: false
+        }
+        this.toggleBuyModal = this.toggleBuyModal.bind(this);
+        this.handleMaxBuy = this.handleMaxBuy.bind(this);
+        this.handleBuy = this.handleBuy.bind(this);
+        this.handleBuyTx = this.handleBuyTx.bind(this);
+        this.handlePercBuy = this.handlePercBuy.bind(this);
     }
+    async handleBuyTx() {
+        if(this.state.accounts[0]==="0x0000000000000000000000000000000000000000"){
+            alert("Please use the KardiaChain wallet")
+        }
+        else{
+            if (this.state.newBuy > 0) {
+                var val = this.state.web3.utils.toWei(this.state.newBuy.toString(), 'ether')
+                this.setState({ tr: "bu" })
+                await this.state.ico.methods.buy().send({ from: this.state.accounts[0], value: val }, async function (error) {
+                    if (error !== undefined && error !== null) {
+                        console.log(error)
+                        this.setState({ tr: "" })
+                    }
+                }.bind(this)).then(function () {
+                    this.setState({ tr: "" })
+                }.bind(this))
+            }
+            else{
+                alert("Please enter an amount")
+            }
+        }
+    }
+
+    handleBuy(event) {
+        if (event.target.value < this.state.kaiBal && event.target.value >= 0) {
+            this.setState({ newBuy: event.target.value })
+        }
+        else if (event.target.value < this.state.kaiBal && event.target.value < 0) {
+            this.setState({ newBuy:  0})
+        }
+        else if (event.target.value > this.state.kaiBal) {
+            this.handleMaxBuy(event)
+        }
+        else {
+            this.setState({ newBuy: "" })
+        }
+    }
+    handleMaxBuy(event) {
+        var newBuy = this.state.kaiBal - 0.1;
+        this.setState({ newBuy: newBuy })
+    }
+    async toggleBuyModal(event) {
+        if (this.state.ended === false) {
+            if (this.state.buyModal === "") {
+                this.setState({ buyModal: "expanded", newbuy: "" })
+            }
+            else {
+                this.setState({ buyModal: "", newBuy: "" })
+            }
+        }
+        else {
+            this.setState({ tr: "cl" })
+            await this.state.ico.methods.claim().send({ from: this.state.accounts[0] }, async function (error) {
+                if (error !== undefined && error !== null) {
+                    console.log(error)
+                    this.setState({ tr: "" })
+                }
+            }.bind(this)).then(function () {
+                this.setState({ tr: "" })
+            }.bind(this))
+        }
+    }
+    handlePercBuy(num) {
+        var newBuy;
+        if (num === 25) {
+            newBuy = (this.state.kaiBal) * 0.25;
+            this.setState({ newBuy: newBuy })
+        }
+        else if (num === 50) {
+            newBuy = (this.state.kaiBal) * 0.5;
+            this.setState({ newBuy: newBuy })
+        }
+        else if (num === 75) {
+            newBuy = (this.state.kaiBal) * 0.75;
+            this.setState({ newBuy: newBuy })
+        }
+        else if (num === 100) {
+            newBuy = (this.state.kaiBal) - 0.1;
+            this.setState({ newBuy: newBuy })
+        }
+    }
+    async refreshData() {
+        if (!this.state.web3) {
+            window.dispatchEvent(new Event('load'))
+        }
+
+        if (this.state.tr === "") {
+            try {
+                var web3
+                var wob3
+                if (!this.state.web3) {
+                    web3 = await getWeb3();
+                    wob3 = await getWob3();
+                }
+                else {
+                    web3 = this.state.web3
+                    wob3 = this.state.wob3
+                }
+                var kaiPrice;
+                if (this.state.kaiPrice === 0) {
+                    var res = await fetch('https://api.kardiainfo.com/tokens/kai');
+                    kaiPrice = await res.json();
+                    kaiPrice = kaiPrice.price;
+                }
+                else {
+                    kaiPrice = this.state.kaiPrice;
+                }
+                console.log(kaiPrice)
+                // Use web3 to get the user's accounts.
+                var accounts
+                try {
+                    accounts = await web3.eth.getAccounts();
+                }
+                catch (err) {
+                    accounts = ["0x0000000000000000000000000000000000000000"]
+                }
+                console.log(accounts[0])
+                var icoAddr = "0x48e7a2D2BDe4204B47BA66dd454f6C54a6075888"
+                var ico
+                var icows
+                if (!this.state.ico) {
+                    ico = new web3.eth.Contract(icoABI, icoAddr);
+                    icows = new wob3.eth.Contract(icoABI, icoAddr);
+                }
+                else {
+                    ico = this.state.ico
+                    icows = this.state.icows
+                }
+                var data
+
+                let [kaiDep, userDep, ended, started, infoBought, startedon, kaiBal, hasBought, hasClaimed] = await Promise.all([
+                    icows.methods.kaiDeposited().call(), 
+                    icows.methods.depositedAmount(accounts[0]).call(), 
+                    icows.methods.ended().call(), icows.methods.started().call(), 
+                    icows.methods.infoToBuy(accounts[0]).call(), 
+                    icows.methods.icoBegun().call(), 
+                    wob3.eth.getBalance(accounts[0]), 
+                    icows.methods.hasBought(accounts[0]).call(),
+                    icows.methods.hasClaimed(accounts[0]).call(),
+                ]);
+                console.log(kaiDep, userDep, ended, started, infoBought, startedon, kaiBal)
+                data = {
+                    kaiDep: parseFloat(wob3.utils.fromWei(kaiDep)),
+                    userDep: parseFloat(wob3.utils.fromWei(userDep)),
+                    ended: ended,
+                    started: started,
+                    infoBought: parseFloat(wob3.utils.fromWei(infoBought)),
+                    startedon: startedon,
+                    kaiBal: parseFloat(wob3.utils.fromWei(kaiBal)),
+                    hasBought: hasBought,
+                    hasClaimed:hasClaimed
+                }
+                if (data.started === false && data.ended === false) {
+                    data.clock = "Not started yet"
+                    data.buyBtn = "ICO not started yet"
+                    data.disabled = true
+                    data.disabled2 = false
+                    data.bigBuyBtn = "Buy INFO now"
+                }
+                else if (data.started === true && data.ended === false) {
+                    var now = parseInt(Math.floor(new Date().getTime()))
+                    var timeleft = (604800 - (parseInt(Math.floor(now / 1000)) - data.startedon)) * 1000;
+
+                    if (timeleft <= 0) {
+                        data.clock = cM(0)
+                    }
+                    else if (timeleft > 0) {
+                        data.clock = cM(timeleft)
+                    }
+                    data.buyBtn = "Buy INFO"
+                    data.bigBuyBtn = "Buy INFO now"
+                    data.disabled = false
+                }
+                else {
+                    data.clock = "ICO is over"
+                    data.buyBtn = "ICO is over"
+                    data.disabled = true
+                    if (hasBought === true && hasClaimed === false) {
+                        data.bigBuyBtn = "Claim " + parseFloat(data.infoBought).toFixed(2) + " INFO"
+                        data.disabled2 = false
+                    }
+                    else if (hasBought === true && hasClaimed === true) {
+                        data.bigBuyBtn = "Already claimed 😉"
+                        data.disabled2 = true
+                    }
+                    else if(hasBought === false) {
+                        data.bigBuyBtn = "No INFO to claim 😢"
+                        data.disabled2 = true
+                    }
+                }
+                data.price = data.kaiDep / 500000;
+                data.priceusd = data.price * kaiPrice;
+                data.kaiBalUsd = data.kaiBal * kaiPrice;
+                data.userDepUsd = data.userDep * kaiPrice;
+                data.kaiDepUsd = data.kaiDep * kaiPrice;
+                data.infoBoughtPer = (data.infoBought / 500000) * 100
+                this.setState({
+                    clock: data.clock,
+                    kaiBal: data.kaiBal,
+                    kaiBalUsd: data.kaiBalUsd,
+                    price: data.price,
+                    priceusd: data.priceusd,
+                    kaiDep: data.kaiDep,
+                    kaiDepUsd: data.kaiDepUsd,
+                    userDepUsd: data.userDepUsd,
+                    userDep: data.userDep,
+                    infoBought: data.infoBought,
+                    infoBoughtPer: data.infoBoughtPer,
+                    buyBtn: data.buyBtn,
+                    disabled: data.disabled,
+                    disabled2: data.disabled2,
+                    bigBuyBtn: data.bigBuyBtn,
+                    ended:data.ended,
+                    started: data.started,
+                    ico,
+                    web3,
+                    wob3,
+                    icows,
+                    accounts,
+                    kaiPrice
+                })
+            }
+            catch (err) {
+                console.log(err)
+            }
+        }
+        else {
+            if (this.state.tr === "cl") {
+                this.setState({ bigBuyBtn: "Claiming", disabled2: true })
+            }
+            if (this.state.tr === "bu") {
+                this.setState({ buyBtn: "Buying", disabled: true })
+            }
+        }
+
+    }
+
+    componentDidMount = async () => {
+        document.title = `ICO - Kardia info`;
+        this.refreshData()
+
+        window.dispatchEvent(new Event('load'))
+        this.interval = setInterval(() => this.refreshData(), 1000);
+    };
+    componentWillUnmount = async () => {
+        clearInterval(this.interval)
+    }
+
+
     render() {
+        if (!this.state.accounts) {
+            return <Loader />;
+        }
         return (
             <div className="ico">
                 <div className="icoWarapper">
                     <div className="top">
-                        <p className="p-t-0 m-t-0 m-b-24 fs-24 t-ab">ICO Stats</p>
-                        <div className="ico-info">
-                            <div className="ico-info-box">
+                        <p className="p-t-0 m-t-0 p-l-40 m-b-24 fs-24 t-ab icot">ICO Stats</p>
+                        <div className="ico-info p-t-10 p-b-10">
+                            <div className="ico-info-box  m-l-40 tp">
                                 <p className="fs-16 t-g fw-700 ">On Sale</p>
-                                <p className="fs-32 t-ab p-t-10">500,000 <span className="t-s"> INFO</span></p>
+                                <p className="fs-32 t-ab p-t-10 bb">500,000 <span className="t-s"> INFO</span></p>
                                 <svg className="ab-t-r m-t-18 m-r-18" width="49" height="48" viewBox="0 0 49 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect x="0.666504" width="48" height="48" rx="12" fill="#F2F4FA" />
                                     <path d="M34.6666 20.5C34.6666 23.76 32.2666 26.45 29.1466 26.92V26.86C28.8366 22.98 25.6866 19.83 21.7766 19.52H21.7466C22.2166 16.4 24.9066 14 28.1666 14C31.7566 14 34.6666 16.91 34.6666 20.5Z" fill="#9699A5" />
@@ -26,74 +310,86 @@ export default class ICO extends Component {
                             </div>
                             <div className="ico-info-box">
                                 <p className="fs-16 t-g fw-700 ">Price / INFO</p>
-                                <p className="fs-32 t-ab p-t-10">10.53 <span className="t-s"> KAI</span></p>
-                                <p className="fs-14 t-lbl p-t-10">$0.531</p>
+                                <p className="fs-32 t-ab p-t-10 bb">{this.state.price.toFixed(4)} <span className="t-s"> KAI</span></p>
+                                <p className="fs-14 t-lbl p-t-10">${this.state.priceusd.toFixed(4)}</p>
                                 <svg className="ab-t-r m-t-18 m-r-18" width="49" height="48" viewBox="0 0 49 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect x="0.333008" width="48" height="48" rx="12" fill="#F2F4FA" />
-                                    <path d="M21.0049 26.3298C21.0049 27.6198 21.9949 28.6598 23.2249 28.6598H25.7349C26.8049 28.6598 27.6749 27.7498 27.6749 26.6298C27.6749 25.4098 27.1449 24.9798 26.3549 24.6998L22.3249 23.2998C21.5349 23.0198 21.0049 22.5898 21.0049 21.3698C21.0049 20.2498 21.8749 19.3398 22.9449 19.3398H25.4549C26.6849 19.3398 27.6749 20.3798 27.6749 21.6698" stroke="#9699A5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M24.333 18V30" stroke="#9699A5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M21.0049 26.3298C21.0049 27.6198 21.9949 28.6598 23.2249 28.6598H25.7349C26.8049 28.6598 27.6749 27.7498 27.6749 26.6298C27.6749 25.4098 27.1449 24.9798 26.3549 24.6998L22.3249 23.2998C21.5349 23.0198 21.0049 22.5898 21.0049 21.3698C21.0049 20.2498 21.8749 19.3398 22.9449 19.3398H25.4549C26.6849 19.3398 27.6749 20.3798 27.6749 21.6698" stroke="#9699A5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path d="M24.333 18V30" stroke="#9699A5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                             </div>
                             <div className="ico-info-box">
                                 <p className="fs-16 t-g fw-700 ">Deposited</p>
-                                <p className="fs-32 t-ab p-t-10">21,334,784 <span className="t-s"> KAI</span></p>
-                                <p className="fs-14 p-t-10 t-lbl">$278,512,39</p>
+                                <p className="fs-32 t-ab p-t-10 bb">{nC(parseFloat(this.state.kaiDep).toFixed(0))} <span className="t-s"> KAI</span></p>
+                                <p className="fs-14 p-t-10 t-lbl">${nC(parseFloat(this.state.kaiDepUsd).toFixed(2))}</p>
                                 <svg className="ab-t-r m-t-18 m-r-18" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect width="48" height="48" rx="12" fill="#F2F4FA" />
-                                    <path d="M30.0702 26.4301L24.0002 32.5001L17.9302 26.4301" stroke="#9699A5" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                                    <path d="M24 15.5V32.33" stroke="#9699A5" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path d="M30.0702 26.4301L24.0002 32.5001L17.9302 26.4301" stroke="#9699A5" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path d="M24 15.5V32.33" stroke="#9699A5" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                             </div>
                         </div>
                     </div>
-                    <div className="middle p-t-155">
+                    <div className="middle p-t-155 p-l-40 p-r-40">
                         <div className="myicostats">
                             <div className="left pos-r">
                                 <Cards cn="ab-c-b" />
+                                <button onClick={this.toggleBuyModal} disabled={this.state.disabled2} className={"icobuybtn tp ab-c-b m-b-37 btn " + this.state.bigBuyBtn}>{this.state.bigBuyBtn}<img alt="" className={"txwait ab-r-m m-r-10 " + this.state.bigBuyBtn} src="./img/spin.gif"></img></button>
+                                <div className="ab-c-b m-b-95 icowal">
+                                    <p className="t-s fs-16 m-b-10">Balance</p>
+                                    <p className="t-w fs-20 m-t-0 m-b-10">{nC(parseFloat(this.state.kaiBal).toFixed(2))} <span className="t-s">KAI</span></p>
+                                    <p className="t-s fs-14 m-t-0 m-b-0">${nC(parseFloat(this.state.kaiBalUsd).toFixed(2))}</p>
+                                </div>
                             </div>
-                            <div className="right w-full p-t-30 p-b-30 p-r-30">
+                            <div className="right w-full p-t-30 p-b-30 p-l-30 p-r-30">
                                 <div className="ico-mystats">
-                                    <div className="ico-top-stats p-b-30">
-                                        <span className="fs-24 t-ag">My Stats</span>
-                                        <div className="clock">
+                                    <div className="ico-top-stats p-b-0">
+                                        <span className="fs-24 t-ag m-r-15 m-b-15 stti">My Stats</span>
+                                        <div className="clock m-b-15">
                                             <svg width={24} height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2C17.52 2 22 6.48 22 12Z" stroke="#E99E35" strokeOpacity="0.52" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                                 <path d="M15.7099 15.18L12.6099 13.33C12.0699 13.01 11.6299 12.24 11.6299 11.61V7.51001" stroke="#E99E35" strokeOpacity="0.52" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                             </svg>
-                                            <span className="m-l-12 fs-16 t-org">3d 16h 54m 44s</span>
+                                            <span className="m-l-12 fs-16 t-org">{this.state.clock}</span>
                                         </div>
                                     </div>
 
                                     <div className="ico-mynums">
-                                        <div className="l">
+                                        <div className="l m-t-15">
                                             <p className="fs-16 t-g m-t-0 m-b-10">Kai Deposited</p>
-                                            <p className="fs-24 t-ab m-t-0 m-b-10">2,750 <span className="t-s fs-24">KAI</span></p>
-                                            <p className="t-lbl fs-14 m-t-0 m-b-0">$51.98</p>
+                                            <p className="fs-24 t-ab m-t-0 m-b-10">{nC(parseFloat(this.state.userDep).toFixed(2))} <span className="t-s fs-24">KAI</span></p>
+                                            <p className="t-lbl fs-14 m-t-0 m-b-0">${nC(parseFloat(this.state.userDepUsd).toFixed(2))}</p>
                                         </div>
-                                        <div className="r">
+                                        <div className="r m-t-15">
                                             <p className="fs-16 t-g m-t-0 m-b-10">Receive</p>
-                                            <p className="fs-24 t-ab m-t-0 m-b-10">103.95 <span className="t-s fs-24">INFO</span></p>
-                                            <p className="t-lbl fs-14 m-t-0 m-b-0">0.021 %</p>
+                                            <p className="fs-24 t-ab m-t-0 m-b-10">{nC(parseFloat(this.state.infoBought).toFixed(2))} <span className="t-s fs-24">INFO</span></p>
+                                            <p className="t-lbl fs-14 m-t-0 m-b-0">{parseFloat(this.state.infoBoughtPer).toFixed(3)} %</p>
                                         </div>
                                     </div>
                                 </div>
+                                <button className={"icobuybtn bt ab-c-b m-t-25 btn " + this.state.bigBuyBtn} disabled={this.state.disabled2} onClick={this.toggleBuyModal}>{this.state.bigBuyBtn}<img alt="" className={"txwait ab-r-m m-r-10 " + this.state.bigBuyBtn} src="./img/spin.gif"></img></button>
                             </div>
+
                         </div>
                     </div>
-                    <div className="btm m-b-100">
-                        <div className="l">
-                            <p className="t-ab fs-24 m-t-0 m-b-22">Kardia info ICO</p>
-                            <p className="t-g fs-16 m-b-28 p-r-60">The Info Token (INFO) is a revolutionary, deflationary, information backed token - The Chainlink for KardiaChain. It is now available for sale through the First ICO ever on KardiaChain.</p>
-                            <button className="hpbtn-tr bg-white m-r-25">
-                                Token Metrics
-                            </button>
-                            <a className="fs-18 t-lg">
-                                ICO Information
-                            </a>
-                                
-                        </div>
-                        <div className="r">
-                            <Playsvg />
+                    <div className="p-l-40 p-r-40 p-t-30 btmwrp">
+                        <div className="btm m-b-100">
+                            <div className="l">
+                                <p className="t-ab fs-24 m-t-0 m-b-22 f-ws">Kardia info ICO</p>
+                                <p className="t-lg fs-16 m-b-28 f-ws lh-1-8">The Info Token (INFO) is a revolutionary, deflationary, information backed token - The Chainlink for KardiaChain. It is now available for sale through the First ICO ever on KardiaChain.</p>
+                                <a rel="noopener noreferrer" target="_blank" href="https://docs.kardiainfo.com/about-kardia-info/info-token-info">
+                                    <button className="wtbtnico bg-white m-r-25 f-ws c-pointer">
+                                        Token Metrics
+                                    </button>
+                                </a>
+                                <a rel="noopener noreferrer" target="_blank" href="https://docs.kardiainfo.com/about-kardia-info/info-token-info/ifo-information" className="fs-18 t-lg f-ws iclolnk t-d-none">
+                                    ICO Information
+                                </a>
+
+                            </div>
+                            <div className="r">
+                                <Playsvg />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -119,7 +415,71 @@ export default class ICO extends Component {
                         <a className="t-d-none fs-15 hp-g" href="https://t.me/dima3553">Contact</a>
                     </div>
                 </div>
+                <div className={"modal stake " + this.state.buyModal}>
+                    <div className="topbar m-b-15">
+                        <div onClick={this.toggleBuyModal} className="icon-btn ab-l-m m-l-10 ripple hamb-menu cross noselect">
+                            <svg className="hamburger-svg opened noselect" width="30" height="30" viewBox="0 0 100 100">
+                                <path className="hamburger-line hamburger-line1" d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058" />
+                                <path className="hamburger-line hamburger-line2" d="M 20,50 H 80" />
+                                <path className="hamburger-line hamburger-line3" d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942" />
+                            </svg>
+                        </div>
+                        <div className="title ab-l-m fs-22 t-g m-l-60 f-rob noselect">
+                            Buy INFO
+                        </div>
+                    </div>
+                    <div className="cont p-l-15 p-r-15">
+                        <p className="txt-r fs-14 t-bl c-pointer" onClick={this.handleMaxBuy}>Balance: {nC(parseFloat(this.state.kaiBal).toFixed(2))} KAI</p>
+                        <div className="infoInp stakeInp m-b-15">
+                            <svg className="ab-l-m m-l-5" width="16" height="15" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M7.2381 14.4L2.85714 0.378947L0 3.78947L2.85714 9.85263L7.2381 14.4Z" fill="#333333" />
+                                <path d="M6.09524 4.92632L4.57143 0L8.19048 1.51579L7.04762 5.30526L6.09524 4.92632Z" fill="#333333" />
+                                <path d="M8.7619 5.87368L10.0952 1.51579L14.0952 0.568421L16 4.73684L13.7143 7.76842L8.7619 5.87368Z" fill="#333333" />
+                                <path d="M12.7619 9.28421L6.85714 7.01053L9.14286 14.2105L12.7619 9.28421Z" fill="#333333" />
+                            </svg>
+                            <input type="number" placeholder="Buy amount" value={this.state.newBuy} className="gametxtinp stakeInp fs-16 p-l-26" onChange={this.handleBuy}></input>
+                        </div>
+                        <div className="percBtns m-b-30">
+                            <button onClick={() => this.handlePercBuy(25)} className="percBtn t-bl fs-14 c-pointer">25%</button>
+                            <button onClick={() => this.handlePercBuy(50)} className="percBtn t-bl fs-14 c-pointer">50%</button>
+                            <button onClick={() => this.handlePercBuy(75)} className="percBtn t-bl fs-14 c-pointer">75%</button>
+                            <button onClick={() => this.handlePercBuy(100)} className="percBtn t-bl fs-14 c-pointer">100%</button>
+                        </div>
+                        <p className="m-b-20 fs-15">INFO Price: <span className="fw-600 t-bl">{parseFloat((this.state.kaiDep + parseFloat(this.state.newBuy)) / 500000).toFixed(4)} KAI </span><span className="t-g fs-12">(${nC(parseFloat((this.state.kaiDep + this.state.newBuy) / 500000 * this.state.kaiPrice).toFixed(3))})</span></p>
+                        <p className="m-b-20 fs-15">INFO to buy: <span className="fw-600 t-gr">~{((parseFloat(this.state.newBuy) / (parseFloat(this.state.kaiDep) + parseFloat(this.state.newBuy)))*500000).toFixed(2)} INFO</span></p>
+                        <button onClick={this.handleBuyTx} disabled={this.state.disabled} className={"stakebtn ico btn big bl m-l-auto m-r-auto m-t-30 " + this.state.buyBtn}>{this.state.buyBtn}<img alt="" className={"txwait ab-r-m m-r-10 " + this.state.buyBtn} src="./img/spin.gif"></img></button>
+                    </div>
+                </div>
+                <div onClick={this.toggleBuyModal} className={"modal-overlay " + this.state.buyModal}></div>
             </div>
         )
     }
 }
+function nC(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+function cM(miliseconds, format) {
+    var days, hours, minutes, seconds, total_hours, total_minutes, total_seconds;
+
+    total_seconds = parseInt(Math.floor(miliseconds / 1000));
+    total_minutes = parseInt(Math.floor(total_seconds / 60));
+    total_hours = parseInt(Math.floor(total_minutes / 60));
+    days = parseInt(Math.floor(total_hours / 24));
+
+    seconds = parseInt(total_seconds % 60);
+    minutes = parseInt(total_minutes % 60);
+    hours = parseInt(total_hours % 24);
+
+    switch (format) {
+        case 's':
+            return total_seconds;
+        case 'm':
+            return total_minutes;
+        case 'h':
+            return total_hours;
+        case 'd':
+            return days;
+        default:
+            return days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+    }
+};

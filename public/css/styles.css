@@ -873,8 +873,9 @@ thead {
 	background: #C4C4C4;
 }
 
-.stakebtn.bl:hover {
+.stakebtn.bl:hover, .icobuybtn:hover {
 	background: #021cff;
+	cursor: pointer;
 }
 
 .stakebtn.gr:hover {
@@ -917,13 +918,17 @@ thead {
 	cursor: default;
 }
 
+.stakebtn.ico:disabled {
+	background: #83b5ff;
+}
+
 .txwait {
 	height: 30px;
 	width: 30px;
 	opacity: 0;
 }
 
-.txwait.Playing, .txwait.Approving, .txwait.Staking, .txwait.Unstaking {
+.txwait.Playing, .txwait.Approving, .txwait.Staking, .txwait.Unstaking, .txwait.Buying, .txwait.Claiming {
 	opacity: 1;
 }
 
@@ -1015,12 +1020,18 @@ thead {
 	position: relative;
 }
 
-.btn.Staking, .btn.Playing, .btn.Unstaking, .btn.Approving {
+.btn.Staking, .btn.Playing, .btn.Unstaking, .btn.Approving, .btn.Buying, .btn.Claiming {
 	animation-name: active;
 	animation-duration: 1.3s;
 	animation-iteration-count: infinite;
 }
-
+.icobuybtn:disabled{
+	background: #83b5ff;
+	cursor:default;
+}
+.stakebtn.ico{
+	background: #0066FF;
+}
 .btn.Waiting {
 	background: #83b5ff;
 }
@@ -1332,28 +1343,39 @@ thead {
 
 .ico {
 	min-height: 100%;
+	background-color: #F7F7F8;
+}
+
+.ico * {
+	transition: 0.2s;
 }
 
 .icoWarapper {
 	background-color: #F7F7F8;
 	min-height: 100%;
-	padding: 40px;
+	padding-top: 40px;
+	overflow: hidden;
+	max-width: 1400px;
+	display: block;
+	margin: auto;
 }
 
 .ico-info {
 	display: flex;
-	justify-content: space-between;
+	overflow: auto;
 }
 
 .ico-info-box {
 	background: #FFFFFF;
 	box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
 	border-radius: 16px;
-	width: 100%;
-	max-width: 30%;
+	width: 30%;
+	max-width: 450px;
+	min-width: 360px;
 	padding: 18px;
 	padding-right: 66px;
 	position: relative;
+	margin-right: 35px;
 }
 
 .ico-info-box p {
@@ -1365,19 +1387,43 @@ thead {
 	box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
 	border-radius: 20px;
 	display: flex;
+	flex-wrap: wrap;
 }
 
 .myicostats .left {
-	max-width: 500px;
-	min-width: 360px;
-	width: 40%;
-	margin-right: 30px;
+	width: 35%;
+	height: 230px;
+	display: block;
+	margin: auto;
+}
+
+@media(min-width:1101px) {
+	.myicostats .right {
+		width: 65%;
+		display: block;
+		margin: auto;
+	}
+}
+
+@media(max-width:1100px) {
+	.myicostats .right {
+		width: 100%;
+		display: block;
+		margin: auto;
+	}
+}
+
+@media(max-width:387px) {
+	.stti {
+		margin-bottom: 15px;
+	}
 }
 
 .ico-top-stats {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	flex-wrap: wrap;
 }
 
 .ico-mystats {
@@ -1387,15 +1433,49 @@ thead {
 .ico-mynums {
 	display: flex;
 	align-items: center;
+	flex-wrap: wrap;
 }
 
 .ico-mynums .l {
-	padding-right: 80px;
 	border-right: 1px solid #f0f0f0;
+	margin-right: clamp(50px, 10%, 80px);
+	padding-right: clamp(50px, 10%, 80px);
 }
 
-.ico-mynums .r {
-	padding-left: 80px;
+@media(max-width:479px) {
+	.ico-mynums .l {
+		border-right: 0;
+		margin-right: clamp(50px, 10%, 80px);
+		padding-right: clamp(50px, 10%, 80px);
+		margin-bottom: 20px;
+		width: 100%;
+	}
+}
+
+@media(max-width:330px) {
+	.ico-mynums .l {
+		border-right: 0;
+		margin-right: 0;
+		padding-right: 0
+	}
+}
+
+.icobuybtn {
+	background: #226BF6;
+	height: 52px;
+	border: 0;
+	outline: 0;
+	border-radius: 8px;
+	color: white;
+	padding-left: 30px;
+	padding-right: 30px;
+	width: 260px;
+	font-size: 18px;
+	box-shadow: 0px 2px 8px rgba(40, 41, 61, 0.04), 0px 16px 24px rgba(96, 97, 112, 0.16);
+}
+
+.icowal {
+	width: 170px;
 }
 
 .clock {
@@ -1409,6 +1489,7 @@ thead {
 
 .btm {
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: space-between;
 	align-items: center;
 	background: #EBF2FE;
@@ -1417,30 +1498,139 @@ thead {
 	margin-top: 75px;
 	padding: 24px;
 }
-.btm .r{
-	width: 350px;
-	position: relative;
-	height: 180px;
+
+.wtbtnico {
+	background: transparent;
+	height: 52px;
+	border: 1px solid #226BF6;
+	outline: 0;
+	border-radius: 8px;
+	color: #226BF6;
+	padding-left: 30px;
+	padding-right: 30px;
+	font-size: 18px;
 }
-.btm .r svg{
+
+@media(max-width:1251px) {
+	.btm .r {
+		min-width: 0px;
+		position: relative;
+		height: 280px;
+		order: 1;
+		width: 30%;
+		display: block;
+		margin: auto;
+		margin-bottom: 30px;
+	}
+	.btm .l {
+		order: 2;
+		width: 100%;
+	}
+	.btm .r svg {
+		margin-bottom: 0 !important;
+	}
+}
+
+@media(min-width:1251px) {
+	.btm .r {
+		min-width: 0px;
+		position: relative;
+		height: 180px;
+		width: 30% !important;
+		display: block;
+		margin: auto;
+	}
+	.btm .l {
+		width: 70% !important;
+	}
+}
+
+.icobuybtn.bt {
+	display: none;
+}
+
+@media(max-width:550px) {
+	.wtbtnico {
+		width: 100%;
+		margin-bottom: 25px;
+	}
+	.iclolnk {
+		display: block;
+		margin: auto;
+		width: fit-content;
+		margin-bottom: 25px;
+	}
+	.icobuybtn.bt {
+		display: block;
+		width: 100%;
+		position: relative;
+	}
+	.icobuybtn.tp {
+		display: none;
+	}
+	.ico-info-box {
+		width: 100% !important;
+		max-width: 100% !important;
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+		margin-bottom: 15px;
+		min-width: 0px;
+		padding-right: 20px;
+	}
+	.ico-info-box.tp {
+		min-height: 129px;
+	}
+	.ico-info {
+		flex-wrap: wrap;
+		padding-left: 40px;
+		padding-right: 40px;
+	}
+}
+
+.btm .r svg {
 	width: 350px;
 	height: 320px;
 	position: absolute;
 	bottom: 0px;
 	left: 50%;
 	-webkit-transform: translateX(-50%);
-  	-moz-transform: translateX(-50%);
-  	-ms-transform: translateX(-50%);
-  	-o-transform: translateX(-50%);
+	-moz-transform: translateX(-50%);
+	-ms-transform: translateX(-50%);
+	-o-transform: translateX(-50%);
 	transform: translateX(-50%);
 	margin-bottom: -15px;
 }
-.footer.dk{
+
+.footer.dk {
 	background: #eeeeee;
 }
-.hpbtn-tr.bg-white{
-background-color: white !important;
+
+.hpbtn-tr.bg-white {
+	background-color: white !important;
 }
+
+@media(max-width:480px) {
+	.ico-info-box .bb {
+		font-size: 20px;
+	}
+	.ico-info-box.tp {
+		min-height: 115px;
+	}
+}
+
+@media(max-width:550px) {
+	.ico-info, .middle, .btmwrp, .icot{
+		padding-left: 20px;
+		padding-right: 20px;
+	}
+}
+
+@media(max-width:350px) {
+	.ico-info-box svg {
+		display: none;
+	}
+}
+
 @media(min-width:485px) {
 	.pd {
 		opacity: 0;

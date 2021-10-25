@@ -43,8 +43,8 @@ export default class Sidebar extends Component {
                         <Sidelink name="Overview" cName="overview" lnk="/">
                             <Homesvg/>
                         </Sidelink>
-                        <Sidelink name="ICO" cName="ico" lnk="/ico">
-                            
+                        <Sidelink name="ICO" cName="icosidelink" lnk="/ico">
+                            <Rocket/>
                         </Sidelink>
                         <Sidelink name="Tokens" cName="tokens" lnk="/tokens">
                             <Tokensvg/>

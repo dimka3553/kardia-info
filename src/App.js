@@ -43,7 +43,7 @@ function App() {
             <Route exact path="/airdropper">
               <Airdropper />
             </Route>
-            <Route exact path="/testico">
+            <Route exact path="/ico">
               <ICO />
             </Route>
           </Switch>

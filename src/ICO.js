@@ -157,7 +157,7 @@ export default class ICO extends Component {
                     accounts = ["0x0000000000000000000000000000000000000000"]
                 }
                 console.log(accounts[0])
-                var icoAddr = "0x48e7a2D2BDe4204B47BA66dd454f6C54a6075888"
+                var icoAddr = "0x6c622c239bCc260c90157E63E0EA12bD4511477A"
                 var ico
                 var icows
                 if (!this.state.ico) {

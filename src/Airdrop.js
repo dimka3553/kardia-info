@@ -1,5 +1,4 @@
 import {React, useEffect} from 'react'
-import { Link } from 'react-router-dom'
 import Altlogo from './components/subcomponents/svgs/Altlogo'
 import Infosvg from './components/subcomponents/svgs/Infosvg'
 export default function Airdrop() {

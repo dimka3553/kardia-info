@@ -382,7 +382,7 @@ export default class ICO extends Component {
                                         Token Metrics
                                     </button>
                                 </a>
-                                <a rel="noopener noreferrer" target="_blank" href="https://docs.kardiainfo.com/about-kardia-info/info-token-info/ifo-information" className="fs-18 t-lg f-ws iclolnk t-d-none">
+                                <a rel="noopener noreferrer" target="_blank" href="https://docs.kardiainfo.com/about-kardia-info/info-token-info/ico-information" className="fs-18 t-lg f-ws iclolnk t-d-none">
                                     ICO Information
                                 </a>
 

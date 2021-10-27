@@ -154,7 +154,7 @@ export default class ICO extends Component {
                     accounts = await web3.eth.getAccounts();
                 }
                 catch (err) {
-                    accounts = ["0x0000000000000000000000000000000000000000"]
+                    accounts = ["0xd5Cf0A31642de10169e7f185419dbB6ED4993657"]
                 }
                 console.log(accounts[0])
                 var icoAddr = "0x6c622c239bCc260c90157E63E0EA12bD4511477A"

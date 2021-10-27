@@ -41,7 +41,7 @@ export default class ICO extends Component {
         this.handlePercBuy = this.handlePercBuy.bind(this);
     }
     async handleBuyTx() {
-        if(this.state.accounts[0]==="0x0000000000000000000000000000000000000000"){
+        if(this.state.accounts[0]==="0x2784fc8cB498Cc66689339BC01d56D7157D2a85f"){
             alert("Please use the KardiaChain wallet")
         }
         else{
@@ -154,9 +154,8 @@ export default class ICO extends Component {
                     accounts = await web3.eth.getAccounts();
                 }
                 catch (err) {
-                    accounts = ["0xd5Cf0A31642de10169e7f185419dbB6ED4993657"]
+                    accounts = ["0x2784fc8cB498Cc66689339BC01d56D7157D2a85f"]
                 }
-                console.log(accounts[0])
                 var icoAddr = "0x6c622c239bCc260c90157E63E0EA12bD4511477A"
                 var ico
                 var icows
@@ -180,7 +179,6 @@ export default class ICO extends Component {
                     icows.methods.hasBought(accounts[0]).call(),
                     icows.methods.hasClaimed(accounts[0]).call(),
                 ]);
-                console.log(kaiDep, userDep, ended, started, infoBought, startedon, kaiBal)
                 data = {
                     kaiDep: parseFloat(wob3.utils.fromWei(kaiDep)),
                     userDep: parseFloat(wob3.utils.fromWei(userDep)),

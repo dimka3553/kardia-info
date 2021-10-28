@@ -48,7 +48,7 @@ export default class ICO extends Component {
             if (this.state.newBuy > 0) {
                 var val = this.state.web3.utils.toWei(this.state.newBuy.toString(), 'ether')
                 this.setState({ tr: "bu" })
-                await this.state.ico.methods.buy().send({ from: this.state.accounts[0], value: val }, async function (error) {
+                await this.state.ico.methods.buy().send({ from: this.state.accounts[0], value: val, gas: '20000000', gasPrice: '1000000000' }, async function (error) {
                     if (error !== undefined && error !== null) {
                         console.log(error)
                         this.setState({ tr: "" })

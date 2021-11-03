@@ -170,7 +170,7 @@ export default class ICO extends Component {
                     accounts = ["0x2784fc8cB498Cc66689339BC01d56D7157D2a85f"]
                 }
                 var icoAddr = "0x6c622c239bCc260c90157E63E0EA12bD4511477A"
-                var refundAddr = "0x7B0B471a9C5Fa9F51a92577edBe7edCFa33FD1C4"
+                var refundAddr = "0xAe8445a082Ea51971D65cFf8a46B3A6761F07070"
                 var ico
                 var icows
                 var refund
@@ -209,7 +209,7 @@ export default class ICO extends Component {
                     hasClaimed: hasClaimed,
                     hasRefunded: hasRefunded
                 }
-                data.kairef = (data.infoBought / 500000) * 2500000;
+                data.kairef = (data.infoBought / 500000) * 3000000;
                 if (data.started === false && data.ended === false) {
                     data.clock = "Not started yet"
                     data.buyBtn = "ICO not started yet"
@@ -237,14 +237,14 @@ export default class ICO extends Component {
                     data.buyBtn = "ICO is over"
                     data.disabled = true
                     if (hasBought === true && hasClaimed === false) {
+                        data.disabled2 = false
                         if (hasRefunded === false) {
                             data.bigBuyBtn = "Claim " + parseFloat(data.kairef).toFixed(2) + " KAI"
                         }
                         else {
+                            data.disabled2 = true
                             data.bigBuyBtn = "Claim " + parseFloat(data.infoBought).toFixed(2) + " INFO"
                         }
-
-                        data.disabled2 = false
                     }
                     else if (hasBought === true && hasClaimed === true) {
                         data.bigBuyBtn = "Already claimed 😉"
@@ -255,7 +255,7 @@ export default class ICO extends Component {
                         data.disabled2 = true
                     }
                 }
-                data.price = (data.kaiDep - 2500000) / 500000;
+                data.price = (data.kaiDep - 3000000) / 500000;
                 data.priceusd = data.price * kaiPrice;
                 data.kaiBalUsd = data.kaiBal * kaiPrice;
                 data.userDepUsd = data.userDep * kaiPrice;
@@ -324,7 +324,7 @@ export default class ICO extends Component {
                 <div className="icoWarapper">
 
                     <div className="top">
-                        <p className="alerttt p-l-20 p-r-20 p-t-20 p-b-20 m-l-20 m-r-20 m-t-20 m-b-40">Dear ICO investors, <br/><br/>We have decided to make a last minute change to how the ICO works. The ICO will now follow an overflow system where you will be refunded any KAI that is over a $100,000 hard cap. The reason we did this is due to the fact that we raised way more KAI than expected which made listing very risky due to a significant amount of selling pressure. <br/><br/>All the overflow KAI can be claimed after the ICO. This allows INFO to be listed with more liquidity and at more 2x the ICO price.<br /> <br />Kind regards, <br /><br />Development team.</p>
+                        <p className="alerttt p-l-20 p-r-20 p-t-20 p-b-20 m-l-20 m-r-20 m-t-20 m-b-40">Dear ICO investors, <br/><br/>We have decided to make a last minute change to how the ICO works. The ICO will now follow an overflow system where you will be refunded any KAI that is over a $100,000 hard cap. The reason we did this is due to the fact that we raised way more KAI than expected which made listing very risky due to a significant amount of selling pressure. <br/><br/>All the overflow KAI can be claimed after the ICO. This allows INFO to be listed with more liquidity and at more 2x the ICO price.<br /> <br />Speaking of listing, it will be slightly postponed as the KAI team are in the reviewing process, INFO claiming will be enabled after listing. <br/><br/>Kind regards, <br /><br />Development team.</p>
                         <p className="p-t-0 m-t-0 p-l-40 m-b-24 fs-24 t-ab icot">ICO Stats</p>
                         <div className="ico-info p-t-10 p-b-10">
                             <div className="ico-info-box  m-l-40 tp">
@@ -473,7 +473,7 @@ export default class ICO extends Component {
                             <button onClick={() => this.handlePercBuy(75)} className="percBtn t-bl fs-14 c-pointer">75%</button>
                             <button onClick={() => this.handlePercBuy(100)} className="percBtn t-bl fs-14 c-pointer">100%</button>
                         </div>
-                        <p className="m-b-20 fs-15">INFO Price: <span className="fw-600 t-bl">{parseFloat((this.state.kaiDep + parseFloat(this.state.newBuy)-2500000) / 500000).toFixed(4)} KAI </span><span className="t-g fs-12">(${nC(parseFloat((this.state.kaiDep + this.state.newBuy - 2500000) / 500000 * this.state.kaiPrice).toFixed(3))})</span></p>
+                        <p className="m-b-20 fs-15">INFO Price: <span className="fw-600 t-bl">{parseFloat((this.state.kaiDep + parseFloat(this.state.newBuy)-3000000) / 500000).toFixed(4)} KAI </span><span className="t-g fs-12">(${nC(parseFloat((this.state.kaiDep + this.state.newBuy - 3000000) / 500000 * this.state.kaiPrice).toFixed(3))})</span></p>
                         <p className="m-b-20 fs-15">INFO to buy: <span className="fw-600 t-gr">~{((parseFloat(this.state.newBuy) / (parseFloat(this.state.kaiDep) + parseFloat(this.state.newBuy))) * 500000).toFixed(2)} INFO</span></p>
                         <button onClick={this.handleBuyTx} disabled={this.state.disabled} className={"stakebtn ico btn big bl m-l-auto m-r-auto m-t-30 " + this.state.buyBtn}>{this.state.buyBtn}<img alt="" className={"txwait ab-r-m m-r-10 " + this.state.buyBtn} src="./img/spin.gif"></img></button>
                     </div>

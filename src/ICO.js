@@ -229,7 +229,8 @@ export default class ICO extends Component {
                     }
                     data.buyBtn = "Buy INFO"
                     data.bigBuyBtn = "Buy INFO now"
-                    data.disabled = false
+                    data.disabled = true
+                    data.disabled2 = true
                 }
                 else {
                     data.clock = "ICO is over"

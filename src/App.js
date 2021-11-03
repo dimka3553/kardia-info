@@ -11,6 +11,7 @@ import Game from './Game';
 import Airdrop from './Airdrop';
 import Airdropper from './Airdropper';
 import ICO from './ICO';
+import Clubhouse from './Clubhouse';
 
 function App() {
   return (
@@ -45,6 +46,9 @@ function App() {
             </Route>
             <Route exact path="/ico">
               <ICO />
+            </Route>
+            <Route exact path="/club">
+              <Clubhouse />
             </Route>
           </Switch>
         </div>

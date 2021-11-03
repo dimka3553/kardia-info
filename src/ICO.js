@@ -5,7 +5,8 @@ import getWob3 from "./components/getWob3";
 import Cards from './components/subcomponents/svgs/Cards';
 import Playsvg from './components/subcomponents/svgs/Playsvg'
 import Altlogo from './components/subcomponents/svgs/Altlogo';
-import icoABI from "./ABI/ico.json"
+import icoABI from "./ABI/ico.json";
+import refundABI from "./ABI/refund.json";
 
 export default class ICO extends Component {
     constructor(props) {
@@ -27,7 +28,7 @@ export default class ICO extends Component {
             timeLeft: 0,
             clock: "",
             kaiPrice: 0,
-            infoBoughtPer: 0,
+            kairef: 0,
             newBuy: "",
             buyBtn: "ICO not started",
             disabled: true,
@@ -41,10 +42,10 @@ export default class ICO extends Component {
         this.handlePercBuy = this.handlePercBuy.bind(this);
     }
     async handleBuyTx() {
-        if(this.state.accounts[0]==="0x2784fc8cB498Cc66689339BC01d56D7157D2a85f"){
+        if (this.state.accounts[0] === "0x2784fc8cB498Cc66689339BC01d56D7157D2a85f") {
             alert("Please use the KardiaChain wallet")
         }
-        else{
+        else {
             if (this.state.newBuy > 0) {
                 var val = this.state.web3.utils.toWei(this.state.newBuy.toString(), 'ether')
                 this.setState({ tr: "bu" })
@@ -57,7 +58,7 @@ export default class ICO extends Component {
                     this.setState({ tr: "" })
                 }.bind(this))
             }
-            else{
+            else {
                 alert("Please enter an amount")
             }
         }
@@ -68,7 +69,7 @@ export default class ICO extends Component {
             this.setState({ newBuy: event.target.value })
         }
         else if (event.target.value < this.state.kaiBal && event.target.value < 0) {
-            this.setState({ newBuy:  0})
+            this.setState({ newBuy: 0 })
         }
         else if (event.target.value > this.state.kaiBal) {
             this.handleMaxBuy(event)
@@ -92,14 +93,26 @@ export default class ICO extends Component {
         }
         else {
             this.setState({ tr: "cl" })
-            await this.state.ico.methods.claim().send({ from: this.state.accounts[0] }, async function (error) {
-                if (error !== undefined && error !== null) {
-                    console.log(error)
+            if (this.state.hasRefunded === true) {
+                await this.state.ico.methods.claim().send({ from: this.state.accounts[0] }, async function (error) {
+                    if (error !== undefined && error !== null) {
+                        console.log(error)
+                        this.setState({ tr: "" })
+                    }
+                }.bind(this)).then(function () {
                     this.setState({ tr: "" })
-                }
-            }.bind(this)).then(function () {
-                this.setState({ tr: "" })
-            }.bind(this))
+                }.bind(this))
+            }
+            else {
+                await this.state.refund.methods.refund().send({ from: this.state.accounts[0] }, async function (error) {
+                    if (error !== undefined && error !== null) {
+                        console.log(error)
+                        this.setState({ tr: "" })
+                    }
+                }.bind(this)).then(function () {
+                    this.setState({ tr: "" })
+                }.bind(this))
+            }
         }
     }
     handlePercBuy(num) {
@@ -157,27 +170,32 @@ export default class ICO extends Component {
                     accounts = ["0x2784fc8cB498Cc66689339BC01d56D7157D2a85f"]
                 }
                 var icoAddr = "0x6c622c239bCc260c90157E63E0EA12bD4511477A"
+                var refundAddr = "0x7B0B471a9C5Fa9F51a92577edBe7edCFa33FD1C4"
                 var ico
                 var icows
+                var refund
                 if (!this.state.ico) {
                     ico = new web3.eth.Contract(icoABI, icoAddr);
                     icows = new wob3.eth.Contract(icoABI, icoAddr);
+                    refund = new web3.eth.Contract(refundABI, refundAddr);
                 }
                 else {
                     ico = this.state.ico
                     icows = this.state.icows
+                    refund = this.state.refund
                 }
                 var data
 
-                let [kaiDep, userDep, ended, started, infoBought, startedon, kaiBal, hasBought, hasClaimed] = await Promise.all([
-                    icows.methods.kaiDeposited().call(), 
-                    icows.methods.depositedAmount(accounts[0]).call(), 
-                    icows.methods.ended().call(), icows.methods.started().call(), 
-                    icows.methods.infoToBuy(accounts[0]).call(), 
-                    icows.methods.icoBegun().call(), 
-                    wob3.eth.getBalance(accounts[0]), 
+                let [kaiDep, userDep, ended, started, infoBought, startedon, kaiBal, hasBought, hasClaimed, hasRefunded] = await Promise.all([
+                    icows.methods.kaiDeposited().call(),
+                    icows.methods.depositedAmount(accounts[0]).call(),
+                    icows.methods.ended().call(), icows.methods.started().call(),
+                    icows.methods.infoToBuy(accounts[0]).call(),
+                    icows.methods.icoBegun().call(),
+                    wob3.eth.getBalance(accounts[0]),
                     icows.methods.hasBought(accounts[0]).call(),
                     icows.methods.hasClaimed(accounts[0]).call(),
+                    refund.methods.hasRefunded(accounts[0]).call()
                 ]);
                 data = {
                     kaiDep: parseFloat(wob3.utils.fromWei(kaiDep)),
@@ -188,8 +206,10 @@ export default class ICO extends Component {
                     startedon: startedon,
                     kaiBal: parseFloat(wob3.utils.fromWei(kaiBal)),
                     hasBought: hasBought,
-                    hasClaimed:hasClaimed
+                    hasClaimed: hasClaimed,
+                    hasRefunded: hasRefunded
                 }
+                data.kairef = (data.infoBought / 500000) * 2500000;
                 if (data.started === false && data.ended === false) {
                     data.clock = "Not started yet"
                     data.buyBtn = "ICO not started yet"
@@ -216,24 +236,29 @@ export default class ICO extends Component {
                     data.buyBtn = "ICO is over"
                     data.disabled = true
                     if (hasBought === true && hasClaimed === false) {
-                        data.bigBuyBtn = "Claim " + parseFloat(data.infoBought).toFixed(2) + " INFO"
+                        if (hasRefunded === false) {
+                            data.bigBuyBtn = "Claim " + parseFloat(data.kairef).toFixed(2) + " KAI"
+                        }
+                        else {
+                            data.bigBuyBtn = "Claim " + parseFloat(data.infoBought).toFixed(2) + " INFO"
+                        }
+
                         data.disabled2 = false
                     }
                     else if (hasBought === true && hasClaimed === true) {
                         data.bigBuyBtn = "Already claimed 😉"
                         data.disabled2 = true
                     }
-                    else if(hasBought === false) {
+                    else if (hasBought === false) {
                         data.bigBuyBtn = "No INFO to claim 😢"
                         data.disabled2 = true
                     }
                 }
-                data.price = data.kaiDep / 500000;
+                data.price = (data.kaiDep - 2500000) / 500000;
                 data.priceusd = data.price * kaiPrice;
                 data.kaiBalUsd = data.kaiBal * kaiPrice;
                 data.userDepUsd = data.userDep * kaiPrice;
                 data.kaiDepUsd = data.kaiDep * kaiPrice;
-                data.infoBoughtPer = (data.infoBought / 500000) * 100
                 this.setState({
                     clock: data.clock,
                     kaiBal: data.kaiBal,
@@ -245,17 +270,19 @@ export default class ICO extends Component {
                     userDepUsd: data.userDepUsd,
                     userDep: data.userDep,
                     infoBought: data.infoBought,
-                    infoBoughtPer: data.infoBoughtPer,
+                    kairef: data.kairef,
                     buyBtn: data.buyBtn,
                     disabled: data.disabled,
                     disabled2: data.disabled2,
                     bigBuyBtn: data.bigBuyBtn,
-                    ended:data.ended,
+                    ended: data.ended,
                     started: data.started,
+                    hasRefunded: data.hasRefunded,
                     ico,
                     web3,
                     wob3,
                     icows,
+                    refund,
                     accounts,
                     kaiPrice
                 })
@@ -294,7 +321,9 @@ export default class ICO extends Component {
         return (
             <div className="ico">
                 <div className="icoWarapper">
+
                     <div className="top">
+                        <p className="alerttt p-l-20 p-r-20 p-t-20 p-b-20 m-l-20 m-r-20 m-t-20 m-b-40">Dear ICO investors, <br/><br/>We have decided to make a last minute change to how the ICO works. The ICO will now follow an overflow system where you will be refunded any KAI that is over a $100,000 hard cap. The reason we did this is due to the fact that we raised way more KAI than expected which made listing very risky due to a significant amount of selling pressure. <br/><br/>All the overflow KAI can be claimed after the ICO. This allows INFO to be listed with more liquidity and at more 2x the ICO price.<br /> <br />Kind regards, <br /><br />Development team.</p>
                         <p className="p-t-0 m-t-0 p-l-40 m-b-24 fs-24 t-ab icot">ICO Stats</p>
                         <div className="ico-info p-t-10 p-b-10">
                             <div className="ico-info-box  m-l-40 tp">
@@ -309,7 +338,7 @@ export default class ICO extends Component {
                             <div className="ico-info-box">
                                 <p className="fs-16 t-g fw-700 ">Price / INFO</p>
                                 <p className="fs-32 t-ab p-t-10 bb">{this.state.price.toFixed(4)} <span className="t-s"> KAI</span></p>
-                                <p className="fs-14 t-lbl p-t-10">${this.state.priceusd.toFixed(4)}</p>
+                                <p className="fs-14 t-lbl p-t-10">${this.state.priceusd.toFixed(3)} → Listing: ~$0.55</p>
                                 <svg className="ab-t-r m-t-18 m-r-18" width="49" height="48" viewBox="0 0 49 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect x="0.333008" width="48" height="48" rx="12" fill="#F2F4FA" />
                                     <path d="M21.0049 26.3298C21.0049 27.6198 21.9949 28.6598 23.2249 28.6598H25.7349C26.8049 28.6598 27.6749 27.7498 27.6749 26.6298C27.6749 25.4098 27.1449 24.9798 26.3549 24.6998L22.3249 23.2998C21.5349 23.0198 21.0049 22.5898 21.0049 21.3698C21.0049 20.2498 21.8749 19.3398 22.9449 19.3398H25.4549C26.6849 19.3398 27.6749 20.3798 27.6749 21.6698" stroke="#9699A5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -361,7 +390,7 @@ export default class ICO extends Component {
                                         <div className="r m-t-15">
                                             <p className="fs-16 t-g m-t-0 m-b-10">Receive</p>
                                             <p className="fs-24 t-ab m-t-0 m-b-10">{nC(parseFloat(this.state.infoBought).toFixed(2))} <span className="t-s fs-24">INFO</span></p>
-                                            <p className="t-lbl fs-14 m-t-0 m-b-0">{parseFloat(this.state.infoBoughtPer).toFixed(3)} %</p>
+                                            <p className="t-lbl fs-14 m-t-0 m-b-0">+ {nC(parseFloat(this.state.kairef).toFixed(2))} KAI (overflow)</p>
                                         </div>
                                     </div>
                                 </div>
@@ -443,8 +472,8 @@ export default class ICO extends Component {
                             <button onClick={() => this.handlePercBuy(75)} className="percBtn t-bl fs-14 c-pointer">75%</button>
                             <button onClick={() => this.handlePercBuy(100)} className="percBtn t-bl fs-14 c-pointer">100%</button>
                         </div>
-                        <p className="m-b-20 fs-15">INFO Price: <span className="fw-600 t-bl">{parseFloat((this.state.kaiDep + parseFloat(this.state.newBuy)) / 500000).toFixed(4)} KAI </span><span className="t-g fs-12">(${nC(parseFloat((this.state.kaiDep + this.state.newBuy) / 500000 * this.state.kaiPrice).toFixed(3))})</span></p>
-                        <p className="m-b-20 fs-15">INFO to buy: <span className="fw-600 t-gr">~{((parseFloat(this.state.newBuy) / (parseFloat(this.state.kaiDep) + parseFloat(this.state.newBuy)))*500000).toFixed(2)} INFO</span></p>
+                        <p className="m-b-20 fs-15">INFO Price: <span className="fw-600 t-bl">{parseFloat((this.state.kaiDep + parseFloat(this.state.newBuy)-2500000) / 500000).toFixed(4)} KAI </span><span className="t-g fs-12">(${nC(parseFloat((this.state.kaiDep + this.state.newBuy - 2500000) / 500000 * this.state.kaiPrice).toFixed(3))})</span></p>
+                        <p className="m-b-20 fs-15">INFO to buy: <span className="fw-600 t-gr">~{((parseFloat(this.state.newBuy) / (parseFloat(this.state.kaiDep) + parseFloat(this.state.newBuy))) * 500000).toFixed(2)} INFO</span></p>
                         <button onClick={this.handleBuyTx} disabled={this.state.disabled} className={"stakebtn ico btn big bl m-l-auto m-r-auto m-t-30 " + this.state.buyBtn}>{this.state.buyBtn}<img alt="" className={"txwait ab-r-m m-r-10 " + this.state.buyBtn} src="./img/spin.gif"></img></button>
                     </div>
                 </div>

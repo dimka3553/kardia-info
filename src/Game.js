@@ -440,16 +440,17 @@ class Game extends Component {
     }
 
     async refreshData() {
-        window.dispatchEvent(new Event('load'));
+        if (!this.state.web3) {
+            window.dispatchEvent(new Event('load'))
+        }
         if (this.state.tr === "") {
             try {
-                // Get network provider and web3 instance.
                 var web3
                 if (!this.state.web3) {
                     web3 = await getWeb3();
                 }
                 else {
-                    web3 = this.state.web3;
+                    web3 = this.state.web3
                 }
 
                 // Use web3 to get the user's accounts.
@@ -461,8 +462,8 @@ class Game extends Component {
                     accounts = ["0x0000000000000000000000000000000000000000"]
                 }
 
-                const tokenAddress = "0xFbdD162a0FD45657d3754b9d17A4e9Cce33543dd";
-                const gameAddress = "0x8659Be7d4bC2752544F8aC2aC1505ef4A906863d";
+                const tokenAddress = "0x5FFD7a138422cBbcfB53908AD51F656D7C6c640F";
+                const gameAddress = "0x7A848Aa57D9D83b670f1Dd75A71AE1E6BF68E6CC";
 
                 const token = new web3.eth.Contract(tokenABI, tokenAddress);
                 const game = new web3.eth.Contract(gameABI, gameAddress);
@@ -474,16 +475,27 @@ class Game extends Component {
                 async function getInfo() {
                     var ret = {}
                     if (accounts[0] !== "0x0000000000000000000000000000000000000000") {
+                        let [InfoBal, gameBal, allowed, stakedBal, originalBal, gameID, wagered, totalWon, arrayLen] = await Promise.all([
+                            token.methods.balanceOf(accounts[0]).call(),
+                            token.methods.balanceOf(gameAddress).call(),
+                            token.methods.allowance(accounts[0], gameAddress).call(),
+                            game.methods.currentBalance(accounts[0]).call(),
+                            game.methods.originalBalance(accounts[0]).call(),
+                            game.methods.id().call(),
+                            game.methods.wagered().call(),
+                            game.methods.totalWon().call(),
+                            game.methods.gamesPlayed(accounts[0]).call()
+                        ])
                         ret = {
-                            InfoBal: await token.methods.balanceOf(accounts[0]).call(),
-                            gameBal: await token.methods.balanceOf(gameAddress).call(),
-                            allowed: await token.methods.allowance(accounts[0], gameAddress).call(),
-                            stakedBal: await game.methods.currentBalance(accounts[0]).call(),
-                            originalBal: await game.methods.originalBalance(accounts[0]).call(),
-                            gameID: await game.methods.id().call(),
-                            wagered: await game.methods.wagered().call(),
-                            totalWon: await game.methods.totalWon().call(),
-                            arrayLen: await game.methods.gamesPlayed(accounts[0]).call()
+                            InfoBal: InfoBal,
+                            gameBal: gameBal,
+                            allowed: allowed,
+                            stakedBal: stakedBal,
+                            originalBal: originalBal,
+                            gameID: gameID,
+                            wagered: wagered,
+                            totalWon: totalWon,
+                            arrayLen: arrayLen
                         }
 
                         if (ret.arrayLen > 0) {
@@ -514,7 +526,7 @@ class Game extends Component {
                             allowed: "0",
                             stakedBal: "0",
                             originalBal: "0",
-                            gameID: await game.methods.id().call(),
+                            gameID: 1,
                             wagered: await game.methods.wagered().call(),
                             totalWon: await game.methods.totalWon().call(),
                             arrayLen: await game.methods.gamesPlayed('0x0000000000000000000000000000000000000000').call()
@@ -703,7 +715,7 @@ class Game extends Component {
 
 
     render() {
-        if (!this.state.accounts) {
+        if (!this.state.web3) {
             return <Loader />;
         }
         var wal = this.state.accounts[0].substring(0, 5) + "..." + this.state.accounts[0].slice(this.state.accounts[0].length - 3);
@@ -766,102 +778,6 @@ class Game extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="right">
-                    <div className="waltab">
-                        <div className='walsec'>
-                            <div className="top ">
-                                <span className="fs-18">
-                                    Stake INFO and earn a portion of the profits generated by the game
-                                </span>
-                                <img alt="" className="avimg" src="./img/smalllogo.png"></img>
-                            </div>
-                            <div className="poolinfo">
-                                <div className="farm">
-                                    <p className="t-g txt-c fs-16 m-t-30 m-b-20">Info Tokens staked:</p>
-                                    <p className="txt-c fs-20 fw-600  m-t-0 m-b-0">{numberWithCommas(parseFloat(this.state.stakedBal).toFixed(3))} INFO</p>
-                                    <p className={this.state.profitcol + ` fs-14 txt-c m-t-5`}>Profit: {numberWithCommas((this.state.profit).toFixed(3))} INFO</p>
-                                    <button onClick={this.toggleStakeModal} className="stakebtn bl m-l-auto m-r-auto m-t-30">Stake</button>
-                                    <br />
-                                    <button onClick={this.toggleUnstakeModal} className={"stakebtn gr m-l-auto m-r-auto m-b-20 " + this.state.isStaking}>Unstake</button>
-                                </div>
-                                <div className="stats">
-                                    <h4 className="txt-c fs-18 fw-600">Stats</h4>
-                                    <p className="t-g txt-c">INFO staked:  <span className="fw-600 t-b">{numberWithCommas(parseFloat(this.state.gameBal).toFixed(3))}</span></p>
-                                    <p className="t-g txt-c">Total games played:  <span className="fw-600 t-b">{this.state.gameID}</span></p>
-                                    <p className="t-g txt-c">INFO wagered:  <span className="fw-600 t-b">{numberWithCommas(parseFloat(this.state.wagered).toFixed(3))}</span></p>
-                                    <p className="t-g txt-c">INFO won:  <span className="fw-600 t-b">{numberWithCommas(parseFloat(this.state.totalWon).toFixed(3))}</span></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className={"modal stake " + this.state.stakeModal}>
-                    <div className="topbar m-b-15">
-                        <div onClick={this.toggleStakeModal} className="icon-btn ab-l-m m-l-10 ripple hamb-menu cross noselect">
-                            <svg className="hamburger-svg opened noselect" width="30" height="30" viewBox="0 0 100 100">
-                                <path className="hamburger-line hamburger-line1" d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058" />
-                                <path className="hamburger-line hamburger-line2" d="M 20,50 H 80" />
-                                <path className="hamburger-line hamburger-line3" d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942" />
-                            </svg>
-                        </div>
-                        <div className="title ab-l-m fs-22 t-g m-l-60 f-rob noselect">
-                            Stake INFO
-                        </div>
-                    </div>
-                    <div className="cont p-l-15 p-r-15">
-                        <p className="txt-r fs-14 t-bl c-pointer" onClick={this.handleMaxStake}>Balance: {numberWithCommas(parseFloat(this.state.InfoBal).toFixed(2))} INFO</p>
-                        <div className="infoInp stakeInp m-b-15">
-                            <img className="ab-l-m m-l-5" src="./img/smalllogo.png" alt=""></img>
-                            <input type="number" placeholder="Stake amount" value={this.state.newStake} className="gametxtinp stakeInp fs-16 p-l-26" onChange={this.handleStake}></input>
-                        </div>
-                        <div className="percBtns m-b-30">
-                            <button onClick={() => this.handlePercStake(25)} className="percBtn t-bl fs-14 c-pointer">25%</button>
-                            <button onClick={() => this.handlePercStake(50)} className="percBtn t-bl fs-14 c-pointer">50%</button>
-                            <button onClick={() => this.handlePercStake(75)} className="percBtn t-bl fs-14 c-pointer">75%</button>
-                            <button onClick={() => this.handlePercStake(100)} className="percBtn t-bl fs-14 c-pointer">100%</button>
-                        </div>
-                        <p className="m-b-20 fs-15">Initial Investmet: <span className="fw-600 t-bl">{numberWithCommas(parseFloat(this.state.originalBal).toFixed(2))} INFO</span></p>
-                        <p className="m-b-20 fs-15">Currently Staked: <span className="fw-600 t-bl">{numberWithCommas(parseFloat(this.state.stakedBal).toFixed(2))} INFO</span></p>
-                        <p className="m-b-30 fs-15">Profit: <span className={"fw-600 " + this.state.profitcol}>{numberWithCommas(parseFloat(this.state.profit).toFixed(2))} INFO</span></p>
-                        <button onClick={this.handleStakeTx} disabled={this.state.disabled} className={"stakebtn btn big bl m-l-auto m-r-auto m-t-30 " + this.state.stakeBtn}>{this.state.stakeBtn}<img alt="" className={"txwait ab-r-m m-r-10 " + this.state.stakeBtn} src="./img/spin.gif"></img></button>
-                    </div>
-                </div>
-                <div onClick={this.toggleStakeModal} className={"modal-overlay " + this.state.stakeModal}></div>
-
-
-
-
-                <div className={"modal unstake " + this.state.unstakeModal}>
-                    <div className="topbar m-b-15">
-                        <div onClick={this.toggleUnstakeModal} className="icon-btn ab-l-m m-l-10 ripple hamb-menu cross noselect">
-                            <svg className="hamburger-svg opened noselect" width="30" height="30" viewBox="0 0 100 100">
-                                <path className="hamburger-line hamburger-line1" d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058" />
-                                <path className="hamburger-line hamburger-line2" d="M 20,50 H 80" />
-                                <path className="hamburger-line hamburger-line3" d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942" />
-                            </svg>
-                        </div>
-                        <div className="title ab-l-m fs-22 t-g m-l-60 f-rob noselect">
-                            Unstake INFO
-                        </div>
-                    </div>
-                    <div className="cont p-l-15 p-r-15">
-                        <p className="txt-r fs-14 t-bl c-pointer" onClick={this.handleMaxUnstake}>Staked: {numberWithCommas(parseFloat(this.state.stakedBal).toFixed(2))} INFO</p>
-                        <div className="infoInp stakeInp m-b-15">
-                            <img className="ab-l-m m-l-5" src="./img/smalllogo.png" alt=""></img>
-                            <input type="number" placeholder="Unstake amount" value={this.state.newStake} className="gametxtinp stakeInp fs-16 p-l-26" onChange={this.handleStake}></input>
-                        </div>
-                        <div className="percBtns m-b-30">
-                            <button onClick={() => this.handlePercUnstake(25)} className="percBtn t-bl fs-14 c-pointer">25%</button>
-                            <button onClick={() => this.handlePercUnstake(50)} className="percBtn t-bl fs-14 c-pointer">50%</button>
-                            <button onClick={() => this.handlePercUnstake(75)} className="percBtn t-bl fs-14 c-pointer">75%</button>
-                            <button onClick={() => this.handlePercUnstake(100)} className="percBtn t-bl fs-14 c-pointer">100%</button>
-                        </div>
-                        <p className="m-b-20 fs-15">Unstake: <span className="fw-600 t-bl">{WithdrawFigureOuter(this.state.newStake, this.state.profit, this.state.stakedBal)[0]} INFO</span></p>
-                        <p className="m-b-30 fs-15">Burn: <span className={"fw-600 t-or"}>{WithdrawFigureOuter(this.state.newStake, this.state.profit, this.state.stakedBal)[1]} INFO</span></p>
-                        <button disabled={this.state.disabled} onClick={this.handleUnstakeTx} className={"stakebtn btn big bl m-l-auto m-r-auto m-t-30 " + this.state.unstakeBtn}>{this.state.unstakeBtn}<img alt="" className={"txwait ab-r-m m-r-10 " + this.state.unstakeBtn} src="./img/spin.gif"></img></button>
-                    </div>
-                </div>
-                <div onClick={this.toggleUnstakeModal} className={"modal-overlay " + this.state.unstakeModal}></div>
             </div>
         );
     }

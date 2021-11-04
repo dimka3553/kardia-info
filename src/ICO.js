@@ -242,7 +242,7 @@ export default class ICO extends Component {
                             data.bigBuyBtn = "Claim " + parseFloat(data.kairef).toFixed(2) + " KAI"
                         }
                         else {
-                            data.disabled2 = true
+                            data.disabled2 = false
                             data.bigBuyBtn = "Claim " + parseFloat(data.infoBought).toFixed(2) + " INFO"
                         }
                     }

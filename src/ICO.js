@@ -254,6 +254,10 @@ export default class ICO extends Component {
                         data.bigBuyBtn = "No INFO to claim 😢"
                         data.disabled2 = true
                     }
+                    if(hasBought === true && hasClaimed === true && hasRefunded === false){
+                        data.disabled2 = false
+                        data.bigBuyBtn = "Claim " + parseFloat(data.kairef).toFixed(2) + " KAI"
+                    }
                 }
                 data.price = (data.kaiDep - 3000000) / 500000;
                 data.priceusd = data.price * kaiPrice;

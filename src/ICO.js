@@ -328,7 +328,6 @@ export default class ICO extends Component {
                 <div className="icoWarapper">
 
                     <div className="top">
-                        <p className="alerttt p-l-20 p-r-20 p-t-20 p-b-20 m-l-20 m-r-20 m-t-20 m-b-40">Dear ICO investors, <br/><br/>We have decided to make a last minute change to how the ICO works. The ICO will now follow an overflow system where you will be refunded any KAI that is over a $100,000 hard cap. The reason we did this is due to the fact that we raised way more KAI than expected which made listing very risky due to a significant amount of selling pressure. <br/><br/>All the overflow KAI can be claimed after the ICO. This allows INFO to be listed with more liquidity and at more 2x the ICO price.<br /> <br />Speaking of listing, it will be slightly postponed as the KAI team are in the reviewing process, INFO claiming will be enabled after listing. <br/><br/>Kind regards, <br /><br />Development team.</p>
                         <p className="p-t-0 m-t-0 p-l-40 m-b-24 fs-24 t-ab icot">ICO Stats</p>
                         <div className="ico-info p-t-10 p-b-10">
                             <div className="ico-info-box  m-l-40 tp">

@@ -17,6 +17,7 @@ body, html, #screen {
 	min-height: 100%;
 	background-color: #F7F7F8;
 }
+
 .clbtn {
 	background: #226BF6;
 	height: 52px;
@@ -67,12 +68,14 @@ body, html, #screen {
 	color: #0066ff;
 	border-radius: 10px;
 }
-.alerttt{
+
+.alerttt {
 	background-color: #EEF6FF;
 	border-radius: 12px;
 	color: #0066ff;
 	border: 2px solid #0066ff;
 }
+
 .icosidelink:before {
 	content: '';
 	background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
@@ -891,26 +894,112 @@ thead {
 	margin-top: 15px;
 }
 
+.Game {
+	background: #F7F7F8;
+	min-height: calc(100vh - 56px);
+	height: 100%;
+	padding-top: 25px;
+}
+@media (max-width:500px) {
+	.gamesec{
+		border-radius: 0 !important;
+
+	}
+	.Game{
+		padding-top: 0;
+	}
+	.game-title{
+		font-size: 20px !important;
+	}
+}
+
+.gametab {
+	width: 100%;
+	max-width: 500px;
+}
+
+.gamesec {
+	background: #FFFFFF;
+	box-shadow: 0px 2px 8px rgba(40, 41, 61, 0.08), 0px 20px 32px rgba(96, 97, 112, 0.24);
+	border-radius: 12px;
+	padding: 22px;
+}
+
 .ranCont {
 	display: flex;
-	justify-content: space-around;
+	justify-content: space-between;
+	margin-bottom: 30px;
+	border-bottom: 1px solid #f0f0f0;
 }
 
 .ranNum {
-	border: 1px solid #f0f0f0;
 	display: flex;
-	width: 80%;
+	width: 100%;
+	justify-content: space-between;
+}
+
+.tophalf {
+	display: flex;
+	justify-content: space-between;
+}
+
+.gametxtinput {
+	background: white;
+	height: 48px;
+	border: 1.5px solid #E2E5E9;
+	border-radius: 8px;
+}
+
+.gameinput.b {
+	padding-bottom: 30px;
+	border-bottom: 1px solid #f0f0f0;
+}
+
+.gamean {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.amsel {
+	display: flex;
+	justify-content: space-between;
+}
+
+.amselinp {
+	padding: 6px 2px;
+	border: 1px solid #E2E5E9;
+	border-radius: 8px;
+	width: 23%;
+}
+
+.smlogimg {
+	height: 22px;
+}
+
+.inpboxg {
+	position: relative;
 }
 
 .onenum {
-	height: 60px;
-	width: 25%;
+	height: 72px;
+	width: 23%;
 	text-align: center;
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
-	font-size: 20px;
-	border: 1px solid #f0f0f0;
+	font-size: 48px;
+	background: #F7F7F8;
+	border-radius: 8px;
+	font-family: 'Work Sans';
+}
+
+.game-title {
+	font-size: 24px;
+	color: rgba(28, 28, 40, 0.87);
+	margin-bottom: 15px;
 }
 
 .gameInp {
@@ -1012,15 +1101,16 @@ thead {
 }
 
 .gameBtns button {
-	width: 45%;
-	height: 60px;
-	background: #0066FF;
-	border-radius: 12px;
-	font-size: 20px;
-	color: white;
-	font-weight: 600;
+	width: 48%;
+	height: 48px;
+	background: #FFFFFF;
+	border: 1px solid #226BF6;
+	border-radius: 8px;
+	font-size: 18px;
+	color: #226BF6;
+	font-weight: 500;
 	outline: 0;
-	border: 0;
+	font-family: 'Work Sans';
 	transition: 0.2s;
 	cursor: pointer;
 	position: relative;
@@ -1046,7 +1136,14 @@ thead {
 }
 
 .gameBtns button:hover {
-	background: #021cff;
+	background: #226BF6;
+	color: white;
+}
+
+@media(max-width:350px){
+	.gameBtns button .txwait {
+		display: none !important;
+	}
 }
 
 .infoInp {
@@ -1137,6 +1234,7 @@ thead {
 	animation-name: active;
 	animation-duration: 1.3s;
 	animation-iteration-count: infinite;
+	color: white;
 }
 
 .icobuybtn:disabled {
@@ -1150,7 +1248,13 @@ thead {
 
 .btn.Waiting {
 	background: #83b5ff;
+	color: #b0b0b0;
 }
+.gameBtns .btn.Waiting{
+	background: white;
+	border: #c0c0c0 1px solid;
+	color: #c0c0c0 !important;
+} 
 
 .bg-gr {
 	background-color: #A3D37D;
@@ -1733,10 +1837,12 @@ thead {
 		min-height: 115px;
 	}
 }
-.ch-bot{
+
+.ch-bot {
 	padding-left: 40px;
 	padding-right: 40px;
 }
+
 @media(max-width:550px) {
 	.ico-info, .middle, .btmwrp, .icot, .ch-bot {
 		padding-left: 20px;

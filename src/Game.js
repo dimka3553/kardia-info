@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import getWeb3 from "./components/getWeb3";
-import Blockies from 'react-blockies';
 import Loader from "./components/Loader";
 import tokenABI from "./ABI/token.json"
 import gameABI from "./ABI/game.json"
@@ -731,7 +730,6 @@ class Game extends Component {
         if (!this.state.web3) {
             return <Loader />;
         }
-        var wal = this.state.accounts[0].substring(0, 5) + "..." + this.state.accounts[0].slice(this.state.accounts[0].length - 3);
         return (
             <div className="Game">
                 <div className="left">
@@ -791,9 +789,9 @@ class Game extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <a className="t-d-none" href="https://docs.kardiainfo.com/info-game" target="_blank"><span className="t-bl m-t-10 t-d-none">Learn the rules</span></a>
+                            <a rel="noreferrer" className="t-d-none" href="https://docs.kardiainfo.com/info-game" target="_blank"><span className="t-bl m-t-10 t-d-none">Learn the rules</span></a>
                         </div>
-                        
+
                     </div>
                 </div>
                 {/* <div className="right">

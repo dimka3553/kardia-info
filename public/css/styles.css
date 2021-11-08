@@ -27,8 +27,15 @@ body, html, #screen {
 	color: white;
 	padding-left: 30px;
 	padding-right: 30px;
-	font-size: 16px;
+	font-size: 18px;
 	width: 100%;
+	position: relative;
+	transition: 0.2s;
+}
+
+.clbtn:hover {
+	background: #021cff;
+	cursor: pointer;
 }
 
 .ch-bg {
@@ -900,15 +907,15 @@ thead {
 	height: 100%;
 	padding-top: 25px;
 }
-@media (max-width:500px) {
-	.gamesec{
-		border-radius: 0 !important;
 
+@media (max-width:500px) {
+	.gamesec {
+		border-radius: 0 !important;
 	}
-	.Game{
+	.Game {
 		padding-top: 0;
 	}
-	.game-title{
+	.game-title {
 		font-size: 20px !important;
 	}
 }
@@ -1075,7 +1082,7 @@ thead {
 	background: #C4C4C4;
 }
 
-.stakebtn.bl:hover, .icobuybtn:hover {
+.stakebtn.bl:hover, .icobuybtn:hover, .swapbtn:hover {
 	background: #021cff;
 	cursor: pointer;
 }
@@ -1131,7 +1138,7 @@ thead {
 	opacity: 0;
 }
 
-.txwait.Playing, .txwait.Approving, .txwait.Staking, .txwait.Unstaking, .txwait.Buying, .txwait.Claiming {
+.txwait.Playing, .txwait.Approving, .txwait.Staking, .txwait.Unstaking, .txwait.Buying, .txwait.Claiming, .txwait.Swapping {
 	opacity: 1;
 }
 
@@ -1140,7 +1147,12 @@ thead {
 	color: white;
 }
 
-@media(max-width:350px){
+.stakemore {
+	display: flex;
+	justify-content: space-between;
+}
+
+@media(max-width:350px) {
 	.gameBtns button .txwait {
 		display: none !important;
 	}
@@ -1230,7 +1242,7 @@ thead {
 	position: relative;
 }
 
-.btn.Staking, .btn.Playing, .btn.Unstaking, .btn.Approving, .btn.Buying, .btn.Claiming {
+.btn.Staking, .btn.Playing, .btn.Unstaking, .btn.Approving, .btn.Buying, .btn.Claiming, .btn.Swapping {
 	animation-name: active;
 	animation-duration: 1.3s;
 	animation-iteration-count: infinite;
@@ -1246,15 +1258,20 @@ thead {
 	background: #0066FF;
 }
 
-.btn.Waiting {
+.gameBtns .btn.Waiting {
 	background: #83b5ff;
 	color: #b0b0b0;
 }
-.gameBtns .btn.Waiting{
+
+.btn.Waiting {
+	background: #83b5ff;
+}
+
+.gameBtns .btn.Waiting {
 	background: white;
 	border: #c0c0c0 1px solid;
 	color: #c0c0c0 !important;
-} 
+}
 
 .bg-gr {
 	background-color: #A3D37D;
@@ -1534,6 +1551,44 @@ thead {
 
 .secti .right {
 	width: 50%;
+	position: relative;
+}
+
+.swapbox {
+	background: #FFFFFF;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+	border-radius: 20px;
+	padding: 20px;
+	max-width: 400px;
+	width: 100%;
+	margin: auto;
+	z-index: 100;
+	position: relative;
+}
+.swapWrapper{
+	padding: 20px;
+	position: relative;
+	height: 400px;
+}
+.swapWrapper svg{
+	
+}
+hr{
+	border: 1px solid #f0f0f0;
+}
+.swapbtn{
+	width: 100%;
+	height: 48px;
+	background: #0066FF;
+	border-radius: 12px;
+	font-size: 16px;
+	color: white;
+	font-weight: 600;
+	outline: 0;
+	border: 0;
+	transition: 0.2s;
+	cursor: pointer;
+	display: block;
 	position: relative;
 }
 

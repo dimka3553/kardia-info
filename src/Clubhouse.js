@@ -58,7 +58,7 @@ export default class Clubhouse extends Component {
         this.setState({ newStake: event.target.value })
     }
     handleMaxStake(event) {
-        var newStake = this.state.infoBal;
+        var newStake = roundDown(this.state.infoBal, 5);
         this.setState({ newStake: newStake })
     }
     handlePercStake(num) {
@@ -76,7 +76,7 @@ export default class Clubhouse extends Component {
             this.setState({ newStake: newStake })
         }
         else if (num === 100) {
-            newStake = (this.state.infoBal);
+            newStake = roundDown(this.state.infoBal, 5);
             this.setState({ newStake: newStake })
         }
     }
@@ -648,4 +648,8 @@ export default class Clubhouse extends Component {
 }
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+function roundDown(number, decimals) {
+    decimals = decimals || 0;
+    return ( Math.floor( number * Math.pow(10, decimals) ) / Math.pow(10, decimals) );
 }

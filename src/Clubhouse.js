@@ -478,24 +478,28 @@ export default class Clubhouse extends Component {
                                 <p className="fs-16 t-g fw-700 ">cINFO price</p>
                                 <p className="fs-32 t-ab p-t-10 bb">{parseFloat(this.state.rate).toFixed(5)} <span className="t-s"> INFO</span></p>
                                 <svg className="ab-t-r m-t-18 m-r-18" width="49" height="48" viewBox="0 0 49 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <rect x="0.666504" width="48" height="48" rx="12" fill="#F2F4FA" />
-                                    <path d="M34.6666 20.5C34.6666 23.76 32.2666 26.45 29.1466 26.92V26.86C28.8366 22.98 25.6866 19.83 21.7766 19.52H21.7466C22.2166 16.4 24.9066 14 28.1666 14C31.7566 14 34.6666 16.91 34.6666 20.5Z" fill="#9699A5" />
-                                    <path d="M27.6465 26.98C27.3965 23.81 24.8565 21.27 21.6865 21.02C21.5165 21.01 21.3365 21 21.1665 21C17.5765 21 14.6665 23.91 14.6665 27.5C14.6665 31.09 17.5765 34 21.1665 34C24.7565 34 27.6665 31.09 27.6665 27.5C27.6665 27.33 27.6565 27.15 27.6465 26.98ZM22.0465 28.38L21.1665 30L20.2865 28.38L18.6665 27.5L20.2865 26.62L21.1665 25L22.0465 26.62L23.6665 27.5L22.0465 28.38Z" fill="#9699A5" />
-                                </svg>
-                            </div>
-                            <div className="ico-info-box">
-                                <p className="fs-16 t-g fw-700 ">APR</p>
-                                <p className="fs-32 t-ab p-t-10 bb">{numberWithCommas(((((846 * this.state.rate) * 365) / this.state.totalStaked) * 100).toFixed(2))} <span className="t-s"> %</span></p>
-                                <p className="fs-14 t-lbl p-t-10">~846 cINFO per day</p>
-                                <svg className="ab-t-r m-t-18 m-r-18" width="49" height="48" viewBox="0 0 49 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect x="0.333008" width="48" height="48" rx="12" fill="#F2F4FA" />
                                     <path d="M21.0049 26.3298C21.0049 27.6198 21.9949 28.6598 23.2249 28.6598H25.7349C26.8049 28.6598 27.6749 27.7498 27.6749 26.6298C27.6749 25.4098 27.1449 24.9798 26.3549 24.6998L22.3249 23.2998C21.5349 23.0198 21.0049 22.5898 21.0049 21.3698C21.0049 20.2498 21.8749 19.3398 22.9449 19.3398H25.4549C26.6849 19.3398 27.6749 20.3798 27.6749 21.6698" stroke="#9699A5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                     <path d="M24.333 18V30" stroke="#9699A5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                 </svg>
                             </div>
                             <div className="ico-info-box">
+                                <p className="fs-16 t-g fw-700 ">APR</p>
+                                <p className="fs-32 t-ab p-t-10 bb">{numberWithCommas(((((846 * this.state.rate) * 365) / this.state.totalStaked) * 100).toFixed(2))} <span className="t-s"> %</span></p>
+                                <p className="fs-14 t-lbl p-t-10">~846 cINFO per day</p>
+                                <svg className="ab-t-r m-t-18 m-r-18" width={49} height={48} viewBox="0 0 49 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="0.333984" width={48} height={48} rx={12} fill="#F2F4FA" />
+                                    <path d="M33.3431 21.6074H29.6621V34.0001H33.3431V21.6074Z" fill="#9699A5" />
+                                    <path d="M33.3436 14V18.8773H31.5031V17.4663L26.227 23.0184H22.1166L16.5031 28.5092L15 26.9755L21.227 20.8712H25.3067L30.0613 15.8405H28.4663V14H33.3436Z" fill="#9699A5" />
+                                    <path d="M26.7181 25.5337H23.0371V33.9999H26.7181V25.5337Z" fill="#9699A5" />
+                                    <path d="M20.0921 30.3804H16.4111V34H20.0921V30.3804Z" fill="#9699A5" />
+                                </svg>
+
+
+                            </div>
+                            <div className="ico-info-box">
                                 <p className="fs-16 t-g fw-700 ">Deposited</p>
-                                <p className="fs-32 t-ab p-t-10 bb">{this.state.totalStaked.toFixed(0)} <span className="t-s"> INFO</span></p>
+                                <p className="fs-32 t-ab p-t-10 bb">{numberWithCommas(this.state.totalStaked.toFixed(0)) } <span className="t-s"> INFO</span></p>
                                 <p className="fs-14 p-t-10 t-lbl"></p>
                                 <svg className="ab-t-r m-t-18 m-r-18" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect width="48" height="48" rx="12" fill="#F2F4FA" />
@@ -601,6 +605,7 @@ export default class Clubhouse extends Component {
                         <p className="m-b-20 fs-15">New Stake: <span className="fw-600 t-bl">{numberWithCommas(parseFloat(parseFloat(this.state.userStaked) + parseFloat(this.state.newStake)).toFixed(2))} INFO</span></p>
                         <p className="m-b-30 fs-15">Daily profit: <span className={"fw-600 t-gr"}>{numberWithCommas(parseFloat((parseFloat(this.state.userStaked) + parseFloat(this.state.newStake)) / (parseFloat(this.state.totalStaked) + parseFloat(this.state.newStake)) * 846).toFixed(2))} cINFO</span></p>
                         <button onClick={this.handleStakeTx} disabled={this.state.disabled} className={"stakebtn btn big bl m-l-auto m-r-auto m-t-30 " + this.state.stakeBtn}>{this.state.stakeBtn}<img alt="" className={"txwait ab-r-m m-r-10 " + this.state.stakeBtn} src="./img/spin.gif"></img></button>
+                        <p className="t-g f-ws">Please note: unstaking comes with a <span className="t-or ">1% tax</span> so plan your actions accordingly.</p>
                     </div>
                 </div>
                 <div onClick={this.toggleStakeModal} className={"modal-overlay " + this.state.stakeModal}></div>
@@ -633,6 +638,7 @@ export default class Clubhouse extends Component {
                         <p className="m-b-20 fs-15">Current Profit: <span className="fw-600 t-bl">{parseFloat(this.state.userStaked / this.state.totalStaked * 846).toFixed(2)} cINFO / Day</span></p>
                         <p className="m-b-30 fs-15">New Profit: <span className={"fw-600 t-or"}>{numberWithCommas(parseFloat((parseFloat(this.state.userStaked) - parseFloat(this.state.newStake)) / (parseFloat(this.state.totalStaked) + parseFloat(this.state.newStake)) * 846).toFixed(2))} cINFO / Day</span></p>
                         <button disabled={this.state.disabled} onClick={this.handleUnstakeTx} className={"stakebtn btn big bl m-l-auto m-r-auto m-t-30 " + this.state.unstakeBtn}>{this.state.unstakeBtn}<img alt="" className={"txwait ab-r-m m-r-10 " + this.state.unstakeBtn} src="./img/spin.gif"></img></button>
+                        <p className="t-g f-ws">Please note: unstaking comes with a <span className="t-or ">1% tax</span> so plan your actions accordingly.</p>
                     </div>
                 </div>
                 <div onClick={this.toggleUnstakeModal} className={"modal-overlay " + this.state.unstakeModal}></div>

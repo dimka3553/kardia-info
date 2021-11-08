@@ -8,6 +8,7 @@ import Walletsvg from './subcomponents/svgs/Walletsvg'
 import Gamesvg from './subcomponents/svgs/Gamesvg'
 import Rocket from './subcomponents/svgs/Rocket'
 import Drop from './subcomponents/svgs/Drop'
+import Piggy from './subcomponents/svgs/Piggy'
 
 export default class Sidebar extends Component {
     render() {
@@ -17,6 +18,9 @@ export default class Sidebar extends Component {
                     <div className="sidelinks m-t-6">
                         <Sidelink name="Overview" cName="overview" lnk="/">
                             <Homesvg/>
+                        </Sidelink>
+                        <Sidelink name="Stake" cName="drop" lnk="/club">
+                            <Piggy />
                         </Sidelink>
                         <Sidelink name="ICO" cName="icosidelink" lnk="/ico">
                             <Rocket/>
@@ -46,6 +50,9 @@ export default class Sidebar extends Component {
                     <div className="sidelinks m-t-15 p-l-15 p-r-15">
                         <Sidelink name="Overview" cName="overview" lnk="/">
                             <Homesvg/>
+                        </Sidelink>
+                        <Sidelink name="Stake" cName="drop" lnk="/club">
+                            <Piggy />
                         </Sidelink>
                         <Sidelink name="ICO" cName="icosidelink" lnk="/ico">
                             <Rocket/>

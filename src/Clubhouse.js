@@ -529,7 +529,7 @@ export default class Clubhouse extends Component {
                                         Rewards to claim
                                     </p>
                                     <p className="fs-24 m-t-0 fw-700 m-b-25 t-ab">
-                                        {this.state.rewards.toFixed(4)} <span className="t-bl">cINFO</span><span className={"fs-14 t-lbl " + this.state.morebtns}><br />→ ~ {parseFloat(this.state.userStaked / this.state.totalStaked * 846).toFixed(2)} cINFO / Day</span>
+                                        {this.state.rewards.toFixed(4)} <span className="t-bl">cINFO</span><span className={"fs-14 t-lbl " + this.state.morebtns}><br />→ ~ {parseFloat(this.state.userStaked / this.state.totalStaked * 846).toFixed(3)} cINFO / Day</span>
                                     </p>
                                     <button disabled={this.state.disabled} onClick={this.handleClaimTx} className={"clbtn btn m-b-20 " + this.state.claimBtn}>
                                         {this.state.claimBtn}
@@ -601,9 +601,9 @@ export default class Clubhouse extends Component {
                             <button onClick={() => this.handlePercStake(75)} className="percBtn t-bl fs-14 c-pointer">75%</button>
                             <button onClick={() => this.handlePercStake(100)} className="percBtn t-bl fs-14 c-pointer">100%</button>
                         </div>
-                        <p className="m-b-20 fs-15">Currently Staked: <span className="fw-600 t-g">{numberWithCommas(parseFloat(this.state.userStaked).toFixed(2))} INFO</span></p>
-                        <p className="m-b-20 fs-15">New Stake: <span className="fw-600 t-bl">{numberWithCommas(parseFloat(parseFloat(this.state.userStaked) + parseFloat(this.state.newStake)).toFixed(2))} INFO</span></p>
-                        <p className="m-b-30 fs-15">Daily profit: <span className={"fw-600 t-gr"}>{numberWithCommas(parseFloat((parseFloat(this.state.userStaked) + parseFloat(this.state.newStake)) / (parseFloat(this.state.totalStaked) + parseFloat(this.state.newStake)) * 846).toFixed(2))} cINFO</span></p>
+                        <p className="m-b-20 fs-15">Currently Staked: <span className="fw-600 t-g">{numberWithCommas(parseFloat(this.state.userStaked).toFixed(3))} INFO</span></p>
+                        <p className="m-b-20 fs-15">New Stake: <span className="fw-600 t-bl">{numberWithCommas(parseFloat(parseFloat(this.state.userStaked) + parseFloat(this.state.newStake)).toFixed(3))} INFO</span></p>
+                        <p className="m-b-30 fs-15">Daily profit: <span className={"fw-600 t-gr"}>{numberWithCommas(parseFloat((parseFloat(this.state.userStaked) + parseFloat(this.state.newStake)) / (parseFloat(this.state.totalStaked) + parseFloat(this.state.newStake)) * 846).toFixed(3))} cINFO</span></p>
                         <button onClick={this.handleStakeTx} disabled={this.state.disabled} className={"stakebtn btn big bl m-l-auto m-r-auto m-t-30 " + this.state.stakeBtn}>{this.state.stakeBtn}<img alt="" className={"txwait ab-r-m m-r-10 " + this.state.stakeBtn} src="./img/spin.gif"></img></button>
                         <p className="t-g f-ws">Please note: unstaking comes with a <span className="t-or ">1% tax</span> so plan your actions accordingly.</p>
                     </div>
@@ -635,8 +635,8 @@ export default class Clubhouse extends Component {
                             <button onClick={() => this.handlePercUnstake(75)} className="percBtn t-bl fs-14 c-pointer">75%</button>
                             <button onClick={() => this.handlePercUnstake(100)} className="percBtn t-bl fs-14 c-pointer">100%</button>
                         </div>
-                        <p className="m-b-20 fs-15">Current Profit: <span className="fw-600 t-bl">{parseFloat(this.state.userStaked / this.state.totalStaked * 846).toFixed(2)} cINFO / Day</span></p>
-                        <p className="m-b-30 fs-15">New Profit: <span className={"fw-600 t-or"}>{numberWithCommas(parseFloat((parseFloat(this.state.userStaked) - parseFloat(this.state.newStake)) / (parseFloat(this.state.totalStaked) + parseFloat(this.state.newStake)) * 846).toFixed(2))} cINFO / Day</span></p>
+                        <p className="m-b-20 fs-15">Current Profit: <span className="fw-600 t-bl">{parseFloat(this.state.userStaked / this.state.totalStaked * 846).toFixed(3)} cINFO / Day</span></p>
+                        <p className="m-b-30 fs-15">New Profit: <span className={"fw-600 t-or"}>{numberWithCommas(parseFloat((parseFloat(this.state.userStaked) - parseFloat(this.state.newStake)) / (parseFloat(this.state.totalStaked) + parseFloat(this.state.newStake)) * 846).toFixed(3))} cINFO / Day</span></p>
                         <button disabled={this.state.disabled} onClick={this.handleUnstakeTx} className={"stakebtn btn big bl m-l-auto m-r-auto m-t-30 " + this.state.unstakeBtn}>{this.state.unstakeBtn}<img alt="" className={"txwait ab-r-m m-r-10 " + this.state.unstakeBtn} src="./img/spin.gif"></img></button>
                         <p className="t-g f-ws">Please note: unstaking comes with a <span className="t-or ">1% tax</span> so plan your actions accordingly.</p>
                     </div>

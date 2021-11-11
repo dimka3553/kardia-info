@@ -200,7 +200,7 @@ class Game extends Component {
                 catch (err) {
                     accounts = ["0x2784fc8cB498Cc66689339BC01d56D7157D2a85f"]
                 }
-                var gameAddr = "0xe16C900283F99E8A7041f7767F9419CE18fFd88b"
+                var gameAddr = "0x8af7E4581Fb50F892eAfFaB59C5269D71Dc572C7"
                 var game, gamews;
 
                 if (!this.state.game) {

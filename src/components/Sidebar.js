@@ -22,23 +22,20 @@ export default class Sidebar extends Component {
                         <Sidelink name="Stake" cName="drop" lnk="/club">
                             <Piggy />
                         </Sidelink>
-                        <Sidelink name="ICO" cName="icosidelink" lnk="/ico">
-                            <Rocket/>
+                        <Sidelink name="Win KAI" cName="game" lnk="/game">
+                            <Gamesvg />
                         </Sidelink>
                         <Sidelink name="Tokens" cName="tokens" lnk="/tokens">
                             <Tokensvg/>
                         </Sidelink>
-                        <Sidelink name="LPs" cName="lps" lnk="/lps">
-                            <Lpssvg/>
-                        </Sidelink>
                         <Sidelink name="Wallet" cName="wallet" lnk="/wallet">
                             <Walletsvg/>
                         </Sidelink>
-                        <Sidelink name="Game" cName="game" lnk="/game">
-                            <Gamesvg />
-                        </Sidelink>
                         <Sidelink name="Airdrop" cName="drop" lnk="/airdrop">
                             <Drop />
+                        </Sidelink>
+                        <Sidelink name="ICO" cName="icosidelink" lnk="/ico">
+                            <Rocket/>
                         </Sidelink>
                     </div>
                 </div>
@@ -54,23 +51,20 @@ export default class Sidebar extends Component {
                         <Sidelink name="Stake" cName="drop" lnk="/club">
                             <Piggy />
                         </Sidelink>
-                        <Sidelink name="ICO" cName="icosidelink" lnk="/ico">
-                            <Rocket/>
+                        <Sidelink name="Win KAI" cName="game" lnk="/game">
+                            <Gamesvg />
                         </Sidelink>
                         <Sidelink name="Tokens" cName="tokens" lnk="/tokens">
                             <Tokensvg/>
                         </Sidelink>
-                        <Sidelink name="LPs" cName="lps" lnk="/lps">
-                            <Lpssvg/>
-                        </Sidelink>
                         <Sidelink name="Wallet" cName="wallet" lnk="/wallet">
                             <Walletsvg/>
                         </Sidelink>
-                        <Sidelink name="Game" cName="game" lnk="/game">
-                            <Gamesvg />
-                        </Sidelink>
                         <Sidelink name="Airdrop" cName="drop" lnk="/airdrop">
                             <Drop />
+                        </Sidelink>
+                        <Sidelink name="ICO" cName="icosidelink" lnk="/ico">
+                            <Rocket/>
                         </Sidelink>
                     </div>
                 </div>

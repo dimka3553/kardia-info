@@ -908,9 +908,11 @@ thead {
 	padding-top: 25px;
 }
 
-@media (max-width:500px) {
+@media (max-width:450px) {
 	.gamesec {
 		border-radius: 0 !important;
+		box-shadow: none !important;
+		
 	}
 	.Game {
 		padding-top: 0;
@@ -918,11 +920,18 @@ thead {
 	.game-title {
 		font-size: 20px !important;
 	}
+	.gametab {
+		min-width: 100vw !important;
+		max-width: 500px;
+		width: 100% !important;
+	}
 }
 
 .gametab {
 	width: 100%;
 	max-width: 500px;
+	width: 450px;
+	position: relative;
 }
 
 .gamesec {
@@ -930,6 +939,11 @@ thead {
 	box-shadow: 0px 2px 8px rgba(40, 41, 61, 0.08), 0px 20px 32px rgba(96, 97, 112, 0.24);
 	border-radius: 12px;
 	padding: 22px;
+	position: relative;
+	z-index: 2;
+}
+.svon{
+	margin-bottom: -100px;
 }
 
 .ranCont {
@@ -1570,9 +1584,6 @@ thead {
 	position: relative;
 	height: 400px;
 }
-.swapWrapper svg{
-	
-}
 hr{
 	border: 1px solid #f0f0f0;
 }
@@ -1590,6 +1601,9 @@ hr{
 	cursor: pointer;
 	display: block;
 	position: relative;
+}
+.txwait.Bet.Low, .txwait.Bet.High{
+	display: none;
 }
 
 .sectxt {

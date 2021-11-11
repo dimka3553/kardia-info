@@ -12,7 +12,7 @@ function navbar() {
                 <Logo/>
                 <Logotext/>
             </Link>
-            <Link to="/game" className="buyinfo-link ab-r-m m-r-15 fs-16 t-bl w-f-c nowrap t-d-none trans-0-2">Multiply INFO</Link>
+            <Link to="/game" className="buyinfo-link ab-r-m m-r-15 fs-16 t-bl w-f-c nowrap t-d-none trans-0-2">Win easy KAI</Link>
             
         </div>
     )

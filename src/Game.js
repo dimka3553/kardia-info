@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import getWeb3 from "./components/getWeb3";
+import getWob3 from "./components/getWob3";
 import Loader from "./components/Loader";
-import tokenABI from "./ABI/token.json"
-import gameABI from "./ABI/game.json"
+import gameABI from "./ABI/bet.json"
 import Altlogo from "./components/subcomponents/svgs/Altlogo";
 
 
@@ -10,443 +10,170 @@ class Game extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            gameAddress: null,
-            tokenAddress: null,
-            web3: null,
-            accounts: null,
-            InfoBal: "Loading",
-            approved: null,
-            gameBal: "Loading",
-            winnings: "6.00",
-            multiplier: 2,
-            wager: 3,
-            hi: "Bet High",
-            lo: "Bet Low",
-            hinum: "> 5250",
-            lonum: "< 4750",
-            game: null,
-            token: null,
-            loading: false,
-            disabled: false,
-            profitcol: "",
-            newStake: "",
-            stakeBtn: "",
-            stakeModal: "",
-            unstakeModal: "",
-            profit: 0,
-            num1: "0",
-            num2: "0",
-            num3: "0",
-            num4: "0",
-            tr: "",
-            hasPlayed: false,
             gameres: {
                 bg: "",
                 message: ""
             },
-            isStaking: "d-none"
+            num1: "0",
+            num2: "0",
+            num3: "0",
+            num4: "0",
+            hasPlayed: false,
+            kaiBal: 0,
+            tr: "",
+            multiplier: 2,
+            wager: 10,
+            hi: "Bet High",
+            lo: "Bet Low",
+            winnings: 20.00
         };
+        this.niceNum = this.niceNum.bind(this);
+        this.weiToEth = this.weiToEth.bind(this);
+        this.hilow = this.hilow.bind(this);
+        this.handleMultiplier = this.handleMultiplier.bind(this);
         this.handleBet = this.handleBet.bind(this);
         this.handleMaxBet = this.handleMaxBet.bind(this);
-        this.handleMultiplier = this.handleMultiplier.bind(this);
-        this.handleMultiplierMaths = this.handleMultiplierMaths.bind(this);
-        this.handleHigh = this.handleHigh.bind(this);
-        this.handleLow = this.handleLow.bind(this);
-        this.handleStake = this.handleStake.bind(this);
-        this.handleMaxStake = this.handleMaxStake.bind(this);
-        this.handleMaxUnstake = this.handleMaxUnstake.bind(this);
-        this.handlePercStake = this.handlePercStake.bind(this);
-        this.handlePercUnstake = this.handlePercUnstake.bind(this);
-        this.handleStakeTx = this.handleStakeTx.bind(this);
-        this.toggleStakeModal = this.toggleStakeModal.bind(this);
-        this.toggleUnstakeModal = this.toggleUnstakeModal.bind(this);
-        this.handleBetMaths = this.handleBetMaths.bind(this);
-        this.handleUnstakeTx = this.handleUnstakeTx.bind(this);
-    }
-    handleMaxBet() {
-        var event = {
-            target: {
-                value: parseFloat(this.state.InfoBal).toFixed(2)
-            }
-        }
-        this.handleBet(event)
-    }
-    toggleStakeModal(event) {
-        if (this.state.stakeModal === "") {
-            this.setState({ stakeModal: "expanded", newStake: "" })
-        }
-        else {
-            this.setState({ stakeModal: "", newStake: "" })
-        }
-    }
-    toggleUnstakeModal(event) {
-        if (this.state.unstakeModal === "") {
-            this.setState({ unstakeModal: "expanded", newStake: "" })
-        }
-        else {
-            this.setState({ unstakeModal: "", newStake: "" })
-        }
-    }
-    handleStake(event) {
-        this.setState({ newStake: event.target.value })
-    }
-    handleMaxStake(event) {
-        var newStake = this.state.InfoBal;
-        this.setState({ newStake: newStake })
-    }
-    handleMaxUnstake(event) {
-        var newStake = this.state.stakedBal;
-        this.setState({ newStake: newStake })
+        this.handleMM = this.handleMM.bind(this);
+        this.handleBM = this.handleBM.bind(this);
+        this.handlePlay = this.handlePlay.bind(this);
     }
 
-    handlePercStake(num) {
-        var newStake;
-        if (num === 25) {
-            newStake = (this.state.InfoBal) * 0.25;
-            this.setState({ newStake: newStake })
+    niceNum(x, y, z) {
+        if (z) {
+            x = this.state.wob3.utils.fromWei(x)
         }
-        else if (num === 50) {
-            newStake = (this.state.InfoBal) * 0.5;
-            this.setState({ newStake: newStake })
-        }
-        else if (num === 75) {
-            newStake = (this.state.InfoBal) * 0.75;
-            this.setState({ newStake: newStake })
-        }
-        else if (num === 100) {
-            newStake = (this.state.InfoBal);
-            this.setState({ newStake: newStake })
-        }
-    }
-    handlePercUnstake(num) {
-        var newStake;
-        if (num === 25) {
-            newStake = (this.state.stakedBal) * 0.25;
-            this.setState({ newStake: newStake })
-        }
-        else if (num === 50) {
-            newStake = (this.state.stakedBal) * 0.5;
-            this.setState({ newStake: newStake })
-        }
-        else if (num === 75) {
-            newStake = (this.state.stakedBal) * 0.75;
-            this.setState({ newStake: newStake })
-        }
-        else if (num === 100) {
-            newStake = (this.state.stakedBal);
-            this.setState({ newStake: newStake })
-        }
-    }
-    handleBet(event) {
-        var max = parseFloat(this.state.InfoBal)
-        var inp = event.target.value;
-        var mul = parseFloat(this.state.multiplier)
-        var maxrev = parseFloat(this.state.gameBal) / 10.05
-        var rev = inp * mul
 
-
-        if (inp > max) {
-            if (rev > maxrev) {
-                console.log()
-                this.setState({ wager: (maxrev / mul).toFixed(4), winnings: (maxrev).toFixed(2) });
-            }
-            else {
-                this.setState({ wager: max, winnings: (max * mul).toFixed(2) });
-            }
+        x = roundDown(x, y)
+        if (x >= 1000) {
+            x = numberWithCommas(x);
         }
-        else if (inp > 0.0001 && inp < max) {
-            if (inp * mul > maxrev) {
-                this.setState({ wager: (maxrev / mul).toFixed(4), winnings: (maxrev).toFixed(2) });
-            }
-            else {
-                this.setState({ wager: inp, winnings: (inp * mul).toFixed(2) });
-            }
-        }
-        else {
-            this.setState({ wager: inp, winnings: (inp * mul).toFixed(2) });
-        }
+        return (x);
     }
-    handleBetMaths(event) {
-        var max = parseFloat(this.state.InfoBal)
-        var inp = event.target.value;
-        var mul = parseFloat(this.state.multiplier)
-        var maxrev = parseFloat(this.state.gameBal) / 10.05
 
-        console.log(inp, max)
-        if (inp < 0.0001) {
-            this.setState({ wager: 0.0001, winnings: (0.0001 * mul).toFixed(2) });
-        }
-        else if (inp > max) {
-            if (inp * mul > maxrev) {
-                this.setState({ wager: (maxrev / mul).toFixed(4), winnings: (maxrev).toFixed(2) });
-            }
-            else {
-                this.setState({ wager: max, winnings: (max * mul).toFixed(4) });
-            }
-        }
-        else {
-            if (inp * mul > maxrev) {
-                this.setState({ wager: (maxrev / mul).toFixed(4), winnings: (maxrev).toFixed(2) });
-            }
-            else {
-                this.setState({ wager: parseFloat(inp), winnings: (inp * mul).toFixed(2) });
-            }
-        }
+    weiToEth(x, y) {
+        x = this.state.wob3.utils.fromWei(x)
+        x = roundDown(x, y)
+        return (x)
     }
-    handleMultiplier(event) {
 
-        var lo = (950000 / (event.target.value * 100)).toFixed(0);
+    hilow(x, y) {
+        var lo = (950000 / (x * 100)).toFixed(0);
         var hi = 10000 - lo;
 
-        hi = "> " + hi
-        lo = "< " + lo
-
-        if (event.target.value > 4750) {
-            this.setState({ multiplier: 4750, winnings: (4750 * this.state.wager).toFixed(2) }, () => {
-                event = {
-                    target: {
-                        value: this.state.wager
-                    }
-                }
-                this.handleBetMaths(event)
-            });
+        if (y === "hi") {
+            return (hi)
         }
-        else if (event.target.value <= 4750 && event.target.value >= 1.01) {
-            this.setState({
-                hinum: hi,
-                lonum: lo,
-                multiplier: event.target.value,
-                winnings: (event.target.value * this.state.wager).toFixed(2)
-            }, () => {
-                event = {
-                    target: {
-                        value: this.state.wager
-                    }
-                }
-                this.handleBetMaths(event)
-            });
-        }
-        else {
-            this.setState({
-                hinum: hi,
-                lonum: lo,
-                multiplier: event.target.value,
-                winnings: (event.target.value * this.state.wager).toFixed(2)
-            }, () => {
-                event = {
-                    target: {
-                        value: this.state.wager
-                    }
-                }
-                this.handleBetMaths(event)
-            });
-        }
-    }
-    handleMultiplierMaths(event) {
-        if (event.target.value < 1.01) {
-            this.setState({ multiplier: 1.01, winnings: (1.01 * this.state.wager).toFixed(2), hinum: "> 594", lonum: "< 9406" }, () => {
-                event = {
-                    target: {
-                        value: this.state.wager
-                    }
-                }
-                this.handleBetMaths(event)
-            });
-        }
-        else if (event.target.value > 4750) {
-            this.setState({ multiplier: 4750, winnings: (4750 * this.state.wager).toFixed(2), hinum: "> 9998", lonum: "< 2" }, () => {
-                event = {
-                    target: {
-                        value: this.state.wager
-                    }
-                }
-                this.handleBetMaths(event)
-            });
-        }
-        else if (event.target.value <= 4750 && event.target.value >= 1.01) {
-            this.setState({ multiplier: event.target.value, winnings: (event.target.value * this.state.wager).toFixed(2) }, () => {
-                event = {
-                    target: {
-                        value: this.state.wager
-                    }
-                }
-                this.handleBetMaths(event)
-            });
-        }
-        else {
-            this.setState({ multiplier: 2, winnings: (2 * this.state.wager).toFixed(2), hinum: "> 5250", lonum: "< 4750" }, () => {
-                event = {
-                    target: {
-                        value: this.state.wager
-                    }
-                }
-                this.handleBetMaths(event)
-            });
+        if (y === "lo") {
+            return (lo)
         }
     }
 
-    async handleHigh(event) {
-        if (this.state.approved === true) {
-            if (this.state.InfoBal < 0.0001) {
-                alert('Please buy INFO to play')
-            }
-            else {
-                var wager = this.state.web3.utils.toWei(this.state.wager.toString(), 'ether');
-                this.setState({ tr: "hi" })
-                await this.state.game.methods.play(1, (Math.round(this.state.multiplier * 100)), wager).send({ from: this.state.accounts[0], gasPrice: '3000000000', gas: '700000' }, async function (error) {
-                    if (error !== undefined && error !== null) {
-                        console.log(error)
-                        this.setState({ tr: "" })
-                    }
-                }.bind(this)).then(function () {
-                    this.setState({ tr: "", hasPlayed: true })
-                }.bind(this)).then(
-                    event = {
-                        target: {
-                            value: this.state.wager
-                        }
-                    },
-                    this.handleBetMaths(event)
-                )
-            }
+    handleMultiplier(event) {
+        var m = event.target.value
+        if (m >= 4750) {
+            m = 4750
         }
-        else {
-            if (this.state.accounts[0] === "0x0000000000000000000000000000000000000000") {
-                alert('please install the KAI wallet to play')
-            }
-            else {
-                this.setState({ tr: "appr" })
-                await this.state.token.methods.approve(this.state.gameAddress, "10000000000000000000000000000000000000000000").send({ from: this.state.accounts[0], gasPrice: '3000000000', gas: '700000' }, async function (error) {
-                    if (error !== undefined && error !== null) {
-                        console.log(error)
-                        this.setState({ tr: "" })
-                    }
-                }.bind(this)).then(function () {
-                    this.setState({ tr: "" })
-                }.bind(this))
-            }
+        if (m < 0) {
+            m = ""
         }
+        if (countDecimals(m) > 2) {
+            m = roundDown(m, 2)
+        }
+        if (event.target.value === "") {
+            m = ""
+        }
+        this.setState({ multiplier: m }, () => {
+            event.target.value = this.state.wager
+            this.handleBM(event)
+        })
     }
-    async handleLow(event) {
-        if (this.state.approved === true) {
-            if (this.state.InfoBal < 0.0001) {
-                alert('Please buy INFO to play')
-            }
-            else {
-                this.setState({ tr: "lo" })
-                var wager = this.state.web3.utils.toWei(this.state.wager.toString(), 'ether');
-                console.log(wager)
-                await this.state.game.methods.play(0, Math.round(this.state.multiplier * 100), wager).send({ from: this.state.accounts[0], gasPrice: '3000000000', gas: '700000' }, async function (error) {
-                    if (error !== undefined && error !== null) {
-                        console.log(error)
-                        this.setState({ tr: "" })
-                    }
-                }.bind(this)).then(function () {
-                    this.setState({ tr: "", hasPlayed: true })
-                }.bind(this)).then(
-                    event = {
-                        target: {
-                            value: this.state.wager
-                        }
-                    },
-                    this.handleBetMaths(event)
-                )
-            }
 
-        }
-        else {
-            if (this.state.accounts[0] === "0x0000000000000000000000000000000000000000") {
-                alert('please install the KAI wallet to play')
-            }
-            else {
-                this.setState({ tr: "appr" })
-                await this.state.token.methods.approve(this.state.gameAddress, "10000000000000000000000000000000000000000000").send({ from: this.state.accounts[0], gasPrice: '3000000000', gas: '700000' }, async function (error) {
-                    if (error !== undefined && error !== null) {
-                        console.log(error)
-                        this.setState({ tr: "" })
-                    }
-                }.bind(this)).then(function () {
-                    this.setState({ tr: "" })
-                }.bind(this))
-            }
+    handleMM(event) {
+        var m = event.target.value
+        var w = this.state.wager
 
+        if (m >= 4750) {
+            m = 4750
         }
+        else if (m <= 1.01) {
+            m = 1.01
+        }
+        else if (m === "") {
+            m = 1.01
+        }
+        if (m * w > this.state.maxWin) {
+            w = this.state.maxWin / m
+        }
+        this.setState({ multiplier: roundDown(m, 2), wager: w })
     }
-    async handleStakeTx(event) {
-        if (this.state.accounts[0] === "0x0000000000000000000000000000000000000000") {
-            alert('please install the KAI wallet to stake')
-        }
-        else {
-            if (this.state.InfoBal < 0.0001) {
-                alert('Please buy INFO to stake')
-            }
-            else {
-                if (this.state.newStake !== "") {
-                    if (this.state.newStake > this.state.InfoBal) {
-                        alert('Please buy more INFO to stake this amount')
-                    }
-                    else {
-                        this.setState({ tr: "st" })
-                        if (this.state.approved === true) {
-                            var stake = this.state.web3.utils.toWei(this.state.newStake.toString(), 'ether');
-                            await this.state.game.methods.stakeTokens(stake).send({ from: this.state.accounts[0], gasPrice: '3000000000', gas: '700000' }, async function (error) {
-                                if (error !== undefined && error !== null) {
-                                    console.log(error)
-                                    this.setState({ tr: "" })
-                                }
-                            }.bind(this)).then(function () {
-                                this.setState({ tr: "" })
-                            }.bind(this))
-                        }
-                        else {
-                            if (this.state.accounts[0] !== "0x0000000000000000000000000000000000000000") {
-                                this.setState({ tr: "appr" })
-                                await this.state.token.methods.approve(this.state.gameAddress, "10000000000000000000000000000000000000000000").send({ from: this.state.accounts[0], gasPrice: '3000000000', gas: '700000' }, async function (error) {
-                                    if (error !== undefined && error !== null) {
-                                        console.log(error)
-                                        this.setState({ tr: "" })
-                                    }
-                                }.bind(this)).then(function () {
-                                    this.setState({ tr: "" })
-                                }.bind(this))
-                            }
-                        }
-                    }
 
-                }
-                else {
-                    alert("please input an amount of INFO to stake")
-                }
+    handleBet(event) {
+        var w = event.target.value
+        var m = this.state.multiplier
+        if (event.nativeEvent.inputType !== "deleteContentBackward") {
+            if (w > this.weiToEth(this.state.kaiBal)) {
+                w = roundDown((this.weiToEth(this.state.kaiBal, 4) - 0.1), 4)
+            }
+            if (m * w >= this.state.maxWin) {
+                w = this.state.maxWin / m
             }
         }
+        if (w < 0) {
+            w = ""
+        }
+
+        this.setState({ wager: w })
     }
-    async handleUnstakeTx(event) {
-        if (this.state.newStake !== "") {
-            if (this.state.approved === true) {
-                this.setState({ tr: "uns" })
-                var stake = this.state.web3.utils.toWei(this.state.newStake.toString(), 'ether');
-                await this.state.game.methods.unstakeTokens(stake).send({ from: this.state.accounts[0], gasPrice: '3000000000', gas: '700000' }, async function (error) {
-                    if (error !== undefined && error !== null) {
-                        console.log(error)
-                        this.setState({ tr: "" })
-                    }
-                }.bind(this)).then(function () {
-                    this.setState({ tr: "" })
-                }.bind(this))
-            }
-
-            else {
-                this.setState({ tr: "appr" })
-                await this.state.token.methods.approve(this.state.gameAddress, "10000000000000000000000000000000000000000000").send({ from: this.state.accounts[0], gasPrice: '3000000000', gas: '700000' }, async function (error) {
-                    if (error !== undefined && error !== null) {
-                        console.log(error)
-                        this.setState({ tr: "" })
-                    }
-                }.bind(this)).then(function () {
-                    this.setState({ tr: "" })
-                }.bind(this))
-            }
+    handleBM(event) {
+        var m = this.state.multiplier
+        var w = event.target.value
+        if (w === "") {
+            w = 1
         }
+        if (w > this.weiToEth(this.state.kaiBal) - 0.1) {
+            w = roundDown((this.weiToEth(this.state.kaiBal, 4) - 0.1), 4)
+        }
+        if (m * w >= this.state.maxWin) {
+            w = this.state.maxWin / m
+        }
+
+        this.setState({ wager: roundDown(w, 4) })
+    }
+    handleMaxBet() {
+        var w = roundDown((this.weiToEth(this.state.kaiBal, 4) - 0.1), 4)
+        var m = this.state.multiplier
+
+        if (w * m > this.state.maxWin) {
+            w = this.state.maxWin / m
+        }
+        this.setState({ wager: roundDown(w, 4) })
+    }
+
+    async handlePlay(event) {
+
+        if (this.state.accounts[0] === "0x2784fc8cB498Cc66689339BC01d56D7157D2a85f") {
+            alert("Please install the KAI wallet to play")
+        }
+        var g
+        if (event.target.innerText === "Bet High") {
+            g = 1
+            this.setState({ tr: "hi" })
+        }
+        else if (event.target.innerText === "Bet Low") {
+            g = 0
+            this.setState({ tr: "lo" })
+        }
+        var val = this.state.web3.utils.toWei(this.state.wager.toString(), 'ether')
+        var m = Math.round(this.state.multiplier * 100)
+
+        await this.state.game.methods.play(g, m).send({ from: this.state.accounts[0], gasPrice: '3000000000', gas: '700000', value: val }, async function (error) {
+            if (error !== undefined && error !== null) {
+                console.log(error)
+                this.setState({ tr: "" })
+            }
+        }.bind(this)).then(function () {
+            this.setState({ tr: "", hasPlayed: true })
+        }.bind(this))
     }
 
     async refreshData() {
@@ -456,264 +183,124 @@ class Game extends Component {
         if (this.state.tr === "") {
             try {
                 var web3
+                var wob3
                 if (!this.state.web3) {
                     web3 = await getWeb3();
+                    wob3 = await getWob3();
                 }
                 else {
                     web3 = this.state.web3
+                    wob3 = this.state.wob3
                 }
-
                 // Use web3 to get the user's accounts.
                 var accounts
                 try {
                     accounts = await web3.eth.getAccounts();
                 }
                 catch (err) {
-                    accounts = ["0x0000000000000000000000000000000000000000"]
+                    accounts = ["0x2784fc8cB498Cc66689339BC01d56D7157D2a85f"]
                 }
+                var gameAddr = "0xe16C900283F99E8A7041f7767F9419CE18fFd88b"
+                var game, gamews;
 
-                const tokenAddress = "0x5FFD7a138422cBbcfB53908AD51F656D7C6c640F";
-                const gameAddress = "0x7A848Aa57D9D83b670f1Dd75A71AE1E6BF68E6CC";
+                if (!this.state.game) {
+                    game = new web3.eth.Contract(gameABI, gameAddr);
+                    gamews = new wob3.eth.Contract(gameABI, gameAddr);
 
-                const token = new web3.eth.Contract(tokenABI, tokenAddress);
-                const game = new web3.eth.Contract(gameABI, gameAddress);
-
-                this.setState({ game, token, gameAddress, tokenAddress, accounts })
-
-                var info = await getInfo();
-
-                async function getInfo() {
-                    var ret = {}
-                    if (accounts[0] !== "0x0000000000000000000000000000000000000000") {
-                        let [InfoBal, gameBal, allowed, stakedBal, originalBal, gameID, wagered, totalWon, arrayLen] = await Promise.all([
-                            token.methods.balanceOf(accounts[0]).call(),
-                            token.methods.balanceOf(gameAddress).call(),
-                            token.methods.allowance(accounts[0], gameAddress).call(),
-                            game.methods.currentBalance(accounts[0]).call(),
-                            game.methods.originalBalance(accounts[0]).call(),
-                            game.methods.id().call(),
-                            game.methods.wagered().call(),
-                            game.methods.totalWon().call(),
-                            game.methods.gamesPlayed(accounts[0]).call()
-                        ])
-                        ret = {
-                            InfoBal: InfoBal,
-                            gameBal: gameBal,
-                            allowed: allowed,
-                            stakedBal: stakedBal,
-                            originalBal: originalBal,
-                            gameID: gameID,
-                            wagered: wagered,
-                            totalWon: totalWon,
-                            arrayLen: arrayLen
-                        }
-
-                        if (ret.arrayLen > 0) {
-                            ret.lastGame = await game.methods.gameHistory(accounts[0], (ret.arrayLen - 1)).call();
-                        }
-                        else {
-                            ret.lastGame = false;
-                        }
-
-                        ret.gameBal = web3.utils.fromWei(ret.gameBal);
-                        ret.InfoBal = web3.utils.fromWei(ret.InfoBal);
-                        ret.totalWon = web3.utils.fromWei(ret.totalWon);
-                        ret.wagered = web3.utils.fromWei(ret.wagered);
-                        ret.originalBal = web3.utils.fromWei(ret.originalBal);
-                        ret.stakedBal = web3.utils.fromWei(ret.stakedBal);
-                        // eslint-disable-next-line
-                        if (ret.allowed == 0) {
-                            ret.allowed = false;
-                        }
-                        else {
-                            ret.allowed = true;
-                        }
-                    }
-                    else {
-                        ret = {
-                            InfoBal: "0",
-                            gameBal: await token.methods.balanceOf(gameAddress).call(),
-                            allowed: "0",
-                            stakedBal: "0",
-                            originalBal: "0",
-                            gameID: 1,
-                            wagered: await game.methods.wagered().call(),
-                            totalWon: await game.methods.totalWon().call(),
-                            arrayLen: await game.methods.gamesPlayed('0x0000000000000000000000000000000000000000').call()
-                        }
-
-                        if (ret.arrayLen > 0) {
-                            ret.lastGame = await game.methods.gameHistory(0, (ret.arrayLen - 1)).call();
-                        }
-                        else {
-                            ret.lastGame = false;
-                        }
-
-                        ret.gameBal = web3.utils.fromWei(ret.gameBal);
-                        ret.InfoBal = web3.utils.fromWei(ret.InfoBal);
-                        ret.totalWon = web3.utils.fromWei(ret.totalWon);
-                        ret.wagered = web3.utils.fromWei(ret.wagered);
-                        ret.originalBal = web3.utils.fromWei(ret.originalBal);
-                        ret.stakedBal = web3.utils.fromWei(ret.stakedBal);
-                        // eslint-disable-next-line
-                        if (ret.allowed == 0) {
-                            ret.allowed = false;
-                        }
-                        else {
-                            ret.allowed = true;
-                        }
-                    }
-                    return (ret)
-                }
-                var lo = (950000 / (this.state.multiplier * 100)).toFixed(0);
-                var hi = 10000 - lo;
-
-                hi = "> " + hi
-                lo = "< " + lo
-                var profit = info.stakedBal - info.originalBal;
-                var profitcol;
-
-                if (profit > 0) {
-                    profitcol = "t-green"
-                }
-                else if (profit === 0) {
-                    profitcol = "t-grey"
                 }
                 else {
-                    profitcol = "t-red"
+                    game = this.state.game
+                    gamews = this.state.gamews
                 }
-                // eslint-disable-next-line
-                if (info.stakedBal == 0) {
-                    info.isStaking = "d-none"
+
+                let [kaiBal, gameKai, maxWin, gL] = await Promise.all([
+                    wob3.eth.getBalance(accounts[0]),
+                    gamews.methods.kai().call(),
+                    gamews.methods.maxWin().call(),
+                    gamews.methods.gamesL(accounts[0]).call()
+                ]);
+                maxWin = (wob3.utils.fromWei(gameKai) * maxWin) / 100
+
+                var lg
+                var num
+                var gameres = {
+                    bg: "",
+                    message: ""
                 }
-                else {
-                    info.isStaking = ""
-                }
-                if (accounts[0] !== "0x0000000000000000000000000000000000000000") {
-                    info.gameres = {
-                        bg: "",
-                        message: ""
-                    }
-                }
-                else {
-                    info.gameres = {
-                        bg: "bg-blue",
-                        message: <a className="t-bl t-d-none" target="_blank" rel="noopener noreferrer" href="https://chrome.google.com/webstore/detail/kardiachain-wallet/pdadjkfkgcafgbceimcpbkalnfnepbnk">Please install the KardiaChain wallet to play</a>
-                    }
-                }
-                var num;
-                if (info.lastGame !== false) {
-                    num = info.lastGame.ran;
+                if (gL > 0) {
+                    lg = await game.methods.games(accounts[0], (gL - 1)).call();
+                    num = lg.ran;
                     if (num < 10) num = "000" + num;
                     else if (num < 100) num = "00" + num;
                     else if (num < 1000) num = "0" + num;
                     num = Array.from(num.toString()).map(Number);
 
                     if (this.state.hasPlayed === true) {
-                        if (info.lastGame.won === true) {
-                            info.gameres = {
+                        if (lg.win === true) {
+                            gameres = {
                                 bg: "bg-gr",
-                                message: "🤑 You Won " + web3.utils.fromWei(info.lastGame.winnings) + " INFO"
+                                message: "🤑 You Won " + web3.utils.fromWei(lg.reward.toString()) + " KAI"
                             }
                         }
                         else {
-                            info.gameres = {
+                            gameres = {
                                 bg: "bg-red",
-                                message: "😢 You Lost " + web3.utils.fromWei(info.lastGame.wagered) + " INFO"
+                                message: "😢 You Lost " + web3.utils.fromWei(lg.bet.toString()) + " KAI"
                             }
+                        }
+                    }
+                    else {
+                        gameres = {
+                            bg: "",
+                            message: ""
                         }
                     }
                 }
                 else {
                     num = [0, 0, 0, 0]
+                    gameres = {
+                        bg: "",
+                        message: ""
+                    }
                 }
-
-                if (info.allowed === true) {
+                if (accounts[0] === "0x2784fc8cB498Cc66689339BC01d56D7157D2a85f") {
+                    gameres = {
+                        bg: "bg-blue",
+                        message: <a className="t-bl t-d-none" target="_blank" rel="noopener noreferrer" href="https://chrome.google.com/webstore/detail/kardiachain-wallet/pdadjkfkgcafgbceimcpbkalnfnepbnk">Please install the KardiaChain wallet to play</a>
+                    }
+                }
+                if (this.state.tr === "") {
                     this.setState({
                         web3,
+                        wob3,
                         accounts,
-                        InfoBal: info.InfoBal,
-                        approved: info.allowed,
-                        gameBal: info.gameBal,
-                        hi: "Bet High",
-                        lo: "Bet Low",
-                        disabled: false,
-                        profit: profit,
-                        gameID: info.gameID,
-                        totalWon: info.totalWon,
-                        wagered: info.wagered,
-                        stakedBal: info.stakedBal,
-                        profitcol: profitcol,
-                        originalBal: info.originalBal,
-                        stakeBtn: "Stake",
-                        unstakeBtn: "Unstake",
+                        game,
+                        gamews,
+                        kaiBal,
+                        maxWin,
                         num1: num[0],
                         num2: num[1],
                         num3: num[2],
                         num4: num[3],
-                        gameres: {
-                            bg: info.gameres.bg,
-                            message: info.gameres.message
-                        },
-                        isStaking: info.isStaking
-                    });
+                        gameres,
+                        hi: "Bet High",
+                        lo: "Bet Low",
+                        disabled: false
+                    })
                 }
-                else {
-                    this.setState({
-                        web3,
-                        accounts,
-                        InfoBal: info.InfoBal,
-                        approved: info.allowed,
-                        gameBal: info.gameBal,
-                        hi: "Approve",
-                        lo: "Approve",
-                        hinum: hi,
-                        lonum: lo,
-                        profit: profit,
-                        gameID: info.gameID,
-                        totalWon: info.totalWon,
-                        wagered: info.wagered,
-                        stakedBal: info.stakedBal,
-                        profitcol: profitcol,
-                        originalBal: info.originalBal,
-                        stakeBtn: "Approve",
-                        unstakeBtn: "Approve",
-                        num1: "0",
-                        num2: "0",
-                        num3: "0",
-                        num4: "0",
-                        isStaking: info.isStaking,
-                        gameres: {
-                            bg: info.gameres.bg,
-                            message: info.gameres.message
-                        },
-                    });
-                }
-
-
-            } catch (error) {
-                // Catch any errors for any of the above operations.
-                console.error(error);
+            }
+            catch (err) {
+                console.log(err)
             }
         }
         else {
             if (this.state.tr === "hi") {
-                this.setState({ hi: "Playing", lo: "Waiting", stakeBtn: "Waiting", unstakeBtn: "Waiting", num1: "", num2: "", num3: "", num4: "", disabled: true })
+                this.setState({ hi: "Playing", lo: "Waiting", num1: "", num2: "", num3: "", num4: "", disabled: true })
             }
             else if (this.state.tr === "lo") {
-                this.setState({ hi: "Waiting", lo: "Playing", stakeBtn: "Waiting", unstakeBtn: "Waiting", num1: "", num2: "", num3: "", num4: "", disabled: true })
-            }
-            else if (this.state.tr === "st") {
-                this.setState({ hi: "Waiting", lo: "Waiting", stakeBtn: "Staking", unstakeBtn: "Waiting", disabled: true })
-            }
-            else if (this.state.tr === "uns") {
-                this.setState({ hi: "Waiting", lo: "Waiting", stakeBtn: "Waiting", unstakeBtn: "Unstaking", disabled: true })
-            }
-            else if (this.state.tr === "appr") {
-                this.setState({ hi: "Approving", lo: "Approving", stakeBtn: "Approving", unstakeBtn: "Approving", disabled: true })
+                this.setState({ hi: "Waiting", lo: "Playing", num1: "", num2: "", num3: "", num4: "", disabled: true })
             }
         }
-
     }
 
     componentDidMount = async () => {
@@ -731,13 +318,11 @@ class Game extends Component {
             return <Loader />;
         }
         return (
-            <div className="Game">
-                <div className="left">
-                    <div className="gametab m-b-100">
+            <div className="Game pos-r of-hidden">
+                <div className="left pos-r p-b-100">
+                    <div className="gametab">
                         <div className="gamesec">
-                            <div className="top game-title f-ws fw-600">
-                                Guess the correct number and multiply your intitial investment
-                            </div>
+
                             <div className={"gameres txt-c " + this.state.gameres.bg}>
                                 {this.state.gameres.message}
                             </div>
@@ -753,12 +338,17 @@ class Game extends Component {
                                 <div className="gameinput  m-b-20">
                                     <div className="tophalf m-b-5">
                                         <span className="fs-14 f-ws">Bet Amount</span>
-                                        <span className="fs-14 f-ws t-bl c-pointer" onClick={this.handleMaxBet}>Balance: {numberWithCommas(parseFloat(this.state.InfoBal).toFixed(2))} INFO</span>
+                                        <span className="fs-14 f-ws t-bl c-pointer" onClick={this.handleMaxBet}>Balance: {this.niceNum(this.state.kaiBal, 2, 1)} KAI</span>
                                     </div>
                                     <div className="inpboxg">
-                                        <input type="number" disabled={this.state.disabled} placeholder="Bet amount" value={this.state.wager} className="gametxtinput betamount fs-16 p-l-12" onBlur={this.handleBetMaths} onChange={this.handleBet}></input>
-                                        <img className="ab-r-m m-r-55 smlogimg" src="./img/smalllogo.png" alt=""></img>
-                                        <span className="ab-r-m m-r-10 fs-16 f-ws">INFO</span>
+                                        <input type="number" disabled={this.state.disabled} placeholder="Bet amount" value={this.state.wager} className="gametxtinput betamount fs-16 p-l-12" onBlur={this.handleBM} onChange={this.handleBet}></input>
+                                        <svg className="ab-r-m m-r-50" width="18" height="18" viewBox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M7.2381 14.4L2.85714 0.378947L0 3.78947L2.85714 9.85263L7.2381 14.4Z" fill="#333333" />
+                                            <path d="M6.09524 4.92632L4.57143 0L8.19048 1.51579L7.04762 5.30526L6.09524 4.92632Z" fill="#333333" />
+                                            <path d="M8.7619 5.87368L10.0952 1.51579L14.0952 0.568421L16 4.73684L13.7143 7.76842L8.7619 5.87368Z" fill="#333333" />
+                                            <path d="M12.7619 9.28421L6.85714 7.01053L9.14286 14.2105L12.7619 9.28421Z" fill="#333333" />
+                                        </svg>
+                                        <span className="ab-r-m m-r-14 fs-16 f-ws">KAI</span>
                                     </div>
                                 </div>
 
@@ -767,129 +357,37 @@ class Game extends Component {
                                         <span className="fs-14 f-ws">Multiplier [ x1.01 → x4750 ]</span>
                                     </div>
                                     <div className="inpboxg">
-                                        <input type="number" disabled={this.state.disabled} placeholder="Bet amount" className="gametxtinput betamount fs-16 p-l-12" onChange={this.handleMultiplier} onBlur={this.handleMultiplierMaths} value={this.state.multiplier}></input>
+                                        <input type="number" disabled={this.state.disabled} placeholder="Multiplier" className="gametxtinput betamount fs-16 p-l-12" onChange={this.handleMultiplier} onBlur={this.handleMM} value={this.state.multiplier}></input>
                                     </div>
                                     <div className="gameBtns m-t-20">
-                                        <button disabled={this.state.disabled} className={"btn " + this.state.lo} onClick={this.handleLow}>{this.state.lo} <img alt="" className={"txwait ab-r-m m-r-10 " + this.state.lo} src="./img/spin.gif"></img></button>
-                                        <button disabled={this.state.disabled} className={"btn " + this.state.hi} onClick={this.handleHigh}>{this.state.hi} <img alt="" className={"txwait ab-r-m m-r-10 " + this.state.hi} src="./img/spin.gif"></img></button>
+                                        <button disabled={this.state.disabled} className={"btn " + this.state.lo} onClick={this.handlePlay}>{this.state.lo} <img alt="" className={"txwait ab-r-m m-r-10 " + this.state.lo} src="./img/spin.gif"></img></button>
+                                        <button disabled={this.state.disabled} className={"btn " + this.state.hi} onClick={this.handlePlay}>{this.state.hi} <img alt="" className={"txwait ab-r-m m-r-10 " + this.state.hi} src="./img/spin.gif"></img></button>
                                     </div>
                                 </div>
                                 <div className="gamean">
                                     <div>
                                         <p className="f-ws fs-16 t-lg m-t-0 m-b-8">
-                                            Low: <span className="f-ws fs-16 t-b ">{this.state.lonum}</span>
+                                            Low: <span className="f-ws fs-16 t-b ">{" < " + this.hilow(this.state.multiplier, "lo")}</span>
                                         </p>
                                         <p className="f-ws fs-16 t-lg m-t-8 m-b-0">
-                                            High: <span className="f-ws fs-16 t-b ">{this.state.hinum}</span>
+                                            High: <span className="f-ws fs-16 t-b ">{" > " + this.hilow(this.state.multiplier, "hi")}</span>
                                         </p>
                                     </div>
                                     <div>
                                         <p className="txt-r fs-13 f-ws t-g m-b-8 m-t-0">Payout if you win</p>
-                                        <p className="txt-r fs-24 f-ws m-t-8 m-b-0">{this.state.winnings} <span className="t-s">INFO</span></p>
+                                        <p className="txt-r fs-24 f-ws m-t-8 m-b-0">{this.niceNum(this.state.multiplier * this.state.wager, 2)} <span className="t-s">KAI</span></p>
                                     </div>
                                 </div>
                             </div>
                             <a rel="noreferrer" className="t-d-none" href="https://docs.kardiainfo.com/info-game" target="_blank"><span className="t-bl m-t-10 t-d-none">Learn the rules</span></a>
                         </div>
-
+                        <svg className="ab-c-b svon" width="2169" height="288" viewBox="0 0 2169 288" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M211.815 190.987C770.15 -64.7354 1412.47 -63.1181 1969.51 195.413L2169 288H0L211.815 190.987Z" fill="#E4F2FF" />
+                        </svg>
+                        
                     </div>
+                    
                 </div>
-                {/* <div className="right">
-                    <div className="waltab">
-                        <div className='walsec'>
-                            <div className="top ">
-                                <span className="fs-18">
-                                    Stake INFO and earn a portion of the profits generated by the game
-                                </span>
-                                <img alt="" className="avimg" src="./img/smalllogo.png"></img>
-                            </div>
-                            <div className="poolinfo">
-                                <div className="farm">
-                                    <p className="t-g txt-c fs-16 m-t-30 m-b-20">Info Tokens staked:</p>
-                                    <p className="txt-c fs-20 fw-600  m-t-0 m-b-0">{numberWithCommas(parseFloat(this.state.stakedBal).toFixed(3))} INFO</p>
-                                    <p className={this.state.profitcol + ` fs-14 txt-c m-t-5`}>Profit: {numberWithCommas((this.state.profit).toFixed(3))} INFO</p>
-                                    <button onClick={this.toggleStakeModal} className="stakebtn bl m-l-auto m-r-auto m-t-30">Stake</button>
-                                    <br />
-                                    <button onClick={this.toggleUnstakeModal} className={"stakebtn gr m-l-auto m-r-auto m-b-20 " + this.state.isStaking}>Unstake</button>
-                                </div>
-                                <div className="stats">
-                                    <h4 className="txt-c fs-18 fw-600">Stats</h4>
-                                    <p className="t-g txt-c">INFO staked:  <span className="fw-600 t-b">{numberWithCommas(parseFloat(this.state.gameBal).toFixed(3))}</span></p>
-                                    <p className="t-g txt-c">Total games played:  <span className="fw-600 t-b">{this.state.gameID}</span></p>
-                                    <p className="t-g txt-c">INFO wagered:  <span className="fw-600 t-b">{numberWithCommas(parseFloat(this.state.wagered).toFixed(3))}</span></p>
-                                    <p className="t-g txt-c">INFO won:  <span className="fw-600 t-b">{numberWithCommas(parseFloat(this.state.totalWon).toFixed(3))}</span></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className={"modal stake " + this.state.stakeModal}>
-                    <div className="topbar m-b-15">
-                        <div onClick={this.toggleStakeModal} className="icon-btn ab-l-m m-l-10 ripple hamb-menu cross noselect">
-                            <svg className="hamburger-svg opened noselect" width="30" height="30" viewBox="0 0 100 100">
-                                <path className="hamburger-line hamburger-line1" d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058" />
-                                <path className="hamburger-line hamburger-line2" d="M 20,50 H 80" />
-                                <path className="hamburger-line hamburger-line3" d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942" />
-                            </svg>
-                        </div>
-                        <div className="title ab-l-m fs-22 t-g m-l-60 f-rob noselect">
-                            Stake INFO
-                        </div>
-                    </div>
-                    <div className="cont p-l-15 p-r-15">
-                        <p className="txt-r fs-14 t-bl c-pointer" onClick={this.handleMaxStake}>Balance: {numberWithCommas(parseFloat(this.state.InfoBal).toFixed(2))} INFO</p>
-                        <div className="infoInp stakeInp m-b-15">
-                            <img className="ab-l-m m-l-5" src="./img/smalllogo.png" alt=""></img>
-                            <input type="number" placeholder="Stake amount" value={this.state.newStake} className="gametxtinp stakeInp fs-16 p-l-26" onChange={this.handleStake}></input>
-                        </div>
-                        <div className="percBtns m-b-30">
-                            <button onClick={() => this.handlePercStake(25)} className="percBtn t-bl fs-14 c-pointer">25%</button>
-                            <button onClick={() => this.handlePercStake(50)} className="percBtn t-bl fs-14 c-pointer">50%</button>
-                            <button onClick={() => this.handlePercStake(75)} className="percBtn t-bl fs-14 c-pointer">75%</button>
-                            <button onClick={() => this.handlePercStake(100)} className="percBtn t-bl fs-14 c-pointer">100%</button>
-                        </div>
-                        <p className="m-b-20 fs-15">Initial Investmet: <span className="fw-600 t-bl">{numberWithCommas(parseFloat(this.state.originalBal).toFixed(2))} INFO</span></p>
-                        <p className="m-b-20 fs-15">Currently Staked: <span className="fw-600 t-bl">{numberWithCommas(parseFloat(this.state.stakedBal).toFixed(2))} INFO</span></p>
-                        <p className="m-b-30 fs-15">Profit: <span className={"fw-600 " + this.state.profitcol}>{numberWithCommas(parseFloat(this.state.profit).toFixed(2))} INFO</span></p>
-                        <button onClick={this.handleStakeTx} disabled={this.state.disabled} className={"stakebtn btn big bl m-l-auto m-r-auto m-t-30 " + this.state.stakeBtn}>{this.state.stakeBtn}<img alt="" className={"txwait ab-r-m m-r-10 " + this.state.stakeBtn} src="./img/spin.gif"></img></button>
-                    </div>
-                </div>
-                <div onClick={this.toggleStakeModal} className={"modal-overlay " + this.state.stakeModal}></div>
-
-
-
-
-                <div className={"modal unstake " + this.state.unstakeModal}>
-                    <div className="topbar m-b-15">
-                        <div onClick={this.toggleUnstakeModal} className="icon-btn ab-l-m m-l-10 ripple hamb-menu cross noselect">
-                            <svg className="hamburger-svg opened noselect" width="30" height="30" viewBox="0 0 100 100">
-                                <path className="hamburger-line hamburger-line1" d="M 20,29.000046 H 80.000231 C 80.000231,29.000046 94.498839,28.817352 94.532987,66.711331 94.543142,77.980673 90.966081,81.670246 85.259173,81.668997 79.552261,81.667751 75.000211,74.999942 75.000211,74.999942 L 25.000021,25.000058" />
-                                <path className="hamburger-line hamburger-line2" d="M 20,50 H 80" />
-                                <path className="hamburger-line hamburger-line3" d="M 20,70.999954 H 80.000231 C 80.000231,70.999954 94.498839,71.182648 94.532987,33.288669 94.543142,22.019327 90.966081,18.329754 85.259173,18.331003 79.552261,18.332249 75.000211,25.000058 75.000211,25.000058 L 25.000021,74.999942" />
-                            </svg>
-                        </div>
-                        <div className="title ab-l-m fs-22 t-g m-l-60 f-rob noselect">
-                            Unstake INFO
-                        </div>
-                    </div>
-                    <div className="cont p-l-15 p-r-15">
-                        <p className="txt-r fs-14 t-bl c-pointer" onClick={this.handleMaxUnstake}>Staked: {numberWithCommas(parseFloat(this.state.stakedBal).toFixed(2))} INFO</p>
-                        <div className="infoInp stakeInp m-b-15">
-                            <img className="ab-l-m m-l-5" src="./img/smalllogo.png" alt=""></img>
-                            <input type="number" placeholder="Unstake amount" value={this.state.newStake} className="gametxtinp stakeInp fs-16 p-l-26" onChange={this.handleStake}></input>
-                        </div>
-                        <div className="percBtns m-b-30">
-                            <button onClick={() => this.handlePercUnstake(25)} className="percBtn t-bl fs-14 c-pointer">25%</button>
-                            <button onClick={() => this.handlePercUnstake(50)} className="percBtn t-bl fs-14 c-pointer">50%</button>
-                            <button onClick={() => this.handlePercUnstake(75)} className="percBtn t-bl fs-14 c-pointer">75%</button>
-                            <button onClick={() => this.handlePercUnstake(100)} className="percBtn t-bl fs-14 c-pointer">100%</button>
-                        </div>
-                        <p className="m-b-20 fs-15">Unstake: <span className="fw-600 t-bl">{WithdrawFigureOuter(this.state.newStake, this.state.profit, this.state.stakedBal)[0]} INFO</span></p>
-                        <p className="m-b-30 fs-15">Burn: <span className={"fw-600 t-or"}>{WithdrawFigureOuter(this.state.newStake, this.state.profit, this.state.stakedBal)[1]} INFO</span></p>
-                        <button disabled={this.state.disabled} onClick={this.handleUnstakeTx} className={"stakebtn btn big bl m-l-auto m-r-auto m-t-30 " + this.state.unstakeBtn}>{this.state.unstakeBtn}<img alt="" className={"txwait ab-r-m m-r-10 " + this.state.unstakeBtn} src="./img/spin.gif"></img></button>
-                    </div>
-                </div>
-                <div onClick={this.toggleUnstakeModal} className={"modal-overlay " + this.state.unstakeModal}></div> */}
                 <div className="footer dk pos-r">
                     <div>
                         <Altlogo />
@@ -918,23 +416,24 @@ class Game extends Component {
 }
 
 
+
 function numberWithCommas(x) {
+    roundDown(x, 3);
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-
-function WithdrawFigureOuter(withd, profit, staked) {
-    var x = []
-    if (profit > 0) {
-        x[0] = numberWithCommas(parseFloat((withd) - (((profit) * (withd / staked) * 0.05))).toFixed(2));
-        x[1] = numberWithCommas(parseFloat((profit) * (withd / staked) * 0.05).toFixed(2))
-    }
-    else {
-        x[0] = numberWithCommas((withd * 0.95).toFixed(2));
-        x[1] = numberWithCommas((withd - (withd * 0.95)).toFixed(2));
-    }
-
-    return x
+function roundDown(number, decimals) {
+    decimals = decimals || 0;
+    return (Math.floor(number * Math.pow(10, decimals)) / Math.pow(10, decimals));
 }
 
+function countDecimals(value) {
+    try {
+        if (Math.floor(value) === value) return 0;
+        return value.toString().split(".")[1].length || 0;
+    }
+    catch (err) {
+        return 0
+    }
+}
 
 export default Game;

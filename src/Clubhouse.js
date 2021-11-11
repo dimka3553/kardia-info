@@ -52,7 +52,7 @@ export default class Clubhouse extends Component {
         this.setState({ swapam: event.target.value })
     }
     handleMaxSwap(event) {
-        this.setState({ swapam: this.state.cinfoBal })
+        this.setState({ swapam: roundDown(this.state.cinfoBal,5)  })
     }
     handleStake(event) {
         this.setState({ newStake: event.target.value })

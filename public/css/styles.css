@@ -1136,7 +1136,17 @@ thead {
 	cursor: pointer;
 	position: relative;
 }
+.gameBtns button.l.Approve,  .gameBtns button.l.Approving{
+	display: none;
+}
+.gameBtns button.r.Approve, .gameBtns button.r.Approving {
+	width: 100%;
+}
 
+.lnkss{
+	display: flex;
+	justify-content: space-between;
+}
 .btn:disabled:hover {
 	background: #83b5ff;
 	cursor: default;

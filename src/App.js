@@ -7,12 +7,12 @@ import Home from './Home';
 import Lps from './Lps';
 import Wallet from './Wallet';
 import Walletdash from './components/Walletdash'
-import Games from './Games';
 import Airdrop from './Airdrop';
 import Airdropper from './Airdropper';
 import ICO from './ICO';
 import Clubhouse from './Clubhouse';
 import Game from './Game';
+import Infogame from './Infogame';
 
 function App() {
   return (
@@ -39,8 +39,8 @@ function App() {
             <Route exact path="/game">
               <Game />
             </Route>
-            <Route exact path="/games">
-              <Games />
+            <Route exact path="/infogame">
+              <Infogame />
             </Route>
             <Route exact path="/airdrop">
               <Airdrop />

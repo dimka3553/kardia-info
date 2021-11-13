@@ -6,7 +6,7 @@ import gameABI from "./ABI/game.json"
 import Altlogo from "./components/subcomponents/svgs/Altlogo";
 
 
-class Games extends Component {
+class Infogame extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -66,7 +66,7 @@ class Games extends Component {
     handleMaxBet() {
         var event = {
             target: {
-                value: parseFloat(this.state.InfoBal).toFixed(2)
+                value:roundDown(parseFloat(this.state.InfoBal).toFixed(3), 3) 
             }
         }
         this.handleBet(event)
@@ -735,9 +735,6 @@ class Games extends Component {
                 <div className="left">
                     <div className="gametab m-b-100">
                         <div className="gamesec">
-                            <div className="top game-title f-ws fw-600">
-                                Guess the correct number and multiply your intitial investment
-                            </div>
                             <div className={"gameres txt-c " + this.state.gameres.bg}>
                                 {this.state.gameres.message}
                             </div>
@@ -770,8 +767,8 @@ class Games extends Component {
                                         <input type="number" disabled={this.state.disabled} placeholder="Bet amount" className="gametxtinput betamount fs-16 p-l-12" onChange={this.handleMultiplier} onBlur={this.handleMultiplierMaths} value={this.state.multiplier}></input>
                                     </div>
                                     <div className="gameBtns m-t-20">
-                                        <button disabled={this.state.disabled} className={"btn " + this.state.lo} onClick={this.handleLow}>{this.state.lo} <img alt="" className={"txwait ab-r-m m-r-10 " + this.state.lo} src="./img/spin.gif"></img></button>
-                                        <button disabled={this.state.disabled} className={"btn " + this.state.hi} onClick={this.handleHigh}>{this.state.hi} <img alt="" className={"txwait ab-r-m m-r-10 " + this.state.hi} src="./img/spin.gif"></img></button>
+                                        <button disabled={this.state.disabled} className={"btn l " + this.state.lo} onClick={this.handleLow}>{this.state.lo} <img alt="" className={"txwait ab-r-m m-r-10 " + this.state.lo} src="./img/spin.gif"></img></button>
+                                        <button disabled={this.state.disabled} className={"btn r " + this.state.hi} onClick={this.handleHigh}>{this.state.hi} <img alt="" className={"txwait ab-r-m m-r-10 " + this.state.hi} src="./img/spin.gif"></img></button>
                                     </div>
                                 </div>
                                 <div className="gamean">
@@ -789,12 +786,17 @@ class Games extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <a rel="noreferrer" className="t-d-none" href="https://docs.kardiainfo.com/info-game" target="_blank"><span className="t-bl m-t-10 t-d-none">Learn the rules</span></a>
+                            <div className="lnkss">
+                                <a rel="noreferrer" className="t-d-none" href="https://docs.kardiainfo.com/info-game" target="_blank"><span className="t-bl m-t-10 t-d-none">Learn the rules</span></a>
+                                <a className="t-d-none" href="/game" ><span className="t-bl m-t-10 t-d-none">Play with KAI</span></a>
+                            </div>
                         </div>
-
+                        <svg className="ab-c-b svon" width="2169" height="288" viewBox="0 0 2169 288" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M211.815 190.987C770.15 -64.7354 1412.47 -63.1181 1969.51 195.413L2169 288H0L211.815 190.987Z" fill="#E4F2FF" />
+                        </svg>
                     </div>
                 </div>
-                <div className="right">
+                {/* <div className="right">
                     <div className="waltab">
                         <div className='walsec'>
                             <div className="top ">
@@ -889,7 +891,7 @@ class Games extends Component {
                         <button disabled={this.state.disabled} onClick={this.handleUnstakeTx} className={"stakebtn btn big bl m-l-auto m-r-auto m-t-30 " + this.state.unstakeBtn}>{this.state.unstakeBtn}<img alt="" className={"txwait ab-r-m m-r-10 " + this.state.unstakeBtn} src="./img/spin.gif"></img></button>
                     </div>
                 </div>
-                <div onClick={this.toggleUnstakeModal} className={"modal-overlay " + this.state.unstakeModal}></div>
+                <div onClick={this.toggleUnstakeModal} className={"modal-overlay " + this.state.unstakeModal}></div>*/}
                 <div className="footer dk pos-r">
                     <div>
                         <Altlogo />
@@ -912,7 +914,7 @@ class Games extends Component {
                         <a className="t-d-none fs-15 hp-g" href="https://t.me/dima3553">Contact</a>
                     </div>
                 </div>
-            </div>
+            </div> 
         );
     }
 }
@@ -935,6 +937,9 @@ function WithdrawFigureOuter(withd, profit, staked) {
 
     return x
 }
+function roundDown(number, decimals) {
+    decimals = decimals || 0;
+    return (Math.floor(number * Math.pow(10, decimals)) / Math.pow(10, decimals));
+}
 
-
-export default Games;
+export default Infogame;

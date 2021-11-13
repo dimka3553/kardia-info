@@ -379,14 +379,17 @@ class Game extends Component {
                                     </div>
                                 </div>
                             </div>
-                            <a rel="noreferrer" className="t-d-none" href="https://docs.kardiainfo.com/info-game" target="_blank"><span className="t-bl m-t-10 t-d-none">Learn the rules</span></a>
+                            <div className="lnkss">
+                                <a rel="noreferrer" className="t-d-none" href="https://docs.kardiainfo.com/info-game" target="_blank"><span className="t-bl m-t-10 t-d-none">Learn the rules</span></a>
+                                <a className="t-d-none" href="/infogame" ><span className="t-bl m-t-10 t-d-none">Play with INFO</span></a>
+                            </div>
                         </div>
                         <svg className="ab-c-b svon" width="2169" height="288" viewBox="0 0 2169 288" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M211.815 190.987C770.15 -64.7354 1412.47 -63.1181 1969.51 195.413L2169 288H0L211.815 190.987Z" fill="#E4F2FF" />
                         </svg>
-                        
+
                     </div>
-                    
+
                 </div>
                 <div className="footer dk pos-r">
                     <div>

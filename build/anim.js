@@ -62,7 +62,7 @@ document.onpointerdown = function (event) {
 };
 
 
-$( ".hamb-menu" ).click(function() {
+$( ".hamb-menu.nav" ).click(function() {
     $(".hamburger-svg").toggleClass("opened");
     $("#smallsidebar").toggleClass("expanded");
     $(".sidebar-overlay").toggleClass("expanded");

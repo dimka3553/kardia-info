@@ -2,6 +2,7 @@
 ///////////////////////////////////////////////////////////
 */
 .f-rob{font-family: 'Roboto'}
+.f-ws{font-family: 'Work Sans'}
 .fs-1 {font-size: 1px;}
 .fs-2 {font-size: 2px;}
 .fs-3 {font-size: 3px;}
@@ -2236,8 +2237,11 @@
 .t-g {color: #666666;}
 .t-lg {color: #888888;}
 .t-s {color: #C4C4C4;}
-.t-bl {color: #0066FF;}
+.t-bl {color: #0066FF !important;}
+.t-lbl {color:#5498FF}
 .t-or {color: #EE8B18}
+.t-gr {color:rgb(93, 185, 84)}
+.t-org {color: #E99E35;}
 .t-t{color: transparent;}
 
 /* ------------------------------------ */
@@ -2370,6 +2374,7 @@
 
 
 .of-auto {overflow: auto;}
+.of-hidden{overflow: hidden;}
 
 @supports (-webkit-touch-callout: none) {
   	.of-hidden-p-7{

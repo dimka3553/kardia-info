@@ -13,6 +13,7 @@ import ICO from './ICO';
 import Clubhouse from './Clubhouse';
 import Game from './Game';
 import Infogame from './Infogame';
+import Farm from './Farm';
 
 function App() {
   return (
@@ -53,6 +54,9 @@ function App() {
             </Route>
             <Route exact path="/club">
               <Clubhouse />
+            </Route>
+            <Route exact path="/farm">
+              <Farm />
             </Route>
           </Switch>
         </div>

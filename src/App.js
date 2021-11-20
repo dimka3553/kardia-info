@@ -49,9 +49,6 @@ function App() {
             <Route exact path="/airdropper">
               <Airdropper />
             </Route>
-            <Route exact path="/ico">
-              <ICO />
-            </Route>
             <Route exact path="/club">
               <Clubhouse />
             </Route>

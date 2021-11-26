@@ -9,7 +9,6 @@ import Wallet from './Wallet';
 import Walletdash from './components/Walletdash'
 import Airdrop from './Airdrop';
 import Airdropper from './Airdropper';
-import ICO from './ICO';
 import Clubhouse from './Clubhouse';
 import Game from './Game';
 import Infogame from './Infogame';

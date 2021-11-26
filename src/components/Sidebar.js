@@ -7,6 +7,7 @@ import Walletsvg from './subcomponents/svgs/Walletsvg'
 import Gamesvg from './subcomponents/svgs/Gamesvg'
 import Drop from './subcomponents/svgs/Drop'
 import Piggy from './subcomponents/svgs/Piggy'
+import Farmsvg from './subcomponents/svgs/Farmsvg'
 
 export default class Sidebar extends Component {
     render() {
@@ -19,6 +20,9 @@ export default class Sidebar extends Component {
                         </Sidelink>
                         <Sidelink name="Stake" cName="drop" lnk="/club">
                             <Piggy />
+                        </Sidelink>
+                        <Sidelink name="Farm" cName="drop" lnk="/farm">
+                            <Farmsvg />
                         </Sidelink>
                         <Sidelink name="Win KAI" cName="game" lnk="/game">
                             <Gamesvg />
@@ -45,6 +49,9 @@ export default class Sidebar extends Component {
                         </Sidelink>
                         <Sidelink name="Stake" cName="drop" lnk="/club">
                             <Piggy />
+                        </Sidelink>
+                        <Sidelink name="Farm" cName="drop" lnk="/farm">
+                            <Farmsvg />
                         </Sidelink>
                         <Sidelink name="Win KAI" cName="game" lnk="/game">
                             <Gamesvg />

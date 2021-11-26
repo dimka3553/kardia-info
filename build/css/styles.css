@@ -46,6 +46,9 @@ body, html, #screen {
 	filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0.25));
 	border-radius: 20px;
 }
+.ch-bg.farms {
+	background-image: url("./../img/farm.jpg");
+}
 
 .ch-overlay {
 	height: 100%;

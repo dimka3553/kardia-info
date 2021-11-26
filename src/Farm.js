@@ -5,6 +5,7 @@ import getWob3 from "./components/getWob3";
 import clubABI from "./ABI/club.json"
 import tokenABI from "./ABI/token.json"
 import swapABI from "./ABI/swap.json"
+import priceABI from "./ABI/infoprice.json"
 
 export default class Farm extends Component {
     constructor(props) {
@@ -52,7 +53,7 @@ export default class Farm extends Component {
         this.setState({ swapam: event.target.value })
     }
     handleMaxSwap(event) {
-        this.setState({ swapam: roundDown(this.state.cinfoBal, 5) })
+        this.setState({ swapam: roundDown(this.state.finfoBal, 5) })
     }
     handleStake(event) {
         this.setState({ newStake: event.target.value })
@@ -242,14 +243,14 @@ export default class Farm extends Component {
             alert('please install the KAI wallet to swap')
         }
         else {
-            if (this.state.cinfoBal < 0.0001) {
-                alert('Please earn some cINFO to stake')
+            if (this.state.finfoBal < 0.0001) {
+                alert('Please earn some fINFO to stake')
             }
             else {
                 if (this.state.approved2 === true) {
                     if (this.state.swapam !== "") {
-                        if (this.state.swapam > this.state.cinfoBal) {
-                            alert('Please earn more cINFO to swap this amount')
+                        if (this.state.swapam > this.state.finfoBal) {
+                            alert('Please earn more fINFO to swap this amount')
                         }
                         else {
                             this.setState({ tr: "sw" })
@@ -266,13 +267,13 @@ export default class Farm extends Component {
 
                     }
                     else {
-                        alert("please input an amount of sINFO to swap")
+                        alert("please input an amount of fINFO to swap")
                     }
                 }
                 else {
                     if (this.state.accounts[0] !== "0x2784fc8cB498Cc66689339BC01d56D7157D2a85f") {
                         this.setState({ tr: "appr2" })
-                        await this.state.cinfo.methods.approve(this.state.swapAddr, "1000000000000000000000000000000000000000000000").send({ from: this.state.accounts[0], gasPrice: '3000000000', gas: '700000' }, async function (error) {
+                        await this.state.finfo.methods.approve(this.state.swapAddr, "1000000000000000000000000000000000000000000000").send({ from: this.state.accounts[0], gasPrice: '3000000000', gas: '700000' }, async function (error) {
                             if (error !== undefined && error !== null) {
                                 console.log(error)
                                 this.setState({ tr: "" })
@@ -311,46 +312,54 @@ export default class Farm extends Component {
                 catch (err) {
                     accounts = ["0x2784fc8cB498Cc66689339BC01d56D7157D2a85f"]
                 }
-                var clubAddr = "0xfF64620234D2327631E4e882846Ad3003Ec82ac7"
-                var infoAddr = "0x5FFD7a138422cBbcfB53908AD51F656D7C6c640F"
-                var cinfoAddr = "0x2a0Ae9C38E3f5178372Ce30615C2575D534ea13e"
-                var swapAddr = "0x2bEDCF128227956c84e2De11B6Bd5ac64eC7AaE7"
+                var clubAddr = "0x238714D59FFDf9ebd2F2AdDC9E61e14283c3243b"
+                var infoAddr = "0x3eFB8AC1D1b289be515a7D44Ae643AC156f57A9F"
+                var finfoAddr = "0x54E5A1772Fc6C011abDcf176E47b02F4F001AE9F"
+                var swapAddr = "0x89A8f0616f55cdA05bdbA8BAD7ec8d5F0bCcd8CF"
+                var priceAddr = "0xE439bC4d52D66eE5F275B5D5859dA40b6aC31422"
                 var club
                 var clubws
                 var info
-                var cinfo
+                var finfo
                 var swap
+                var price
                 if (!this.state.ico) {
                     club = new web3.eth.Contract(clubABI, clubAddr);
                     clubws = new wob3.eth.Contract(clubABI, clubAddr);
                     info = new web3.eth.Contract(tokenABI, infoAddr);
-                    cinfo = new web3.eth.Contract(tokenABI, cinfoAddr);
+                    finfo = new web3.eth.Contract(tokenABI, finfoAddr);
                     swap = new web3.eth.Contract(swapABI, swapAddr);
+                    price = new web3.eth.Contract(priceABI, priceAddr);
                 }
                 else {
                     club = this.state.club
                     clubws = this.state.clubws
                     info = this.state.info
-                    cinfo = this.state.cinfo
+                    finfo = this.state.finfo
                     swap = this.state.swap
+                    price = this.state.price
                 }
 
-                let [totalStaked, userStaked, rewards, infoBal, cinfoBal, approved, rate, approved2] = await Promise.all([
+                let [totalStaked, userStaked, rewards, infoBal, finfoBal, approved, rate, approved2, prices] = await Promise.all([
                     clubws.methods._totalSupply().call(),
                     clubws.methods._balances(accounts[0]).call(),
                     clubws.methods.earned(accounts[0]).call(),
                     info.methods.balanceOf(accounts[0]).call(),
-                    cinfo.methods.balanceOf(accounts[0]).call(),
+                    finfo.methods.balanceOf(accounts[0]).call(),
                     info.methods.allowance(accounts[0], clubAddr).call(),
                     swap.methods.rate().call(),
-                    cinfo.methods.allowance(accounts[0], swapAddr).call(),
+                    finfo.methods.allowance(accounts[0], swapAddr).call(),
+                    price.methods.tokenPrice().call()
                 ]);
                 totalStaked = parseFloat(wob3.utils.fromWei(totalStaked));
                 userStaked = parseFloat(wob3.utils.fromWei(userStaked));
                 rewards = parseFloat(wob3.utils.fromWei(rewards));
                 infoBal = parseFloat(wob3.utils.fromWei(infoBal));
-                cinfoBal = parseFloat(wob3.utils.fromWei(cinfoBal));
+                finfoBal = parseFloat(wob3.utils.fromWei(finfoBal));
                 rate = parseFloat(wob3.utils.fromWei(rate));
+                var infoPrice = parseFloat(wob3.utils.fromWei(prices[0]));
+                var lpPrice = parseFloat(wob3.utils.fromWei(prices[1]));
+                console.log(infoPrice, lpPrice)
                 // eslint-disable-next-line
                 if (approved == 0) {
                     approved = false
@@ -400,15 +409,17 @@ export default class Farm extends Component {
                         clubws,
                         club,
                         info,
-                        cinfo,
+                        finfo,
                         swap,
+                        price,
                         accounts,
                         totalStaked,
                         userStaked,
                         rewards,
                         infoBal,
-                        cinfoBal,
+                        finfoBal,
                         clubAddr,
+                        priceAddr,
                         approved,
                         tr: "",
                         stakeBtn,
@@ -419,7 +430,9 @@ export default class Farm extends Component {
                         rate,
                         swapbtn,
                         swapAddr,
-                        approved2
+                        approved2,
+                        infoPrice,
+                        lpPrice
                     })
                 }
             }
@@ -452,7 +465,7 @@ export default class Farm extends Component {
 
 
     componentDidMount = async () => {
-        document.title = `Clubhouse - Kardia info`;
+        document.title = `Farm - Kardia info`;
         this.refreshData()
 
         window.dispatchEvent(new Event('load'))
@@ -477,6 +490,7 @@ export default class Farm extends Component {
                             <div className="ico-info-box  m-l-40 tp">
                                 <p className="fs-16 t-g fw-700 ">fINFO price</p>
                                 <p className="fs-32 t-ab p-t-10 bb">{parseFloat(this.state.rate).toFixed(5)} <span className="t-s"> INFO</span></p>
+                                <p className="fs-14 t-lbl p-t-10">${parseFloat(this.state.rate*this.state.infoPrice).toFixed(5)}</p>
                                 <svg className="ab-t-r m-t-18 m-r-18" width="49" height="48" viewBox="0 0 49 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect x="0.333008" width="48" height="48" rx="12" fill="#F2F4FA" />
                                     <path d="M21.0049 26.3298C21.0049 27.6198 21.9949 28.6598 23.2249 28.6598H25.7349C26.8049 28.6598 27.6749 27.7498 27.6749 26.6298C27.6749 25.4098 27.1449 24.9798 26.3549 24.6998L22.3249 23.2998C21.5349 23.0198 21.0049 22.5898 21.0049 21.3698C21.0049 20.2498 21.8749 19.3398 22.9449 19.3398H25.4549C26.6849 19.3398 27.6749 20.3798 27.6749 21.6698" stroke="#9699A5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -485,7 +499,7 @@ export default class Farm extends Component {
                             </div>
                             <div className="ico-info-box">
                                 <p className="fs-16 t-g fw-700 ">APR</p>
-                                <p className="fs-32 t-ab p-t-10 bb">{numberWithCommas(((((846 * this.state.rate) * 365) / this.state.totalStaked) * 100).toFixed(2))} <span className="t-s"> %</span></p>
+                                <p className="fs-32 t-ab p-t-10 bb">{numberWithCommas(((((846 * this.state.rate*this.state.infoPrice) * 365) / this.state.totalStaked*this.state.lpPrice) * 100).toFixed(2))} <span className="t-s"> %</span></p>
                                 <p className="fs-14 t-lbl p-t-10">~846 fINFO per day</p>
                                 <svg className="ab-t-r m-t-18 m-r-18" width={49} height={48} viewBox="0 0 49 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect x="0.333984" width={48} height={48} rx={12} fill="#F2F4FA" />
@@ -499,8 +513,8 @@ export default class Farm extends Component {
                             </div>
                             <div className="ico-info-box">
                                 <p className="fs-16 t-g fw-700 ">Deposited</p>
-                                <p className="fs-32 t-ab p-t-10 bb">{numberWithCommas(this.state.totalStaked.toFixed(0))} <span className="t-s"> INFO</span></p>
-                                <p className="fs-14 p-t-10 t-lbl"></p>
+                                <p className="fs-32 t-ab p-t-10 bb">{numberWithCommas(this.state.totalStaked.toFixed(0))} <span className="t-s"> LP</span></p>
+                                <p className="fs-14 p-t-10 t-lbl">${numberWithCommas((this.state.totalStaked*this.state.lpPrice).toFixed(2))}</p>
                                 <svg className="ab-t-r m-t-18 m-r-18" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect width="48" height="48" rx="12" fill="#F2F4FA" />
                                     <path d="M30.0702 26.4301L24.0002 32.5001L17.9302 26.4301" stroke="#9699A5" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
@@ -515,21 +529,22 @@ export default class Farm extends Component {
                                 <div>
                                     <h3 className="fs-24 m-b-25 fw-700 t-ab">Farm INFO Liquidity</h3>
                                     <p className="fs-18 t-g m-b-40 fw-100">
-                                        Farm INFO-KAI Liquidity to receive fINFO that can be swapped for INFO at any time.<br/><br/><a className="t-bl t-d-none" href="https://docs.kardiainfo.com/info-farm" >Learn how to farm</a><br/><br/><a className="t-bl t-d-none" href="https://docs.kardiainfo.com/info-farm" >Receive LP tokens</a>
+                                        Farm INFO-KAI Liquidity to receive fINFO that can be swapped for INFO at any time.<br/><br/><a className="t-bl t-d-none" href="https://docs.kardiainfo.com/info-farm" >Learn how to farm</a><br/><br/><a className="t-bl t-d-none" href="https://kaidex.io/portfolio/add/0x3eFB8AC1D1b289be515a7D44Ae643AC156f57A9F" >Receive LP tokens</a>
                                     </p>
                                 </div>
                                 <div className="ch-info">
                                     <p className="fs-13 t-g m-b-10 t-g">
                                         My INFO-KAI LP in the farm
                                     </p>
-                                    <p className="fs-32 m-t-0 fw-700 m-b-25">
+                                    <p className="fs-32 m-t-0 fw-700 m-b-0">
                                         {this.state.userStaked.toFixed(2)} <span className="t-s">LP</span>
                                     </p>
+                                    <p className="fs-14 t-lbl  m-b-25 m-t-5 p-t-0">~ ${(this.state.userStaked*this.state.lpPrice).toFixed(2)}</p>
                                     <p className="fs-13 t-g m-b-10 t-g">
                                         Rewards to claim
                                     </p>
                                     <p className="fs-24 m-t-0 fw-700 m-b-25 t-ab">
-                                        {this.state.rewards.toFixed(4)} <span className="t-bl">fINFO</span><span className={"fs-14 t-lbl " + this.state.morebtns}><br />→ ~ {parseFloat(this.state.userStaked / this.state.totalStaked * 846).toFixed(3)} cINFO / Day</span>
+                                        {this.state.rewards.toFixed(4)} <span className="t-bl">fINFO</span><span className={"fs-14 t-lbl " + this.state.morebtns}><br />→ ~ {parseFloat(this.state.userStaked / this.state.totalStaked * 846).toFixed(3)} fINFO / Day</span>
                                     </p>
                                     <button disabled={this.state.disabled} onClick={this.handleClaimTx} className={"clbtn btn m-b-20 " + this.state.claimBtn}>
                                         {this.state.claimBtn}
@@ -551,7 +566,7 @@ export default class Farm extends Component {
                             <div className="gameinput pos-r m-b-16">
                                 <div className="tophalf m-b-5">
                                     <span className="fs-14 f-ws">Swap Amount</span>
-                                    <span className="fs-14 f-ws t-bl c-pointer" onClick={this.handleMaxSwap}>Balance: {numberWithCommas(parseFloat(this.state.cinfoBal).toFixed(2))} fINFO</span>
+                                    <span className="fs-14 f-ws t-bl c-pointer" onClick={this.handleMaxSwap}>Balance: {numberWithCommas(parseFloat(this.state.finfoBal).toFixed(2))} fINFO</span>
                                 </div>
                                 <div className="inpboxg">
                                     <input type="number" disabled={this.state.disabled} placeholder="Amount" value={this.state.swapam} className="gametxtinput betamount fs-16 p-l-12" onChange={this.handleSwap}></input>
@@ -586,11 +601,11 @@ export default class Farm extends Component {
                             </svg>
                         </div>
                         <div className="title ab-l-m fs-22 t-g m-l-60 f-rob noselect">
-                            Stake INFO
+                            Stake LP
                         </div>
                     </div>
                     <div className="cont p-l-15 p-r-15">
-                        <p className="txt-r fs-14 t-bl c-pointer" onClick={this.handleMaxStake}>Balance: {numberWithCommas(parseFloat(this.state.infoBal).toFixed(2))} INFO</p>
+                        <p className="txt-r fs-14 t-bl c-pointer" onClick={this.handleMaxStake}>Balance: {numberWithCommas(parseFloat(this.state.infoBal).toFixed(2))} LP</p>
                         <div className="infoInp stakeInp m-b-15">
                             <img className="ab-l-m m-l-5" src="./img/smalllogo.png" alt=""></img>
                             <input type="number" placeholder="Stake amount" value={this.state.newStake} className="gametxtinp stakeInp fs-16 p-l-26" onChange={this.handleStake}></input>
@@ -601,9 +616,9 @@ export default class Farm extends Component {
                             <button onClick={() => this.handlePercStake(75)} className="percBtn t-bl fs-14 c-pointer">75%</button>
                             <button onClick={() => this.handlePercStake(100)} className="percBtn t-bl fs-14 c-pointer">100%</button>
                         </div>
-                        <p className="m-b-20 fs-15">Currently Staked: <span className="fw-600 t-g">{numberWithCommas(parseFloat(this.state.userStaked).toFixed(3))} INFO</span></p>
-                        <p className="m-b-20 fs-15">New Stake: <span className="fw-600 t-bl">{numberWithCommas(parseFloat(parseFloat(this.state.userStaked) + parseFloat(this.state.newStake)).toFixed(3))} INFO</span></p>
-                        <p className="m-b-30 fs-15">Daily profit: <span className={"fw-600 t-gr"}>{numberWithCommas(parseFloat((parseFloat(this.state.userStaked) + parseFloat(this.state.newStake)) / (parseFloat(this.state.totalStaked) + parseFloat(this.state.newStake)) * 846).toFixed(3))} cINFO</span></p>
+                        <p className="m-b-20 fs-15">Currently Staked: <span className="fw-600 t-g">{numberWithCommas(parseFloat(this.state.userStaked).toFixed(3))} LP</span></p>
+                        <p className="m-b-20 fs-15">New Stake: <span className="fw-600 t-bl">{numberWithCommas(parseFloat(parseFloat(this.state.userStaked) + parseFloat(this.state.newStake)).toFixed(3))} LP</span></p>
+                        <p className="m-b-30 fs-15">Daily profit: <span className={"fw-600 t-gr"}>{numberWithCommas(parseFloat((parseFloat(this.state.userStaked) + parseFloat(this.state.newStake)) / (parseFloat(this.state.totalStaked) + parseFloat(this.state.newStake)) * 846).toFixed(3))} fINFO</span></p>
                         <button onClick={this.handleStakeTx} disabled={this.state.disabled} className={"stakebtn btn big bl m-l-auto m-r-auto m-t-30 " + this.state.stakeBtn}>{this.state.stakeBtn}<img alt="" className={"txwait ab-r-m m-r-10 " + this.state.stakeBtn} src="./img/spin.gif"></img></button>
                         <p className="t-g f-ws">Please note: unstaking comes with a <span className="t-or ">1% tax</span> so plan your actions accordingly.</p>
                     </div>
@@ -620,11 +635,11 @@ export default class Farm extends Component {
                             </svg>
                         </div>
                         <div className="title ab-l-m fs-22 t-g m-l-60 f-rob noselect">
-                            Unstake INFO
+                            Unstake LP
                         </div>
                     </div>
                     <div className="cont p-l-15 p-r-15">
-                        <p className="txt-r fs-14 t-bl c-pointer" onClick={this.handleMaxUnstake}>Staked: {numberWithCommas(parseFloat(this.state.userStaked).toFixed(2))} INFO</p>
+                        <p className="txt-r fs-14 t-bl c-pointer" onClick={this.handleMaxUnstake}>Staked: {numberWithCommas(parseFloat(this.state.userStaked).toFixed(2))} LP</p>
                         <div className="infoInp stakeInp m-b-15">
                             <img className="ab-l-m m-l-5" src="./img/smalllogo.png" alt=""></img>
                             <input type="number" placeholder="Unstake amount" value={this.state.newStake} className="gametxtinp stakeInp fs-16 p-l-26" onChange={this.handleStake}></input>
@@ -635,8 +650,8 @@ export default class Farm extends Component {
                             <button onClick={() => this.handlePercUnstake(75)} className="percBtn t-bl fs-14 c-pointer">75%</button>
                             <button onClick={() => this.handlePercUnstake(100)} className="percBtn t-bl fs-14 c-pointer">100%</button>
                         </div>
-                        <p className="m-b-20 fs-15">Current Profit: <span className="fw-600 t-bl">{parseFloat(this.state.userStaked / this.state.totalStaked * 846).toFixed(3)} cINFO / Day</span></p>
-                        <p className="m-b-30 fs-15">New Profit: <span className={"fw-600 t-or"}>{numberWithCommas(parseFloat((parseFloat(this.state.userStaked) - parseFloat(this.state.newStake)) / (parseFloat(this.state.totalStaked) + parseFloat(this.state.newStake)) * 846).toFixed(3))} cINFO / Day</span></p>
+                        <p className="m-b-20 fs-15">Current Profit: <span className="fw-600 t-bl">{parseFloat(this.state.userStaked / this.state.totalStaked * 846).toFixed(3)} fINFO / Day</span></p>
+                        <p className="m-b-30 fs-15">New Profit: <span className={"fw-600 t-or"}>{numberWithCommas(parseFloat((parseFloat(this.state.userStaked) - parseFloat(this.state.newStake)) / (parseFloat(this.state.totalStaked) + parseFloat(this.state.newStake)) * 846).toFixed(3))} fINFO / Day</span></p>
                         <button disabled={this.state.disabled} onClick={this.handleUnstakeTx} className={"stakebtn btn big bl m-l-auto m-r-auto m-t-30 " + this.state.unstakeBtn}>{this.state.unstakeBtn}<img alt="" className={"txwait ab-r-m m-r-10 " + this.state.unstakeBtn} src="./img/spin.gif"></img></button>
                         <p className="t-g f-ws">Please note: unstaking comes with a <span className="t-or ">1% tax</span> so plan your actions accordingly.</p>
                     </div>

@@ -924,19 +924,19 @@ function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-function WithdrawFigureOuter(withd, profit, staked) {
-    var x = []
-    if (profit > 0) {
-        x[0] = numberWithCommas(parseFloat((withd) - (((profit) * (withd / staked) * 0.05))).toFixed(2));
-        x[1] = numberWithCommas(parseFloat((profit) * (withd / staked) * 0.05).toFixed(2))
-    }
-    else {
-        x[0] = numberWithCommas((withd * 0.95).toFixed(2));
-        x[1] = numberWithCommas((withd - (withd * 0.95)).toFixed(2));
-    }
+// function WithdrawFigureOuter(withd, profit, staked) {
+//     var x = []
+//     if (profit > 0) {
+//         x[0] = numberWithCommas(parseFloat((withd) - (((profit) * (withd / staked) * 0.05))).toFixed(2));
+//         x[1] = numberWithCommas(parseFloat((profit) * (withd / staked) * 0.05).toFixed(2))
+//     }
+//     else {
+//         x[0] = numberWithCommas((withd * 0.95).toFixed(2));
+//         x[1] = numberWithCommas((withd - (withd * 0.95)).toFixed(2));
+//     }
 
-    return x
-}
+//     return x
+// }
 function roundDown(number, decimals) {
     decimals = decimals || 0;
     return (Math.floor(number * Math.pow(10, decimals)) / Math.pow(10, decimals));

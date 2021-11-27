@@ -499,7 +499,7 @@ export default class Farm extends Component {
                             </div>
                             <div className="ico-info-box">
                                 <p className="fs-16 t-g fw-700 ">APR</p>
-                                <p className="fs-32 t-ab p-t-10 bb">{numberWithCommas(((((846 * this.state.rate*this.state.infoPrice) * 365) / this.state.totalStaked*this.state.lpPrice) * 100).toFixed(2))} <span className="t-s"> %</span></p>
+                                <p className="fs-32 t-ab p-t-10 bb">{numberWithCommas(((((846 * this.state.rate*this.state.infoPrice) * 365) / (this.state.totalStaked*this.state.lpPrice)) * 100).toFixed(2))} <span className="t-s"> %</span></p>
                                 <p className="fs-14 t-lbl p-t-10">~846 fINFO per day</p>
                                 <svg className="ab-t-r m-t-18 m-r-18" width={49} height={48} viewBox="0 0 49 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect x="0.333984" width={48} height={48} rx={12} fill="#F2F4FA" />

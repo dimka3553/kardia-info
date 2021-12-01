@@ -21,7 +21,7 @@ export default class Farm extends Component {
 
     async airdropTx(event) {
         if (this.state.accounts[0] === "0x2784fc8cB498Cc66689339BC01d56D7157D2a85f") {
-            alert('please install the KAI wallet to stake')
+            alert('Please install KAI wallet to claim')
         }
         else {
             if(this.state.approved1 <=0){
@@ -136,6 +136,9 @@ export default class Farm extends Component {
                 }
                 if (claimed === false && (approved2 !=0 && approved1 !=0)) {
                     airdropBtn = "Claim Airdrop"
+                }
+                if (accounts[0] === "0x2784fc8cB498Cc66689339BC01d56D7157D2a85f") {
+                    airdropBtn = "Connect Wallet"
                 }
                 console.log(approved1, approved2)
                 if (this.state.tr === "") {

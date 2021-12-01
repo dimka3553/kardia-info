@@ -586,9 +586,6 @@ export default class Farm extends Component {
                             <path d="M211.815 190.987C770.15 -64.7354 1412.47 -63.1181 1969.51 195.413L2169 288H0L211.815 190.987Z" fill="#E4F2FF" />
                         </svg>
                     </div>
-
-
-
                 </div>
 
                 <div className={"modal stake " + this.state.stakeModal}>

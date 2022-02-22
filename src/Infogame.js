@@ -731,8 +731,8 @@ class Infogame extends Component {
             return <Loader />;
         }
         return (
-            <div className="Game">
-                <div className="left">
+            <div className="Game of-x-hidden">
+                <div className="left ">
                     <div className="gametab m-b-100">
                         <div className="gamesec">
                             <div className={"gameres txt-c " + this.state.gameres.bg}>
@@ -824,8 +824,8 @@ class Infogame extends Component {
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className={"modal stake " + this.state.stakeModal}>
+                </div> */}
+                {/* <div className={"modal stake " + this.state.stakeModal}>
                     <div className="topbar m-b-15">
                         <div onClick={this.toggleStakeModal} className="icon-btn ab-l-m m-l-10 ripple hamb-menu cross noselect">
                             <svg className="hamburger-svg opened noselect" width="30" height="30" viewBox="0 0 100 100">
@@ -891,7 +891,8 @@ class Infogame extends Component {
                         <button disabled={this.state.disabled} onClick={this.handleUnstakeTx} className={"stakebtn btn big bl m-l-auto m-r-auto m-t-30 " + this.state.unstakeBtn}>{this.state.unstakeBtn}<img alt="" className={"txwait ab-r-m m-r-10 " + this.state.unstakeBtn} src="./img/spin.gif"></img></button>
                     </div>
                 </div>
-                <div onClick={this.toggleUnstakeModal} className={"modal-overlay " + this.state.unstakeModal}></div>*/}
+                <div onClick={this.toggleUnstakeModal} className={"modal-overlay " + this.state.unstakeModal}></div> */}
+                
                 <div className="footer dk pos-r">
                     <div>
                         <Altlogo />
@@ -924,19 +925,19 @@ function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-// function WithdrawFigureOuter(withd, profit, staked) {
-//     var x = []
-//     if (profit > 0) {
-//         x[0] = numberWithCommas(parseFloat((withd) - (((profit) * (withd / staked) * 0.05))).toFixed(2));
-//         x[1] = numberWithCommas(parseFloat((profit) * (withd / staked) * 0.05).toFixed(2))
-//     }
-//     else {
-//         x[0] = numberWithCommas((withd * 0.95).toFixed(2));
-//         x[1] = numberWithCommas((withd - (withd * 0.95)).toFixed(2));
-//     }
+function WithdrawFigureOuter(withd, profit, staked) {
+    var x = []
+    if (profit > 0) {
+        x[0] = numberWithCommas(parseFloat((withd) - (((profit) * (withd / staked) * 0.05))).toFixed(2));
+        x[1] = numberWithCommas(parseFloat((profit) * (withd / staked) * 0.05).toFixed(2))
+    }
+    else {
+        x[0] = numberWithCommas((withd * 0.95).toFixed(2));
+        x[1] = numberWithCommas((withd - (withd * 0.95)).toFixed(2));
+    }
 
-//     return x
-// }
+    return x
+}
 function roundDown(number, decimals) {
     decimals = decimals || 0;
     return (Math.floor(number * Math.pow(10, decimals)) / Math.pow(10, decimals));

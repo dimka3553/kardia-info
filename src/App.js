@@ -13,6 +13,8 @@ import Clubhouse from './Clubhouse';
 import Game from './Game';
 import Infogame from './Infogame';
 import Farm from './Farm';
+import './styles/utils.css';
+import './styles/styles.css';
 
 function App() {
   return (

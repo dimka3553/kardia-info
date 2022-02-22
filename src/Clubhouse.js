@@ -5,6 +5,7 @@ import getWob3 from "./components/getWob3";
 import clubABI from "./ABI/club.json"
 import tokenABI from "./ABI/token.json"
 import swapABI from "./ABI/swap.json"
+import priceABI from "./ABI/infoprice.json"
 
 export default class Clubhouse extends Component {
     constructor(props) {
@@ -315,17 +316,21 @@ export default class Clubhouse extends Component {
                 var infoAddr = "0x5FFD7a138422cBbcfB53908AD51F656D7C6c640F"
                 var cinfoAddr = "0x2a0Ae9C38E3f5178372Ce30615C2575D534ea13e"
                 var swapAddr = "0x2bEDCF128227956c84e2De11B6Bd5ac64eC7AaE7"
+                var priceAddr = "0xE439bC4d52D66eE5F275B5D5859dA40b6aC31422"
                 var club
                 var clubws
                 var info
                 var cinfo
                 var swap
+                var price
                 if (!this.state.ico) {
                     club = new web3.eth.Contract(clubABI, clubAddr);
                     clubws = new wob3.eth.Contract(clubABI, clubAddr);
                     info = new web3.eth.Contract(tokenABI, infoAddr);
                     cinfo = new web3.eth.Contract(tokenABI, cinfoAddr);
                     swap = new web3.eth.Contract(swapABI, swapAddr);
+                    price = new web3.eth.Contract(priceABI, priceAddr);
+                    
                 }
                 else {
                     club = this.state.club
@@ -335,7 +340,7 @@ export default class Clubhouse extends Component {
                     swap = this.state.swap
                 }
 
-                let [totalStaked, userStaked, rewards, infoBal, cinfoBal, approved, rate, approved2] = await Promise.all([
+                let [totalStaked, userStaked, rewards, infoBal, cinfoBal, approved, rate, approved2, prices] = await Promise.all([
                     clubws.methods._totalSupply().call(),
                     clubws.methods._balances(accounts[0]).call(),
                     clubws.methods.earned(accounts[0]).call(),
@@ -344,6 +349,7 @@ export default class Clubhouse extends Component {
                     info.methods.allowance(accounts[0], clubAddr).call(),
                     swap.methods.rate().call(),
                     cinfo.methods.allowance(accounts[0], swapAddr).call(),
+                    price.methods.tokenPrice().call()
                 ]);
                 totalStaked = parseFloat(wob3.utils.fromWei(totalStaked));
                 userStaked = parseFloat(wob3.utils.fromWei(userStaked));
@@ -351,6 +357,7 @@ export default class Clubhouse extends Component {
                 infoBal = parseFloat(wob3.utils.fromWei(infoBal));
                 cinfoBal = parseFloat(wob3.utils.fromWei(cinfoBal));
                 rate = parseFloat(wob3.utils.fromWei(rate));
+                var infoPrice = parseFloat(wob3.utils.fromWei(prices[0]));
                 // eslint-disable-next-line
                 if (approved == 0) {
                     approved = false
@@ -419,7 +426,8 @@ export default class Clubhouse extends Component {
                         rate,
                         swapbtn,
                         swapAddr,
-                        approved2
+                        approved2,
+                        infoPrice
                     })
                 }
             }
@@ -477,6 +485,7 @@ export default class Clubhouse extends Component {
                             <div className="ico-info-box  m-l-40 tp">
                                 <p className="fs-16 t-g fw-700 ">cINFO price</p>
                                 <p className="fs-32 t-ab p-t-10 bb">{parseFloat(this.state.rate).toFixed(5)} <span className="t-s"> INFO</span></p>
+                                <p className="fs-14 t-lbl p-t-10">${parseFloat(this.state.rate*this.state.infoPrice).toFixed(5)}</p>
                                 <svg className="ab-t-r m-t-18 m-r-18" width="49" height="48" viewBox="0 0 49 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect x="0.333008" width="48" height="48" rx="12" fill="#F2F4FA" />
                                     <path d="M21.0049 26.3298C21.0049 27.6198 21.9949 28.6598 23.2249 28.6598H25.7349C26.8049 28.6598 27.6749 27.7498 27.6749 26.6298C27.6749 25.4098 27.1449 24.9798 26.3549 24.6998L22.3249 23.2998C21.5349 23.0198 21.0049 22.5898 21.0049 21.3698C21.0049 20.2498 21.8749 19.3398 22.9449 19.3398H25.4549C26.6849 19.3398 27.6749 20.3798 27.6749 21.6698" stroke="#9699A5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -500,7 +509,7 @@ export default class Clubhouse extends Component {
                             <div className="ico-info-box">
                                 <p className="fs-16 t-g fw-700 ">Deposited</p>
                                 <p className="fs-32 t-ab p-t-10 bb">{numberWithCommas(this.state.totalStaked.toFixed(0)) } <span className="t-s"> INFO</span></p>
-                                <p className="fs-14 p-t-10 t-lbl"></p>
+                                <p className="fs-14 p-t-10 t-lbl">${numberWithCommas((this.state.totalStaked*this.state.infoPrice).toFixed(2))}</p>
                                 <svg className="ab-t-r m-t-18 m-r-18" width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect width="48" height="48" rx="12" fill="#F2F4FA" />
                                     <path d="M30.0702 26.4301L24.0002 32.5001L17.9302 26.4301" stroke="#9699A5" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
@@ -522,9 +531,10 @@ export default class Clubhouse extends Component {
                                     <p className="fs-13 t-g m-b-10 t-g">
                                         My INFO in the club
                                     </p>
-                                    <p className="fs-32 m-t-0 fw-700 m-b-25">
+                                    <p className="fs-32 m-t-0 fw-700 m-b-0">
                                         {this.state.userStaked.toFixed(2)} <span className="t-s">INFO</span>
                                     </p>
+                                    <p className="fs-14 t-lbl  m-b-25 m-t-5 p-t-0">~ ${(this.state.userStaked*this.state.infoPrice).toFixed(2)}</p>
                                     <p className="fs-13 t-g m-b-10 t-g">
                                         Rewards to claim
                                     </p>

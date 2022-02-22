@@ -2375,6 +2375,8 @@
 
 .of-auto {overflow: auto;}
 .of-hidden{overflow: hidden;}
+.of-x-hidden{overflow-x: hidden;}
+.of-y-hidden{overflow-y: hidden;}
 
 @supports (-webkit-touch-callout: none) {
   	.of-hidden-p-7{

@@ -39,7 +39,7 @@ body, html, #screen {
 }
 
 .ch-bg {
-	background-image: url("./../img/house.jpg");
+	background-image: url("./house.jpg");
 	background-size: cover;
 	background-position: center;
 	min-height: 480px;
@@ -47,7 +47,7 @@ body, html, #screen {
 	border-radius: 20px;
 }
 .ch-bg.farms {
-	background-image: url("./../img/farm.jpg");
+	background-image: url("./farm.jpg");
 }
 
 .ch-overlay {
@@ -703,16 +703,6 @@ thead {
 	background-color: #f5f5f5;
 }
 
-.apit {
-	background-image: url("./../img/tech.png");
-	background-clip: text;
-	-webkit-background-clip: text;
-	color: transparent;
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-attachment: fixed;
-	background-position: center;
-}
 
 .mw {
 	max-width: 400px;

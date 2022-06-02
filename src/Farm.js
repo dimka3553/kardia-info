@@ -312,6 +312,9 @@ export default class Farm extends Component {
                 catch (err) {
                     accounts = ["0x2784fc8cB498Cc66689339BC01d56D7157D2a85f"]
                 }
+                if(accounts==""){
+                    accounts = ["0x2784fc8cB498Cc66689339BC01d56D7157D2a85f"]
+                }
                 var clubAddr = "0x238714D59FFDf9ebd2F2AdDC9E61e14283c3243b"
                 var infoAddr = "0x3eFB8AC1D1b289be515a7D44Ae643AC156f57A9F"
                 var finfoAddr = "0x54E5A1772Fc6C011abDcf176E47b02F4F001AE9F"

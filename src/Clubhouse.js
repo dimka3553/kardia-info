@@ -312,6 +312,9 @@ export default class Clubhouse extends Component {
                 catch (err) {
                     accounts = ["0x2784fc8cB498Cc66689339BC01d56D7157D2a85f"]
                 }
+                if(accounts==""){
+                    accounts = ["0x2784fc8cB498Cc66689339BC01d56D7157D2a85f"]
+                }
                 var clubAddr = "0xfF64620234D2327631E4e882846Ad3003Ec82ac7"
                 var infoAddr = "0x5FFD7a138422cBbcfB53908AD51F656D7C6c640F"
                 var cinfoAddr = "0x2a0Ae9C38E3f5178372Ce30615C2575D534ea13e"

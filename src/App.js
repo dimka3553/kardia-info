@@ -28,7 +28,7 @@ function App() {
             <br />
             <br />
             Kardia info will soon launch gINFO which will (in theory) have a
-            positive impact in INFO's price. You may learn more about it by
+            positive impact on INFO's price. You may learn more about it by
             watching the following video:
             <br />
             <br />

@@ -7,7 +7,8 @@ import Altlogo from "./components/subcomponents/svgs/Altlogo";
 import { Link } from "react-router-dom";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
+import confetti from "canvas-confetti";
 
 class Game extends Component {
   constructor(props) {
@@ -254,7 +255,26 @@ class Game extends Component {
                     this.state.web3.utils.fromWei(receipt.reward.toString()) +
                     " INFO",
                 };
+                confetti({
+                  particleCount: 150,
+                  startVelocity: 40,
+                  spread: 360,
+                  origin: {
+                    x: 0,
+                    y: 0.2,
+                  },
+                });
+                confetti({
+                  particleCount: 150,
+                  startVelocity: 40,
+                  spread: 360,
+                  origin: {
+                    x: 1,
+                    y: 0.1,
+                  },
+                });
               }
+
               var realgL;
               if (this.state.realgL === "n") {
                 realgL = (parseInt(this.state.gL) + 1).toString();
@@ -306,6 +326,25 @@ class Game extends Component {
             "receipt",
             function (receipt) {
               console.log(receipt);
+              confetti({
+                particleCount: 150,
+                startVelocity: 40,
+                spread: 360,
+                origin: {
+                  x: 0,
+                  y: 0.2,
+                },
+              });
+              confetti({
+                particleCount: 150,
+                startVelocity: 40,
+                spread: 360,
+                origin: {
+                  x: 1,
+                  y: 0.1,
+                },
+              });
+
               this.setState({ tr: "", actuallyApproved: true });
             }.bind(this)
           )

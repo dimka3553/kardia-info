@@ -401,7 +401,7 @@ class Game extends Component {
             num2: num[1],
             num3: num[2],
             num4: num[3],
-            gameres: "",
+            gameres,
             hi: "Bet High",
             lo: "Bet Low",
             disabled: false,

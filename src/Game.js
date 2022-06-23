@@ -3,6 +3,10 @@ import getWeb3 from "./components/getWeb3";
 import Loader from "./components/Loader";
 import gameABI from "./ABI/bet.json";
 import Altlogo from "./components/subcomponents/svgs/Altlogo";
+import { Link } from "react-router-dom";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 
 class Game extends Component {
   constructor(props) {
@@ -24,6 +28,8 @@ class Game extends Component {
       hi: "Bet High",
       lo: "Bet Low",
       winnings: 20.0,
+      realgL: "n",
+      accounts: ["0x2784fc8cB498Cc66689339BC01d56D7157D2a85f"],
     };
     this.niceNum = this.niceNum.bind(this);
     this.weiToEth = this.weiToEth.bind(this);
@@ -182,22 +188,88 @@ class Game extends Component {
         console.log("transactionHash: " + hash);
       })
       .on(
-        "confirmation",
+        "receipt",
         function (receipt) {
-          console.log("confirmation: " + receipt);
-          if (receipt === 1) {
-            this.setState({ hasPlayed: true, tr: "" });
+          console.log(receipt);
+          var gas = receipt.gasUsed;
+          console.log(gas);
+          receipt = receipt.events.Played.returnValues;
+          var kaiBal, num, gameres;
+          if (receipt.win === false) {
+            console.log("lost");
+            kaiBal =
+              parseFloat(this.state.web3.utils.fromWei(this.state.kaiBal)) -
+              parseFloat(this.state.web3.utils.fromWei(receipt.wager)) -
+              parseFloat(this.state.web3.utils.fromWei(gas.toString()));
+            console.log(kaiBal);
+            kaiBal = this.state.web3.utils.toWei(kaiBal.toString(), "ether");
+            console.log(kaiBal);
+            num = receipt.ran;
+            if (num < 10) num = "000" + num;
+            else if (num < 100) num = "00" + num;
+            else if (num < 1000) num = "0" + num;
+            num = Array.from(num.toString()).map(Number);
+            gameres = {
+              bg: "bg-red",
+              message:
+                "😢 You Lost " +
+                this.state.web3.utils.fromWei(receipt.wager.toString()) +
+                " KAI",
+            };
+          } else {
+            console.log("won");
+            kaiBal =
+              parseFloat(this.state.web3.utils.fromWei(this.state.kaiBal)) -
+              parseFloat(this.state.web3.utils.fromWei(receipt.wager)) +
+              parseFloat(this.state.web3.utils.fromWei(receipt.reward)) -
+              parseFloat(this.state.web3.utils.fromWei(gas.toString()));
+            console.log(kaiBal);
+            kaiBal = this.state.web3.utils.toWei(kaiBal.toString(), "ether");
+            console.log(kaiBal);
+            num = receipt.ran;
+            if (num < 10) num = "000" + num;
+            else if (num < 100) num = "00" + num;
+            else if (num < 1000) num = "0" + num;
+            num = Array.from(num.toString()).map(Number);
+            gameres = {
+              bg: "bg-gr",
+              message:
+                "🤑 You Won " +
+                this.state.web3.utils.fromWei(receipt.reward.toString()) +
+                " KAI",
+            };
           }
+          var realgL;
+          if (this.state.realgL === "n") {
+            realgL = (parseInt(this.state.gL) + 1).toString();
+          } else {
+            realgL = (parseInt(this.state.realgL) + 1).toString();
+          }
+          console.log(kaiBal, num, gameres);
+          this.setState({
+            hasPlayed: true,
+            tr: "",
+            kaiBal,
+            num1: num[0],
+            num2: num[1],
+            num3: num[2],
+            num4: num[3],
+            gameres,
+            realgL,
+            hi: "Bet High",
+            lo: "Bet Low",
+            disabled: false,
+          });
         }.bind(this)
       )
       .on("error", console.error);
   }
 
   async refreshData() {
-    console.log("Refreshing data 1");
     if (!this.state.web3) {
       window.dispatchEvent(new Event("load"));
     }
+
     if (this.state.tr === "") {
       try {
         var web3;
@@ -217,13 +289,7 @@ class Game extends Component {
           accounts = ["0x2784fc8cB498Cc66689339BC01d56D7157D2a85f"];
         }
         var gameAddr = "0x8af7E4581Fb50F892eAfFaB59C5269D71Dc572C7";
-        var game;
-
-        if (!this.state.game) {
-          game = new web3.eth.Contract(gameABI, gameAddr);
-        } else {
-          game = this.state.game;
-        }
+        var game = new web3.eth.Contract(gameABI, gameAddr);
 
         let [kaiBal, gameKai, maxWin, gL] = await Promise.all([
           web3.eth.getBalance(accounts[0]),
@@ -231,7 +297,6 @@ class Game extends Component {
           game.methods.maxWin().call(),
           game.methods.gamesL(accounts[0]).call(),
         ]);
-        console.log(gL);
         maxWin = (web3.utils.fromWei(gameKai) * maxWin) / 100;
 
         var lg;
@@ -294,15 +359,50 @@ class Game extends Component {
             ),
           };
         }
-        console.log(gL);
-        if (!this.state.tr) {
-          console.log("refreshData 2");
+        var realgL;
+        if (this.state.accounts[0] !== accounts[0]) {
+          console.log(accounts, this.state.accounts);
+          realgL = "n";
+        } else {
+          realgL = this.state.realgL;
+        }
+        console.log(gL, realgL);
+        if (
+          (this.state.tr === "" && this.state.hasPlayed === false) ||
+          accounts[0] !== this.state.accounts[0]
+        ) {
           this.setState({
-            web3,
             accounts,
+            web3,
             game,
             kaiBal,
             maxWin,
+            gL,
+            num1: num[0],
+            num2: num[1],
+            num3: num[2],
+            num4: num[3],
+            gameres: "",
+            hi: "Bet High",
+            lo: "Bet Low",
+            disabled: false,
+            realgL,
+            hasPlayed: false,
+          });
+        }
+        if (
+          (this.state.tr === "" &&
+            this.state.hasPlayed === true &&
+            this.state.realgL === gL) ||
+          (this.state.accounts[0] !== accounts[0] &&
+            this.state.hasPlayed === true &&
+            this.state.tr === "")
+        ) {
+          this.setState({
+            accounts,
+            kaiBal,
+            maxWin,
+            gL,
             num1: num[0],
             num2: num[1],
             num3: num[2],
@@ -310,6 +410,7 @@ class Game extends Component {
             gameres,
             hi: "Bet High",
             lo: "Bet Low",
+            realgL,
             disabled: false,
           });
         }
@@ -317,7 +418,6 @@ class Game extends Component {
         console.log(err);
       }
     } else {
-      console.log(this.state.tr);
       let gameres = {
         bg: "bg-blue",
         message: "Playing... (good luck ☘️ )",
@@ -358,7 +458,7 @@ class Game extends Component {
   };
 
   render() {
-    if (!this.state.web3) {
+    if (!this.state.kaiBal) {
       return <Loader />;
     }
     return (
@@ -422,32 +522,38 @@ class Game extends Component {
                       onBlur={this.handleBM}
                       onChange={this.handleBet}
                     ></input>
-                    <svg
-                      className="ab-r-m m-r-50"
-                      width="18"
-                      height="18"
-                      viewBox="0 0 16 15"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
+
+                    <FormControl
+                      className="ab-r-m m-r-10 gamesell"
+                      sx={{ m: 1, minWidth: 110 }}
                     >
-                      <path
-                        d="M7.2381 14.4L2.85714 0.378947L0 3.78947L2.85714 9.85263L7.2381 14.4Z"
-                        fill="#333333"
-                      />
-                      <path
-                        d="M6.09524 4.92632L4.57143 0L8.19048 1.51579L7.04762 5.30526L6.09524 4.92632Z"
-                        fill="#333333"
-                      />
-                      <path
-                        d="M8.7619 5.87368L10.0952 1.51579L14.0952 0.568421L16 4.73684L13.7143 7.76842L8.7619 5.87368Z"
-                        fill="#333333"
-                      />
-                      <path
-                        d="M12.7619 9.28421L6.85714 7.01053L9.14286 14.2105L12.7619 9.28421Z"
-                        fill="#333333"
-                      />
-                    </svg>
-                    <span className="ab-r-m m-r-14 fs-16 f-ws">KAI</span>
+                      <Select
+                        className="gameSel"
+                        inputProps={{ "aria-label": "Without label" }}
+                        defaultValue={0}
+                      >
+                        <MenuItem value={0}>
+                          <div className="d-flex al-c">
+                            <img
+                              className="gameminiimg kaisml m-r-10"
+                              src="img/KAI.png"
+                            />
+                            KAI
+                          </div>
+                        </MenuItem>
+                        <Link className="t-d-none" to="/Infogame">
+                          <MenuItem value={20}>
+                            <div className="d-flex al-c">
+                              <img
+                                className="gameminiimg m-r-10"
+                                src="img/smalllogo.png"
+                              />
+                              <span className="t-d-none">INFO</span>
+                            </div>
+                          </MenuItem>
+                        </Link>
+                      </Select>
+                    </FormControl>
                   </div>
                 </div>
 
@@ -532,9 +638,6 @@ class Game extends Component {
                   target="_blank"
                 >
                   <span className="t-bl m-t-10 t-d-none">Learn the rules</span>
-                </a>
-                <a className="t-d-none" href="/infogame">
-                  <span className="t-bl m-t-10 t-d-none">Play with INFO</span>
                 </a>
               </div>
             </div>

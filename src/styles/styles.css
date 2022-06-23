@@ -18,6 +18,18 @@ body, html, #screen {
 	background-color: #F7F7F8;
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+	-moz-appearance: textfield;
+}
+
 .clbtn {
 	background: #226BF6;
 	height: 52px;
@@ -46,6 +58,7 @@ body, html, #screen {
 	filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0.25));
 	border-radius: 20px;
 }
+
 .ch-bg.farms {
 	background-image: url("./farm.jpg");
 }
@@ -132,9 +145,11 @@ body, html, #screen {
 	0% {
 		background-position: 0 0;
 	}
+
 	50% {
 		background-position: 400% 0;
 	}
+
 	100% {
 		background-position: 0 0;
 	}
@@ -329,7 +344,7 @@ td {
 
 tr {
 	transition: 0.2s;
-	max-height: 60px!important;
+	max-height: 60px !important;
 	overflow: hidden;
 }
 
@@ -349,7 +364,7 @@ tbody tr:hover, tbody tr:hover .psnu, tbody tr:hover .psna, tbody tr:hover .pslo
 }
 
 .logotd {
-	width: 33px!important;
+	width: 33px !important;
 	min-width: 33px;
 	position: relative;
 }
@@ -386,7 +401,7 @@ thead {
 	top: 56px;
 	background: #fbfbfb;
 	z-index: 1;
-	border-collapse: separate!important;
+	border-collapse: separate !important;
 	border-bottom: 1px solid #f0f0f0;
 }
 
@@ -563,7 +578,7 @@ thead {
 }
 
 .nopad {
-	padding: 0px!important;
+	padding: 0px !important;
 }
 
 .pair-name {
@@ -830,19 +845,23 @@ thead {
 	.box.left {
 		display: none;
 	}
+
 	.box.right {
 		width: 100%;
 		max-width: 100%;
 	}
+
 	.op {
 		display: block;
 	}
+
 	.charttitle.op {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 		flex-wrap: wrap;
 	}
+
 	.changes {
 		display: flex;
 		justify-content: space-between;
@@ -907,14 +926,17 @@ thead {
 	.gamesec {
 		border-radius: 0 !important;
 		box-shadow: none !important;
-		
+
 	}
+
 	.Game {
 		padding-top: 0;
 	}
+
 	.game-title {
 		font-size: 20px !important;
 	}
+
 	.gametab {
 		min-width: 100vw !important;
 		max-width: 500px;
@@ -937,7 +959,8 @@ thead {
 	position: relative;
 	z-index: 2;
 }
-.svon{
+
+.svon {
 	margin-bottom: -100px;
 }
 
@@ -1131,17 +1154,20 @@ thead {
 	cursor: pointer;
 	position: relative;
 }
-.gameBtns button.l.Approve,  .gameBtns button.l.Approving{
+
+.gameBtns button.l.Approve, .gameBtns button.l.Approving {
 	display: none;
 }
+
 .gameBtns button.r.Approve, .gameBtns button.r.Approving {
 	width: 100%;
 }
 
-.lnkss{
+.lnkss {
 	display: flex;
 	justify-content: space-between;
 }
+
 .btn:disabled:hover {
 	background: #83b5ff;
 	cursor: default;
@@ -1311,6 +1337,25 @@ thead {
 	color: #0066FF;
 	padding: 15px;
 	font-size: 16px;
+}
+
+.gameSel {
+	height: 35px;
+}
+
+.gamesell {
+	position: absolute !important;
+	margin-top: 0 !important;
+	margin-bottom: 0 !important;
+	margin-right: 10px !important;
+}
+
+.gameminiimg {
+	height: auto;
+	position: relative;
+	width: 22px;
+	padding-top: 2px;
+	padding-bottom: 2px;
 }
 
 .onenum.one.Playing::after {
@@ -1584,15 +1629,18 @@ thead {
 	z-index: 100;
 	position: relative;
 }
-.swapWrapper{
+
+.swapWrapper {
 	padding: 20px;
 	position: relative;
 	height: 400px;
 }
-hr{
+
+hr {
 	border: 1px solid #f0f0f0;
 }
-.swapbtn{
+
+.swapbtn {
 	width: 100%;
 	height: 48px;
 	background: #0066FF;
@@ -1607,7 +1655,8 @@ hr{
 	display: block;
 	position: relative;
 }
-.txwait.Bet.Low, .txwait.Bet.High{
+
+.txwait.Bet.Low, .txwait.Bet.High {
 	display: none;
 }
 
@@ -1816,10 +1865,12 @@ hr{
 		margin: auto;
 		margin-bottom: 30px;
 	}
+
 	.btm .l {
 		order: 2;
 		width: 100%;
 	}
+
 	.btm .r svg {
 		margin-bottom: 0 !important;
 	}
@@ -1834,6 +1885,7 @@ hr{
 		display: block;
 		margin: auto;
 	}
+
 	.btm .l {
 		width: 70% !important;
 	}
@@ -1848,20 +1900,24 @@ hr{
 		width: 100%;
 		margin-bottom: 25px;
 	}
+
 	.iclolnk {
 		display: block;
 		margin: auto;
 		width: fit-content;
 		margin-bottom: 25px;
 	}
+
 	.icobuybtn.bt {
 		display: block;
 		width: 100%;
 		position: relative;
 	}
+
 	.icobuybtn.tp {
 		display: none;
 	}
+
 	.ico-info-box {
 		width: 100% !important;
 		max-width: 100% !important;
@@ -1871,9 +1927,11 @@ hr{
 		min-width: 0px;
 		padding-right: 20px;
 	}
+
 	.ico-info-box.tp {
 		min-height: 129px;
 	}
+
 	.ico-info {
 		flex-wrap: wrap;
 		padding-left: 40px;
@@ -1907,6 +1965,7 @@ hr{
 	.ico-info-box .bb {
 		font-size: 20px;
 	}
+
 	.ico-info-box.tp {
 		min-height: 115px;
 	}
@@ -1933,18 +1992,20 @@ hr{
 @media(min-width:485px) {
 	.pd {
 		opacity: 0;
-		height: 0px!important;
-		min-height: 0px!important;
+		height: 0px !important;
+		min-height: 0px !important;
 		max-height: 0px !important;
-		min-width: 0px!important;
-		max-width: 0px!important;
-		padding: 0px!important;
-		font-size: 0px!important;
-		width: 0px!important;
+		min-width: 0px !important;
+		max-width: 0px !important;
+		padding: 0px !important;
+		font-size: 0px !important;
+		width: 0px !important;
 	}
+
 	.pdd {
 		display: none;
 	}
+
 	.psna, .pslo {
 		position: sticky;
 		-webkit-position: sticky;
@@ -1952,6 +2013,7 @@ hr{
 		left: 45px;
 		background: #fbfbfb;
 	}
+
 	.psnam {
 		position: sticky;
 		-webkit-position: sticky;
@@ -1960,6 +2022,7 @@ hr{
 		background: #fbfbfb;
 		padding-right: 10px;
 	}
+
 	.psnu {
 		position: sticky;
 		-webkit-position: sticky;
@@ -1967,6 +2030,7 @@ hr{
 		left: 0px;
 		background: #fbfbfb;
 	}
+
 	.wallinpwrapper {
 		display: flex;
 		align-items: center;
@@ -1985,6 +2049,7 @@ hr{
 		left: 275px;
 		background: #fbfbfb;
 	}
+
 	.psnam {
 		position: sticky;
 		-webkit-position: sticky;
@@ -1993,6 +2058,7 @@ hr{
 		background: #fbfbfb;
 		padding-right: 10px;
 	}
+
 	.psnu {
 		position: sticky;
 		-webkit-position: sticky;
@@ -2000,35 +2066,40 @@ hr{
 		left: 230px;
 		background: #fbfbfb;
 	}
+
 	.homepage.phone {
-		position: fixed!important;
-		opacity: 0!important;
-		transition: 0!important;
-		width: 0px!important;
-		max-width: 0px!important;
-		overflow: hidden!important;
+		position: fixed !important;
+		opacity: 0 !important;
+		transition: 0 !important;
+		width: 0px !important;
+		max-width: 0px !important;
+		overflow: hidden !important;
 	}
+
 	.lsec {
 		width: 50%;
 	}
+
 	.rsec {
 		width: 50%
 	}
+
 	.lansec2 {
 		border-radius: 150px 0px 0px 0px;
 	}
+
 	.lansec3 {
 		border-radius: 0px 0px 0px 150px;
 	}
 }
 
 #smallsidebar.expanded {
-	margin-left: 0!important;
+	margin-left: 0 !important;
 	display: block !important;
 }
 
 #smallsidebar.expanded .sidebar-nav .hamb-menu {
-	margin-left: 4px!important;
+	margin-left: 4px !important;
 	display: block !important;
 }
 
@@ -2057,41 +2128,53 @@ hr{
 		max-width: 0px;
 		overflow: hidden;
 	}
+
 	.content {
 		padding-left: 0px;
 		padding-right: 0px;
 	}
+
 	.hamb-menu {
 		margin-left: 4px !important;
 	}
+
 	#sidebar {
-		margin-left: -230px!important;
+		margin-left: -230px !important;
 	}
+
 	.logosvg {
 		margin-left: 51px !important;
 	}
+
 	.textsvg {
 		margin-left: 100px !important;
 	}
+
 	.of-hidden {
 		overflow: hidden;
 	}
+
 	.mobt-r {
 		padding-right: 15px;
 	}
+
 	.mobt-l {
 		padding-left: 15px;
 	}
+
 	.box {
 		margin: 0;
 	}
+
 	.section {
 		border-left: 0;
 		border-right: 0;
 	}
+
 	.tokenpage {
 		padding-top: 0;
 	}
+
 	.section.top {
 		border-top: 0px solid #ffffff00;
 		border-left: 0;
@@ -2110,47 +2193,56 @@ hr{
 		box-shadow: 0px 0px 4px 4px #0000001A;
 		top: 0;
 	}
+
 	#smallsidebar.expanded {
 		width: 100%;
 	}
+
 	#smallsidebar {
 		width: 100%;
 		margin-left: calc(-100% - 5px);
 	}
+
 	.charttd, .pricetd {
 		min-width: auto;
 		max-width: 35%;
-		margin: 0px!important;
+		margin: 0px !important;
 		padding-left: 0px;
 	}
+
 	.charttdd {
 		width: 120px;
 	}
+
 	.charttdd canvas {
 		max-width: 100%;
 		width: 95px;
 		max-height: 48px;
 	}
+
 	.numtd {
 		padding-right: 0px;
-		max-width: 28px!important;
-		min-width: 28px!important;
+		max-width: 28px !important;
+		min-width: 28px !important;
 	}
+
 	.pdn, .pdn a, .pdn a canvas {
 		opacity: 0;
-		height: 0px!important;
-		min-height: 0px!important;
+		height: 0px !important;
+		min-height: 0px !important;
 		max-height: 0px !important;
-		min-width: 0px!important;
-		max-width: 0px!important;
-		padding: 0px!important;
-		font-size: 0px!important;
-		width: 0px!important;
+		min-width: 0px !important;
+		max-width: 0px !important;
+		padding: 0px !important;
+		font-size: 0px !important;
+		width: 0px !important;
 	}
+
 	.wallinp {
 		border: 0px solid transparent;
 		border-radius: 0;
 	}
+
 	.walsec {
 		border: 0px solid transparent;
 		margin-top: 0;
@@ -2171,12 +2263,15 @@ hr{
 	.textsvg {
 		margin-top: -60px !important;
 	}
+
 	.charttdd {
 		display: none;
 	}
+
 	.charttdd canvas {
 		display: none;
 	}
+
 	.hp-name {
 		display: none;
 	}
@@ -2190,18 +2285,21 @@ hr{
 
 @media(min-width: 1500px) {
 	.logotd {
-		width: 33px!important;
+		width: 33px !important;
 		min-width: 33px;
 	}
+
 	.numtd {
 		width: 45px;
 		min-width: 45px;
 	}
+
 	.pricetd {
 		width: auto;
 		min-width: 115px;
 		max-width: 300px;
 	}
+
 	.charttd {
 		width: auto;
 		min-width: 135px;
@@ -2210,14 +2308,17 @@ hr{
 		padding-top: 0px;
 		padding-bottom: 0px;
 	}
+
 	.suptd, .pctd {
 		width: auto;
 		min-width: 95px;
 		max-width: 300px;
 	}
+
 	.charttd canvas {
 		max-height: 53px;
 	}
+
 	#smallsidebar, #navbar .hamb-menu {
 		margin-left: -100vw;
 	}
@@ -2246,14 +2347,17 @@ hr{
 		height: 0;
 		display: none;
 	}
+
 	.hpwrapper.small {
 		width: 100%;
 		opacity: 1;
 	}
+
 	.smtopsec {
 		background: #ffffff;
 		width: 100%;
 	}
+
 	.smwrapper {
 		width: 100%;
 		max-width: 650px;
@@ -2262,11 +2366,13 @@ hr{
 		margin-left: auto;
 		overflow: hidden;
 	}
+
 	.top.orbit {
 		height: 400px;
 		width: 100%;
 		position: relative;
 	}
+
 	.top.orbit svg {
 		width: 700px !important;
 		height: 700px !important;
@@ -2280,39 +2386,49 @@ hr{
 		-o-transform: translate(-50%, -50%);
 		transform: translate(-50%, -50%);
 	}
+
 	.smtxtsec {
 		max-width: 370px;
 		display: block;
 		margin-left: auto;
 		margin-right: auto;
 	}
+
 	.hpbtn-bl {
 		width: 100%;
 	}
+
 	.hpbtn-tr, .hpbtn-tr-svg {
 		width: 100%;
 	}
+
 	.blsecsm {
 		background-color: #EEF6FF;
 	}
+
 	.hp-log {
 		height: 40px;
 		width: 40px;
 	}
+
 	.hp-log img {
 		width: 30px;
 		height: 30px;
 	}
+
 	.hp-change {
 		width: fit-content;
 	}
+
 	.bluecurve {
 		box-shadow: inset 0px -6px 6px rgba(0, 0, 0, 0.06) !important;
 		width: 110%;
 	}
+
 	.whitecurve {
 		width: 110%;
 	}
+
 	.smwrapper .top svg {
 		display: block;
 		width: 100%;
@@ -2321,6 +2437,7 @@ hr{
 		margin-left: auto;
 		height: 350px;
 	}
+
 	.footer {
 		height: fit-content;
 	}
@@ -2333,6 +2450,7 @@ hr{
 		position: fixed;
 		top: 56px;
 	}
+
 	.hpwrapper.big {
 		opacity: 1;
 	}
@@ -2398,9 +2516,11 @@ hr{
 	0% {
 		background: #0066ff;
 	}
+
 	50% {
 		background: hsl(249, 100%, 50%);
 	}
+
 	100% {
 		background: #0066ff;
 	}
@@ -2410,33 +2530,43 @@ hr{
 	0% {
 		content: "0";
 	}
+
 	10% {
 		content: "1";
 	}
+
 	20% {
 		content: "2";
 	}
+
 	30% {
 		content: "3";
 	}
+
 	40% {
 		content: "4";
 	}
+
 	50% {
 		content: "5";
 	}
+
 	60% {
 		content: "6";
 	}
+
 	70% {
 		content: "7";
 	}
+
 	80% {
 		content: "8";
 	}
+
 	90% {
 		content: "9";
 	}
+
 	100% {
 		content: "0";
 	}
@@ -2446,33 +2576,43 @@ hr{
 	0% {
 		content: "0";
 	}
+
 	10% {
 		content: "8";
 	}
+
 	20% {
 		content: "9";
 	}
+
 	30% {
 		content: "6";
 	}
+
 	40% {
 		content: "7";
 	}
+
 	50% {
 		content: "5";
 	}
+
 	60% {
 		content: "3";
 	}
+
 	70% {
 		content: "4";
 	}
+
 	80% {
 		content: "1";
 	}
+
 	90% {
 		content: "0";
 	}
+
 	100% {
 		content: "2";
 	}
@@ -2482,33 +2622,43 @@ hr{
 	0% {
 		content: "0";
 	}
+
 	10% {
 		content: "9";
 	}
+
 	20% {
 		content: "8";
 	}
+
 	30% {
 		content: "7";
 	}
+
 	40% {
 		content: "6";
 	}
+
 	50% {
 		content: "5";
 	}
+
 	60% {
 		content: "4";
 	}
+
 	70% {
 		content: "3";
 	}
+
 	80% {
 		content: "2";
 	}
+
 	90% {
 		content: "1";
 	}
+
 	100% {
 		content: "0";
 	}
@@ -2518,33 +2668,43 @@ hr{
 	0% {
 		content: "3";
 	}
+
 	10% {
 		content: "8";
 	}
+
 	20% {
 		content: "1";
 	}
+
 	30% {
 		content: "2";
 	}
+
 	40% {
 		content: "9";
 	}
+
 	50% {
 		content: "0";
 	}
+
 	60% {
 		content: "6";
 	}
+
 	70% {
 		content: "4";
 	}
+
 	80% {
 		content: "5";
 	}
+
 	90% {
 		content: "7";
 	}
+
 	100% {
 		content: "0";
 	}

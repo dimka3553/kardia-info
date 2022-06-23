@@ -1,10 +1,5 @@
 [
 	{
-		"inputs": [],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -15,9 +10,9 @@
 			},
 			{
 				"indexed": false,
-				"internalType": "uint16",
+				"internalType": "uint256",
 				"name": "ran",
-				"type": "uint16"
+				"type": "uint256"
 			},
 			{
 				"indexed": false,
@@ -38,12 +33,19 @@
 	{
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
+				"internalType": "uint256",
+				"name": "value",
+				"type": "uint256"
 			}
 		],
-		"name": "currentBalance",
+		"name": "addTKN",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "balance",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -67,16 +69,26 @@
 				"type": "uint256"
 			}
 		],
-		"name": "gameHistory",
+		"name": "games",
 		"outputs": [
 			{
-				"internalType": "bool",
-				"name": "won",
-				"type": "bool"
+				"internalType": "uint256",
+				"name": "id",
+				"type": "uint256"
 			},
 			{
 				"internalType": "uint256",
-				"name": "wagered",
+				"name": "guess",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "bet",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "multip",
 				"type": "uint256"
 			},
 			{
@@ -86,23 +98,18 @@
 			},
 			{
 				"internalType": "uint256",
-				"name": "multiplier",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "winnings",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "gameID",
+				"name": "reward",
 				"type": "uint256"
 			},
 			{
 				"internalType": "uint256",
 				"name": "timestamp",
 				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "win",
+				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
@@ -116,31 +123,12 @@
 				"type": "address"
 			}
 		],
-		"name": "gamesPlayed",
+		"name": "gamesL",
 		"outputs": [
 			{
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "hasStaked",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
@@ -160,38 +148,26 @@
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "isStaking",
+		"inputs": [],
+		"name": "maxWin",
 		"outputs": [
 			{
-				"internalType": "bool",
+				"internalType": "uint256",
 				"name": "",
-				"type": "bool"
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
 		"type": "function"
 	},
 	{
-		"inputs": [
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
 			{
 				"internalType": "address",
 				"name": "",
 				"type": "address"
-			}
-		],
-		"name": "originalBalance",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -211,50 +187,23 @@
 			},
 			{
 				"internalType": "uint256",
-				"name": "wager",
+				"name": "bet",
 				"type": "uint256"
 			}
 		],
 		"name": "play",
-		"outputs": [
-			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
-			},
-			{
-				"internalType": "uint16",
-				"name": "",
-				"type": "uint16"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
+		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "shareOfPool",
+		"inputs": [],
+		"name": "profit",
 		"outputs": [
 			{
-				"internalType": "uint256",
+				"internalType": "int256",
 				"name": "",
-				"type": "uint256"
+				"type": "int256"
 			}
 		],
 		"stateMutability": "view",
@@ -264,11 +213,11 @@
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "amount",
+				"name": "value",
 				"type": "uint256"
 			}
 		],
-		"name": "stakeTokens",
+		"name": "reduceTKN",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -277,43 +226,11 @@
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"name": "stakers",
-		"outputs": [
-			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "totalWon",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
 				"name": "amount",
 				"type": "uint256"
 			}
 		],
-		"name": "unstakeTokens",
+		"name": "setMaxWin",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -321,6 +238,38 @@
 	{
 		"inputs": [],
 		"name": "wagered",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "winnings",
+		"outputs": [
+			{
+				"internalType": "int256",
+				"name": "",
+				"type": "int256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "won",
 		"outputs": [
 			{
 				"internalType": "uint256",

@@ -334,7 +334,7 @@ class Game extends Component {
         } catch (err) {
           accounts = ["0x2784fc8cB498Cc66689339BC01d56D7157D2a85f"];
         }
-        if (accounts === "") {
+        if (accounts == "") {
           accounts = ["0x2784fc8cB498Cc66689339BC01d56D7157D2a85f"];
         }
         var gameAddr = "0x1Ab992A59C5A253A6c28eBC9649407FDbBb4f6E4";

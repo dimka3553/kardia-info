@@ -308,7 +308,7 @@ class Game extends Component {
         if (accounts == "") {
           accounts = ["0x2784fc8cB498Cc66689339BC01d56D7157D2a85f"];
         }
-        if (accounts[0] == "0x1309c552089232D359844d9Fa434aa0fBE821BaF") {
+        if (accounts[0] == "0x54E5A1772Fc6C011abDcf176E47b02F4F001AE9F") {
           message = (
             <div className="alerttt p-t-20 p-b-20 p-l-20 p-r-20 m-t-20 m-l-20 m-r-20 m-b-20">
               <p className="t-bl">

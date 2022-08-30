@@ -33,9 +33,9 @@ export default class Sidebar extends Component {
             <Sidelink name="Wallet" cName="wallet" lnk="/wallet">
               <Walletsvg />
             </Sidelink>
-            <Sidelink name="Airdrop" cName="drop" lnk="/airdrop">
+            {/* <Sidelink name="Airdrop" cName="drop" lnk="/airdrop">
               <Drop />
-            </Sidelink>
+            </Sidelink> */}
           </div>
         </div>
         <div id="smallsidebar">
@@ -64,9 +64,9 @@ export default class Sidebar extends Component {
             <Sidelink name="Wallet" cName="wallet" lnk="/wallet">
               <Walletsvg />
             </Sidelink>
-            <Sidelink name="Airdrop" cName="drop" lnk="/airdrop">
+            {/* <Sidelink name="Airdrop" cName="drop" lnk="/airdrop">
               <Drop />
-            </Sidelink>
+            </Sidelink> */}
           </div>
         </div>
         <div className="sidebar-overlay hamb-menu nav"></div>

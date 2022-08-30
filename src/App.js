@@ -23,6 +23,20 @@ function App() {
         <Navbar />
         <Sidebar />
         <div className="content">
+          <div className="alerttt p-t-20 p-b-20 p-l-20 p-r-20 m-l-20 m-r-20 m-t-20 m-b-20 pos-r">
+            Dear INFO holders,
+            <br />
+            <br />
+            Kardia info is prepearing to launch the gINFO IDO.
+            <br />
+            <br />
+            Please vote YES here:
+            <br />
+            <br />
+            <a href="https://bit.ly/3KtCF5M" target="_blank">
+              https://bit.ly/3KtCF5M
+            </a>
+          </div>
           <Switch>
             <Route exact path="/">
               <Home />

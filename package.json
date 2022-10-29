@@ -31,6 +31,7 @@
   },
   "scripts": {
     "heroku-prebuild": "npm install -g serve",
+    "netlify-prebuild": "npm install -g serve",
     "devstart": "react-scripts start",
     "start": "serve -s build",
     "build": "react-scripts build",

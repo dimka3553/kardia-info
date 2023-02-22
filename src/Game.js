@@ -308,21 +308,6 @@ class Game extends Component {
         if (accounts == "") {
           accounts = ["0x2784fc8cB498Cc66689339BC01d56D7157D2a85f"];
         }
-        if (accounts[0] == "0x2784fc8cB498Cc66689339BC01d56D7157D2a85f") {
-          message = (
-            <div className="alerttt p-t-20 p-b-20 p-l-20 p-r-20 m-t-20 m-l-20 m-r-20 m-b-20">
-              <p className="t-bl">
-                Hi, you have recently bought loads of INFO and became a big
-                whale, DM{" "}
-                <a className="t-bl" href="https://t.me/dima3553">
-                  @dima3553
-                </a>{" "}
-                on telegram to get your whale reward. Thank you for holding
-                INFO.
-              </p>
-            </div>
-          );
-        }
         var gameAddr = "0x8af7E4581Fb50F892eAfFaB59C5269D71Dc572C7";
         var game = new web3.eth.Contract(gameABI, gameAddr);
 

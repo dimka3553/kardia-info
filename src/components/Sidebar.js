@@ -5,7 +5,6 @@ import Homesvg from "./subcomponents/svgs/Homesvg";
 import Tokensvg from "./subcomponents/svgs/Tokensvg";
 import Walletsvg from "./subcomponents/svgs/Walletsvg";
 import Gamesvg from "./subcomponents/svgs/Gamesvg";
-import Drop from "./subcomponents/svgs/Drop";
 import Piggy from "./subcomponents/svgs/Piggy";
 import Farmsvg from "./subcomponents/svgs/Farmsvg";
 
